@@ -11,14 +11,16 @@ public class Main {
         preço de fábrica e escreva o nome do automóvel e o preço final.
          */
         Scanner numin = new Scanner(System.in);
+        double impostos = 0.45;
+        double revendedor = 0.28;
 
         System.out.println("Nome do automóvel:");
         String nome = numin.nextLine();
 
-        System.out.println("Preço de fábrica:");
+        System.out.println("Preço de fábrica do " + nome + " :");
         double preco = numin.nextDouble();
 
-        double preco_final = ((preco * 0.45) + (preco * 0.28) + preco);
+        double preco_final = ((preco * impostos) + (preco * revendedor) + preco);
         System.out.println("Preço do " + nome + ": " +preco_final + "€");
     }
 }
