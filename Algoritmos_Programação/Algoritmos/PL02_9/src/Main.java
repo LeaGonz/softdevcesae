@@ -9,6 +9,26 @@ public class Main {
          */
         Scanner numin = new Scanner(System.in);
 
+        System.out.println("Número 1:");
+        int n1 = numin.nextInt();
 
+        System.out.println("Número 2:");
+        int n2 = numin.nextInt();
+
+        System.out.println("Número 3:");
+        int n3 = numin.nextInt();
+
+        System.out.println("Número 4:");
+        int n4 = numin.nextInt();
+
+        if (n1 < n2 && n1 < n3 && n1 < n4){
+            System.out.println("Número 1: " + n1 + " é o menor.");
+        } else if (n2 < n3 && n2 < n4) {
+            System.out.println("Número 2: " + n2 + " é o menor");
+        } else if (n3 < n4) {
+            System.out.println("Número 3: " + n3 + " é o menor");
+        } else {
+            System.out.println("Número 4: " + n4 + " é o menor");
+        }
     }
 }
