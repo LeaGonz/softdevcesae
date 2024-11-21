@@ -10,15 +10,23 @@ public class Main {
         • Equilátero (3 lados iguais);
         • Isósceles (2 lados iguais);
         • Escaleno (3 lados diferentes).
+
+        De notar que para formar um triângulo:
+        • Nenhum dos lados pode ser igual a zero;
+        • Um lado não pode ser maior do que a soma dos outros dois;
          */
         Scanner numin = new Scanner(System.in);
 
         System.out.println("Insira os valores dos lados do triângulo.");
-        System.out.println("Valor 1:");
+        System.out.println("Lado 1:");
         double n1 = numin.nextDouble();
-        System.out.println("Valor 2:");
+        /*if (n1 == 0){
+            System.out.println("O lado 1 não pode ser igual a zero");
+            return; // termina o programa
+        }*/
+        System.out.println("Lado 2:");
         double n2 = numin.nextDouble();
-        System.out.println("Valor 3:");
+        System.out.println("Lado 3:");
         double n3 = numin.nextDouble();
 
         if ((n1+n2+n3) == 0){
