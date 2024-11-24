@@ -1,8 +1,5 @@
-import javax.print.attribute.standard.JobKOctets;
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         /*
@@ -12,12 +9,20 @@ public class Main {
 
         System.out.println("Inserir o número binário:");
         String bina = numin.nextLine();
-        //System.out.println(bina.length());
-        int caract;
 
-            for (int i = 1; i < bina; i--){
-              caract = Integer.parseInt(String.valueOf(bina.charAt(i)));
-              System.out.println(caract);
+        int len = bina.length() - 1;
+        int decimal = 0;
+        int expo = 1;
+
+        for (int i = 0; i <= len; i++) {
+            int bit = Integer.parseInt(bina.substring(i, i + 1));
+            for (int j = 0; j < len - i; j++) {
+                expo *= 2;
             }
+            decimal += (bit * expo);
+            expo = 1;
+            // decimal += (bit * Math.pow(2, len - i));
+        }
+        System.out.println("O número decimal é: " + decimal);
         }
     }

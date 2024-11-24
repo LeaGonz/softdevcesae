@@ -9,26 +9,31 @@ public class Main {
 
         System.out.println("Insira a quantidade de números a calcular:");
         int n = numin.nextInt();
+        if (n <= 0) {
+            System.out.println("O número deve ser maior a zero.");
+            return;
+        }
 
-        int valor;
-        int menor = 0;
-        int maior = 0;
+        double valor;
+        boolean empty = true;
+        double menor = 0;
+        double maior = 0;
         double soma = 0;
 
         for (int i = 1; i <= n; i++) {
             System.out.println("Número " + i + " :");
-            valor = numin.nextInt();
+            valor = numin.nextDouble();
             soma += valor;
-
-            if (menor == 0){
+            
+            if (empty) {
                 menor = valor;
-            } else if(valor < menor) {
+                maior = valor;
+                empty = false;
+            }
+            if (valor < menor) {
                 menor = valor;
             }
-
-            if (maior == 0){
-                maior = valor;
-            } else if(valor > maior) {
+            if (valor > maior) {
                 maior = valor;
             }
         }
