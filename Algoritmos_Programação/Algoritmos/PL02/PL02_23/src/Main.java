@@ -7,20 +7,26 @@ public class Main {
          */
         Scanner numin = new Scanner(System.in);
 
-        System.out.println("dois números sem recurso ao operador multiplicação.");
+        System.out.println("Multiplicar dois números sem recurso ao operador multiplicação.");
         System.out.println("Número 1:");
-        double n1 = numin.nextDouble();
+        int n1 = numin.nextInt();
         System.out.println("Número 2:");
-        double n2 = numin.nextDouble();
-        double mul = 0;
+        int n2 = numin.nextInt();
 
+        if (n1 > n2){
+            int temp = n1;
+            n1 = n2;
+            n2 = temp;
+        }
+
+        int mul = 0;
         for (int i = 1; i <= Math.abs(n1); i++){
             mul += + Math.abs(n2);
         }
         if ((n1 > 0 && n2 > 0) || (n1 < 0 && n2 < 0)){
-            System.out.println(mul);
+            System.out.println(n1 + " x " + n2 + " = " + mul);
         } else {
-            System.out.println("-" + mul);
+            System.out.println(n1 + " x " + n2 + " = " + "-" + mul);
         }
     }
 }

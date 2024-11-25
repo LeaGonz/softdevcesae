@@ -14,21 +14,16 @@ public class Main {
             return;
         }
 
-        double valor;
-        boolean empty = true;
-        double menor = 0;
-        double maior = 0;
-        double soma = 0;
+        double menor = 0, maior = 0, soma = 0;
 
         for (int i = 1; i <= n; i++) {
             System.out.println("Número " + i + " :");
-            valor = numin.nextDouble();
+            double valor = numin.nextDouble();
             soma += valor;
-            
-            if (empty) {
+
+            if (i == 1) {
                 menor = valor;
                 maior = valor;
-                empty = false;
             }
             if (valor < menor) {
                 menor = valor;

@@ -12,6 +12,12 @@ public class Main {
         System.out.println("Insira o ano:");
         int ano = numin.nextInt();
 
+        if ((ano % 4 == 0) && (ano % 100 != 0 || ano % 400 == 0))
+            System.out.println("Ano " + ano + " é bissexto");
+         else
+            System.out.println("Ano " + ano + " não é bissexto");
+
+        /*
         if (ano % 4 == 0 ){
             if (ano % 100 == 0){
                 if (ano % 400 == 0){
@@ -24,6 +30,6 @@ public class Main {
             }
         } else {
             System.out.println("Ano " + ano + " não é bissexto");
-        }
+        }*/
     }
 }
