@@ -1,0 +1,45 @@
+body{
+    background-color: lightgrey;
+    padding: 20px;
+}
+p{
+    text-align: center;
+    border-style: dotted inset;
+}
+#alinhaEsquerda{
+    text-align: left;
+}
+#alinhaDireita{
+    text-align: right;
+}
+.alinhaCentro{
+    text-align: center;
+}
+h1, h2, h3, p{
+    text-align: center;
+}
+body h1{
+    color: red;
+}
+main h1{
+    color: white;
+}
+.vermelho{
+    color: red;
+    border: 2px solid black;
+}
+.margin{
+    margin: 20px;
+    background-color: blue;
+}
+.padding{
+    padding: 20px;
+    background-color: aquamarine;
+}
+.cinzento{
+    background-color: grey;
+}
+.metade{
+    width: 50%;
+    background-color: aqua;
+}
