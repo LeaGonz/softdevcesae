@@ -21,7 +21,7 @@ public class Main {
                     saldo = Lotaria(saldo);
                     break;
                 case 2:
-                    Raspadinhas();
+                    saldo = Raspadinhas(saldo);
                     break;
                 default:
                     System.out.println("** Opção invalida **");
@@ -37,29 +37,33 @@ public class Main {
             System.out.println("**** LOTARIA **** \t\b Saldo: " + saldo + "€");
             System.out.println("Escolha o seu número de bilhete: (entre 1000 e 9999)");
             bilhete = in.nextInt();
-            if (bilhete < 1000 || bilhete > 9999) System.out.println("Número de bilhete errado.");
+            if (bilhete < 1000 || bilhete > 9999) System.out.println("Número de bilhete errado.\n");
         } while (bilhete < 1000 || bilhete > 9999);
 
         // Bilhete random
         int bilhete_ganho = rnd.nextInt(1000, 10000);
 
         // Premios
+        int ganho = 0;
         if (bilhete == bilhete_ganho) {
-            System.out.println("Número vencedor! Ganhou 100€");
+            System.out.println("Número vencedor! Ganhou 100€\n");
+            ganho = 100;
         } else if ((bilhete % 1000) == (bilhete_ganho % 1000)) {
-            System.out.println("Ganhaste o 2º prémio: 50€");
+            System.out.println("Ganhaste o 2º prémio: 50€\n");
+            ganho = 50;
         } else if ((bilhete % 100) == (bilhete_ganho % 100)) {
-            System.out.println("Ganhaste o 3º prémio: 20€");
+            System.out.println("Ganhaste o 3º prémio: 20€\n");
+            ganho = 20;
         } else {
-            System.out.println("Não foi desta vez. O número vencedor foi: " + bilhete_ganho);
+            System.out.println("Não foi desta vez. O número vencedor foi: " + bilhete_ganho + "\n");
         }
-        return(saldo);
+        return(saldo + ganho);
     }
 
-    private static void Raspadinhas() {
+    private static int Raspadinhas(int saldo) {
         int op;
         do {
-            System.out.println("**** RASPADINHAS ****");
+            System.out.println("**** RASPADINHAS **** \t\b Saldo: " + saldo + "€");
             System.out.println("1- Jogo 1");
             System.out.println("2- Jogo 2");
             System.out.println("0- Voltar ao menu inicial");
@@ -68,51 +72,54 @@ public class Main {
             switch (op) {
                 case 0:
                     break;
-                case 1:
-                    Raspadinha1();
+                    case 1:
+                    saldo = Raspadinha1(saldo);
                     break;
-                case 2:
-                    Raspadinha2();
+                    case 2:
+                    saldo = Raspadinha2(saldo);
                     break;
-                default:
+                    default:
                     System.out.println("** Opção invalida **");
-            }
-        } while (op != 0);
-    }
-
-    private static void Raspadinha1() {
+                }
+            } while (op != 0);
+            return saldo;
+        }
+    private static int Raspadinha1(int saldo) {
+        saldo -= 2;
+        System.out.println("Raspadinha 1 \t\b Saldo: " + saldo + "€");
         // Numero principal
         System.out.println("Número para o jogo:");
         //int np = rnd.nextInt(1, 11);
         int np = in.nextInt();
-        int saldo = 0;
+        int ganhado = 0;
         // 5 ciclos random
         for (int i = 1; i < 6; i++) {
             int nr = rnd.nextInt(1, 11);
-            System.out.println(np + " = " + nr);
         // Verificação de premios
             if (np == nr) {
                 switch (i) {
-                    case 1: saldo += 100; break;
-                    case 2: saldo += 1; break;
-                    case 3: saldo += 1; break;
-                    case 4: saldo += 10; break;
-                    case 5: saldo += 10; break;
+                    case 1: ganhado += 100; break;
+                    case 2: ganhado += 1; break;
+                    case 3: ganhado += 1; break;
+                    case 4: ganhado += 10; break;
+                    case 5: ganhado += 10; break;
                 }
             }
         }
-        if (saldo != 0){
-            System.out.println("Ganhou: " + saldo + "€");
+        if (ganhado != 0){
+            System.out.println("Ganhou: " + ganhado + "€\n");
         } else {
-            System.out.println("Não foi desta vez, tenta novamente.");
+            System.out.println("Não foi desta vez, tenta novamente.\n");
         }
+        return (saldo + ganhado);
     }
 
-    private static void Raspadinha2() {
+    private static int Raspadinha2(int saldo) {
+        saldo -= 2;
+        System.out.println("Raspadinha 2 \t\b Saldo: " + saldo + "€");
         // Numero principal
         int np = rnd.nextInt(1, 11);
         System.out.println("O seu número de jogo é: " + np);
-        int saldo = 0;
         int count = 0;
         // 9 ciclos random
         System.out.print("Os 9 números sorteados são: ");
@@ -126,10 +133,12 @@ public class Main {
         System.out.println();
         if (count >= 3) {
             int ganho = rnd.nextInt(1, 11);
-            System.out.println("Ganhaste: " + ganho + "€");
+            System.out.println("Ganhaste: " + ganho + "€\n");
+            saldo += ganho;
         } else {
-            System.out.println("Não foi desta vez, tenta novamente.");
+            System.out.println("Não foi desta vez, tenta novamente.\n");
         }
+        return saldo;
     }
 
 
