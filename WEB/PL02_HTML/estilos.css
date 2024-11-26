@@ -9,6 +9,11 @@ h1, h3, h5, header, footer{
 .img50{
     width: 100%;
 }
+.imgp{
+    width: 2%;
+    margin: -15px;
+    padding: 2px;
+}
 .hf{
     background-color: grey;
     padding: 5px;

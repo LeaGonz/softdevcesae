@@ -10,6 +10,8 @@ public class Main {
             System.out.println("Aplicação 1: Calculadora");
             System.out.println("1- Somar");
             System.out.println("2- Subtrair");
+            System.out.println("3- Multiplicação");
+            System.out.println("4- Divisão");
             System.out.println("0- Voltar ao menu anterior");
             op = in.nextInt();
 
@@ -17,32 +19,49 @@ public class Main {
                 case 0:
                     break;
                 case 1:
-                    Somar();
+                    //Somar();
+                    Operacoes("+");
                     break;
                 case 2:
-                    Subtrair();
+                    //Subtrair();
+                    Operacoes("-");
+                    break;
+                case 3:
+                    Operacoes("*");
+                    break;
+                case 4:
+                    Operacoes("/");
                     break;
                 default:
                     System.out.println("Opção invalida");
             }
         }
     }
-    private static void Somar() {
+    private static double PedirNumero(){
         System.out.println("Insira um número");
-        double numero1 = in.nextDouble();
-
-        System.out.println("Insira outro número");
-        double numero2 = in.nextDouble();
+        return in.nextDouble();
+    }
+    private static void Operacoes(String operacao){
+        double numero1 = PedirNumero();
+        double numero2 = PedirNumero();
+        double resultado = switch (operacao){
+            case "+" -> numero1 + numero2;
+            case "-" -> numero1 - numero2;
+            case "*" -> numero1 * numero2;
+            default -> numero1 / numero2;
+        };
+        System.out.println(numero1 + operacao + numero2 + " = " + resultado);
+    }
+    private static void Somar() {
+        double numero1 = PedirNumero();
+        double numero2 = PedirNumero();
 
         double soma = numero1 + numero2;
         System.out.println("A soma é: " + soma);
     }
     private static void Subtrair() {
-        System.out.println("Insira um número");
-        double numero1 = in.nextDouble();
-
-        System.out.println("Insira outro número");
-        double numero2 = in.nextDouble();
+        double numero1 = PedirNumero();
+        double numero2 = PedirNumero();
 
         double subtracao = numero1 - numero2;
         System.out.println("A substração é: " + subtracao);
@@ -57,8 +76,9 @@ public class Main {
             int numero2 = in.nextInt();
             String lista = "";
             if (numero1 < numero2) {
-                for (int i = numero1; i < numero2; i++) {
+                for (int i = numero1; i < numero2 +1; i++) {
                     lista += i + ",";
+                    //System.out.println(i + "\t");
                 }
             } else {
                 for (int i = numero1; i > numero2; i--) {
@@ -66,6 +86,7 @@ public class Main {
                 }
             }
             System.out.println("Lista: " + lista + numero2);
+            
             System.out.println("Deseja criar uma nova lista?");
             System.out.println("1- Sim");
             System.out.println("0- Não");
@@ -94,7 +115,7 @@ public class Main {
                 } else if (op == 2) {
                     ListaNumeros();
                 } else if (op == 4) {
-                    AdivinheNumero();
+                    //AdivinheNumero();
                 } 
                 else {
                     System.out.println("Opção invalida");
