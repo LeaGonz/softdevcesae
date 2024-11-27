@@ -21,14 +21,8 @@ public class Main {
             switch (op) {
                 case 0:
                     break;
-                case 1:
-                    NivelFacil(op);
-                    break;
-                case 2:
-                    NivelMedio(op);
-                    break;
-                case 3:
-                    NivelDeus(op);
+                case 1, 2, 3:
+                    niveis(op);
                     break;
                 default:
                     System.out.println("Opção invalida!");
@@ -39,6 +33,13 @@ public class Main {
     private static void niveis(int op) {
         int n, i = 1, num_ale = rnd.nextInt(1, 21);
         System.out.println(num_ale);
+        if (op == 1) {
+            System.out.println("Nível Fácil");
+        } else if (op == 2) {
+            System.out.println("Nível Médio");
+        } else {
+            System.out.println("Nível Deus");
+        }
         do {
             System.out.print("Número: ");
             n = in.nextInt();
@@ -47,45 +48,30 @@ public class Main {
                 case 1:
                     if (n > num_ale) System.out.println("Tente um número menor");
                     else if (n < num_ale) System.out.println("Tente um número maior");
-                    else if (n == num_ale) System.out.println("Acertou em " + i + " tentativas.");
+                    else if (n == num_ale) System.out.println("Correto! Acertou em " + i + " tentativas.");
                     break;
                 case 2:
                     if (i < 3) {
                         if (n > num_ale) System.out.println("Tente um número menor");
                         else if (n < num_ale) System.out.println("Tente um número maior");
-                        else if (n == num_ale) System.out.println("Acertou em " + i + " tentativas.");
+                        else if (n == num_ale) System.out.println("Correto! Acertou em " + i + " tentativas.");
                     } else {
                         System.out.println("Alcançou o número máximo de tentativas. O número era: " + num_ale);
                         n = num_ale;
                     }
                     break;
                 case 3:
-                    if (n <= (num_ale + 2) && n >= (num_ale - 2)) {
+                    if (n == num_ale) {
+                        System.out.println("Correto! Acertou em " + i + " tentativas.");
+                    } else if (n <= (num_ale + 2) && n >= (num_ale - 2)) {
                         System.out.println("O número está perto do correto.");
-                    } else if ((n <= (num_ale + 5) && n > (num_ale + 2)) || (n >= (num_ale - 5) && n > (num_ale - 2))) {
+                    } else if (n <= (num_ale + 5) && n >= (num_ale - 5)) {
                         System.out.println("O número está nem longe nem perto do correto.");
-                    } else if (n > (num_ale + 5) && n > (num_ale - 5)) {
+                    } else {
                         System.out.println("O número está longe do correto.");
-                    } else if (n == num_ale) {
-                        System.out.println("Acertou em " + i + " tentativas.");
                     }
             }
             i++;
         } while (n != num_ale);
-    }
-
-    private static void NivelFacil(int op) {
-        System.out.println("Nível Fácil");
-        niveis(op);
-    }
-
-    private static void NivelMedio(int op) {
-        System.out.println("Nível Médio");
-        niveis(op);
-    }
-
-    private static void NivelDeus(int op) {
-        System.out.println("Nível Deus");
-        niveis(op);
     }
 }
