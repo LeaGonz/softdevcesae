@@ -4,13 +4,16 @@ import java.util.Scanner;
 public class Main {
     static Scanner in = new Scanner(System.in);
     static Random rnd = new Random();
+
     public static void main(String[] args) {
         int op;
         int saldo = 100;
+        String utili = "Guest";
         do {
-            System.out.println("Jogos de Sorte \t Saldo: " + saldo + "€");
+            System.out.println("Jogos de Sorte \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
             System.out.println("1- Lotaria");
             System.out.println("2- Raspadinhas");
+            System.out.println("3- Criar utilizador");
             System.out.println("0- Sair");
             op = in.nextInt();
 
@@ -22,6 +25,10 @@ public class Main {
                     break;
                 case 2:
                     saldo = Raspadinhas(saldo);
+                    break;
+                case 3:
+                    System.out.println("Insira nome do utilizador:");
+                    utili = in.next();
                     break;
                 default:
                     System.out.println("** Opção invalida **");
@@ -57,7 +64,7 @@ public class Main {
         } else {
             System.out.println("Não foi desta vez. O número vencedor foi: " + bilhete_ganho + "\n");
         }
-        return(saldo + ganho);
+        return (saldo + ganho);
     }
 
     private static int Raspadinhas(int saldo) {
@@ -72,18 +79,19 @@ public class Main {
             switch (op) {
                 case 0:
                     break;
-                    case 1:
+                case 1:
                     saldo = Raspadinha1(saldo);
                     break;
-                    case 2:
+                case 2:
                     saldo = Raspadinha2(saldo);
                     break;
-                    default:
+                default:
                     System.out.println("** Opção invalida **");
-                }
-            } while (op != 0);
-            return saldo;
-        }
+            }
+        } while (op != 0);
+        return saldo;
+    }
+
     private static int Raspadinha1(int saldo) {
         saldo -= 2;
         System.out.println("Raspadinha 1 \t\b Saldo: " + saldo + "€");
@@ -95,18 +103,28 @@ public class Main {
         // 5 ciclos random
         for (int i = 1; i < 6; i++) {
             int nr = rnd.nextInt(1, 11);
-        // Verificação de premios
+            // Verificação de premios
             if (np == nr) {
                 switch (i) {
-                    case 1: ganhado += 100; break;
-                    case 2: ganhado += 1; break;
-                    case 3: ganhado += 1; break;
-                    case 4: ganhado += 10; break;
-                    case 5: ganhado += 10; break;
+                    case 1:
+                        ganhado += 100;
+                        break;
+                    case 2:
+                        ganhado += 1;
+                        break;
+                    case 3:
+                        ganhado += 1;
+                        break;
+                    case 4:
+                        ganhado += 10;
+                        break;
+                    case 5:
+                        ganhado += 10;
+                        break;
                 }
             }
         }
-        if (ganhado != 0){
+        if (ganhado != 0) {
             System.out.println("Ganhou: " + ganhado + "€\n");
         } else {
             System.out.println("Não foi desta vez, tenta novamente.\n");

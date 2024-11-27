@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Main {
     static Scanner in = new Scanner(System.in);
     static Random rnd = new Random();
+
     public static void main(String[] args) {
         int op;
         do {
@@ -32,8 +33,8 @@ public class Main {
     private static void Lotaria() {
         // Escolhemos bilhete
         int bilhete = 0;
+        System.out.println("**** LOTARIA ****");
         do {
-            System.out.println("**** LOTARIA ****");
             System.out.println("Escolha o seu número de bilhete: (entre 1000 e 9999)");
             bilhete = in.nextInt();
             if (bilhete < 1000 || bilhete > 9999) System.out.println("Número de bilhete errado.");
@@ -88,18 +89,28 @@ public class Main {
         for (int i = 1; i < 6; i++) {
             int nr = rnd.nextInt(1, 11);
             System.out.println(np + " = " + nr);
-        // Verificação de premios
+            // Verificação de premios
             if (np == nr) {
                 switch (i) {
-                    case 1: saldo += 100; break;
-                    case 2: saldo += 1; break;
-                    case 3: saldo += 1; break;
-                    case 4: saldo += 10; break;
-                    case 5: saldo += 10; break;
+                    case 1:
+                        saldo += 100;
+                        break;
+                    case 2:
+                        saldo += 1;
+                        break;
+                    case 3:
+                        saldo += 1;
+                        break;
+                    case 4:
+                        saldo += 10;
+                        break;
+                    case 5:
+                        saldo += 10;
+                        break;
                 }
             }
         }
-        if (saldo != 0){
+        if (saldo != 0) {
             System.out.println("Ganhou: " + saldo + "€");
         } else {
             System.out.println("Não foi desta vez, tenta novamente.");
