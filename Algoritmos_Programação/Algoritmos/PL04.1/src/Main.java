@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         int op;
         int saldo = 100;
-        String utili = "Guest";
         do {
             System.out.println("Jogos de Sorte \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
             System.out.println("1- Lotaria");
@@ -16,6 +15,7 @@ public class Main {
             System.out.println("3- Criar utilizador");
             System.out.println("0- Sair");
             op = in.nextInt();
+            in.nextLine(); // Consumir a linha pendente no buffer
 
             switch (op) {
                 case 0:
@@ -28,7 +28,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("Insira nome do utilizador:");
-                    utili = in.next();
+                    utili = in.nextLine();
                     break;
                 default:
                     System.out.println("** Opção invalida **");
@@ -41,7 +41,7 @@ public class Main {
         // Escolhemos bilhete
         int bilhete = 0;
         do {
-            System.out.println("**** LOTARIA **** \t\b Saldo: " + saldo + "€");
+            System.out.println("** LOTARIA ** \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
             System.out.println("Escolha o seu número de bilhete: (entre 1000 e 9999)");
             bilhete = in.nextInt();
             if (bilhete < 1000 || bilhete > 9999) System.out.println("Número de bilhete errado.\n");
@@ -70,7 +70,7 @@ public class Main {
     private static int Raspadinhas(int saldo) {
         int op;
         do {
-            System.out.println("**** RASPADINHAS **** \t\b Saldo: " + saldo + "€");
+            System.out.println("** RASPADINHAS ** \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
             System.out.println("1- Jogo 1");
             System.out.println("2- Jogo 2");
             System.out.println("0- Voltar ao menu inicial");
@@ -94,7 +94,7 @@ public class Main {
 
     private static int Raspadinha1(int saldo) {
         saldo -= 2;
-        System.out.println("Raspadinha 1 \t\b Saldo: " + saldo + "€");
+        System.out.println("Raspadinha 1 \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
         // Numero principal
         System.out.println("Número para o jogo:");
         //int np = rnd.nextInt(1, 11);
@@ -134,7 +134,7 @@ public class Main {
 
     private static int Raspadinha2(int saldo) {
         saldo -= 2;
-        System.out.println("Raspadinha 2 \t\b Saldo: " + saldo + "€");
+        System.out.println("Raspadinha 2 \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
         // Numero principal
         int np = rnd.nextInt(1, 11);
         System.out.println("O seu número de jogo é: " + np);
