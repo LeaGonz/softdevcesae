@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
     static Scanner in = new Scanner(System.in);
     static Random rnd = new Random();
-
+    static String utili = "Guest";
     public static void main(String[] args) {
         int op;
         int saldo = 100;
