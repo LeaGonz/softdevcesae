@@ -5,11 +5,12 @@ public class Main {
     static Scanner in = new Scanner(System.in);
     static Random rnd = new Random();
     static String utili = "Guest";
+    static int saldo = 100;
+
     public static void main(String[] args) {
         int op;
-        int saldo = 100;
         do {
-            System.out.println("Jogos de Sorte \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
+            System.out.println("Jogos de Sorte \t Utilizador: " + utili + " Saldo: " + saldo + "€");
             System.out.println("1- Lotaria");
             System.out.println("2- Raspadinhas");
             System.out.println("3- Criar utilizador");
@@ -21,10 +22,10 @@ public class Main {
                 case 0:
                     break;
                 case 1:
-                    saldo = Lotaria(saldo);
+                    Lotaria();
                     break;
                 case 2:
-                    saldo = Raspadinhas(saldo);
+                    Raspadinhas();
                     break;
                 case 3:
                     System.out.println("Insira nome do utilizador:");
@@ -36,12 +37,14 @@ public class Main {
         } while (op != 0);
 
     }
-    private static int Lotaria(int saldo) {
-        saldo -= 5;
+
+    private static void Lotaria() {
+        ValidarSaldo(5);
+        //saldo -= 5;
         // Escolhemos bilhete
         int bilhete = 0;
         do {
-            System.out.println("** LOTARIA ** \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
+            System.out.println("** LOTARIA ** \t Utilizador: " + utili + " Saldo: " + saldo + "€");
             System.out.println("Escolha o seu número de bilhete: (entre 1000 e 9999)");
             bilhete = in.nextInt();
             if (bilhete < 1000 || bilhete > 9999) System.out.println("Número de bilhete errado.\n");
@@ -64,13 +67,12 @@ public class Main {
         } else {
             System.out.println("Não foi desta vez. O número vencedor foi: " + bilhete_ganho + "\n");
         }
-        return (saldo + ganho);
+        saldo += ganho;
     }
-
-    private static int Raspadinhas(int saldo) {
+    private static void Raspadinhas() {
         int op;
         do {
-            System.out.println("** RASPADINHAS ** \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
+            System.out.println("** RASPADINHAS ** \t Utilizador: " + utili + " Saldo: " + saldo + "€");
             System.out.println("1- Jogo 1");
             System.out.println("2- Jogo 2");
             System.out.println("0- Voltar ao menu inicial");
@@ -80,21 +82,20 @@ public class Main {
                 case 0:
                     break;
                 case 1:
-                    saldo = Raspadinha1(saldo);
+                    Raspadinha1();
                     break;
                 case 2:
-                    saldo = Raspadinha2(saldo);
+                    Raspadinha2();
                     break;
                 default:
                     System.out.println("** Opção invalida **");
             }
         } while (op != 0);
-        return saldo;
     }
 
-    private static int Raspadinha1(int saldo) {
+    private static void Raspadinha1() {
         saldo -= 2;
-        System.out.println("Raspadinha 1 \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
+        System.out.println("Raspadinha 1 \t Utilizador: " + utili + " Saldo: " + saldo + "€");
         // Numero principal
         System.out.println("Número para o jogo:");
         //int np = rnd.nextInt(1, 11);
@@ -129,12 +130,12 @@ public class Main {
         } else {
             System.out.println("Não foi desta vez, tenta novamente.\n");
         }
-        return (saldo + ganhado);
+        saldo += ganhado;
     }
 
-    private static int Raspadinha2(int saldo) {
+    private static void Raspadinha2() {
         saldo -= 2;
-        System.out.println("Raspadinha 2 \t Utilizador: "+ utili +" Saldo: " + saldo + "€");
+        System.out.println("Raspadinha 2 \t Utilizador: " + utili + " Saldo: " + saldo + "€");
         // Numero principal
         int np = rnd.nextInt(1, 11);
         System.out.println("O seu número de jogo é: " + np);
@@ -156,8 +157,10 @@ public class Main {
         } else {
             System.out.println("Não foi desta vez, tenta novamente.\n");
         }
-        return saldo;
     }
+    private static void ValidarSaldo(int i) {
+        if (saldo - i <= 0) {
 
-
+        }
+    }
 }

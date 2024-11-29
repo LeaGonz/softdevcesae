@@ -8,13 +8,9 @@ public class Main {
     static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
-        /*
-         * 2 utilizadores, retirar 1 a 4 fosforos, 21 fosforos, quem ficar com ultimo
-         * fosforo perde, jogar 1 vs 1, 1 vs computador, comeÃ§ando en 1 o 2 lugar
-         */
         int op = 1;
         do {
-            System.out.println("** Jogo dos 21 FÃ³sforos **");
+            System.out.println("** Jogo dos 21 Fósforos **");
             System.out.println("Selecione a modalidade do jogo:");
             System.out.println("1- 1 vs 1");
             System.out.println("2- 1 vs Computador");
@@ -28,7 +24,7 @@ public class Main {
                     Jogo(op);
                     break;
                 default:
-                    System.out.println("OpÃ§Ã£o invalida!");
+                    System.out.println("Opção invalida!");
             }
         } while (op != 0);
     }

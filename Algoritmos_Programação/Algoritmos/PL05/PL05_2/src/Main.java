@@ -32,7 +32,7 @@ public class Main {
 
     private static void niveis(int op) {
         int n, i = 1, num_ale = rnd.nextInt(1, 21);
-        // System.out.println("Número aleatorio" + num_ale);
+        //System.out.println("Número aleatorio " + num_ale);
         if (op == 1) {
             System.out.println("Nível Fácil");
         } else if (op == 2) {
