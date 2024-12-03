@@ -7,8 +7,11 @@ body {
     font-variation-settings:
         "wdth" 100,
         "YTLC" 500;
-}
+    }
 
+.content{
+    flex: 1;
+}
 .coming-soon-regular {
     font-family: "Coming Soon", cursive;
     font-weight: 400;
