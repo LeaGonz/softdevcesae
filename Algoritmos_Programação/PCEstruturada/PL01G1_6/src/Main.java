@@ -11,7 +11,12 @@ public class Main {
          */
         Scanner in = new Scanner(System.in);
         Random rnd = new Random();
-        String[] nomes = new String[5];
+
+        System.out.println("Quantos nomes quer guardar?");
+        int quant = in.nextInt();
+        in = new Scanner(System.in);
+
+        String[] nomes = new String[quant];
 
         for (int i = 0; i < nomes.length; i++) {
             System.out.println("Insira o nome "+(i+1)+":");

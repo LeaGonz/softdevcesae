@@ -16,9 +16,9 @@ public class Main {
         }
         MostrarArray(nums);
         Crescente(nums);
-        MostrarArray(nums);
+        //MostrarArray(nums);
         Decrescente(nums);
-        MostrarArray(nums);
+        //MostrarArray(nums);
     }
 
     private static void Decrescente(int[] nums) {
@@ -34,6 +34,7 @@ public class Main {
                 }
             }
         }
+        MostrarArray(nums);
     }
 
     private static void Crescente(int[] nums) {
@@ -48,6 +49,7 @@ public class Main {
                 }
             }
         }
+        MostrarArray(nums);
     }
 
     private static void MostrarArray(int[] nums) {
