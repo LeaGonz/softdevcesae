@@ -1,4 +1,6 @@
+import javax.xml.transform.Source;
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -27,6 +29,7 @@ public class Main {
             System.out.println("4- Preencher array e Escrever ficheiro");
             System.out.println("0- Sair");
             op = in.nextInt();
+            in = new Scanner(System.in);
 
             switch (op) {
                 case 0:
@@ -51,10 +54,16 @@ public class Main {
     private static void Escrever() {
         System.out.println("Texto para escrever no ficheiro:");
         String text = in.nextLine();
+        if (text.isEmpty()) {
+            System.out.println("O campo não pode ser vazio");
+            Escrever();
+        }
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("case3.txt", true));
             writer.write(text);
+            writer.close();
+            System.out.println("Ficheiro atualizado com sucesso!");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -77,6 +86,7 @@ public class Main {
                 array = temp;
             }
             reader.close();
+            System.out.println("Array criado com sucesso a partir do ficheiro.\nConteudo:");
             for (String s : array) {
                 System.out.println(s);
             }
