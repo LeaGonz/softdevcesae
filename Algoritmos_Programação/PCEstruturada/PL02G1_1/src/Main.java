@@ -1,6 +1,11 @@
 import javax.xml.transform.Source;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -44,6 +49,7 @@ public class Main {
                     Escrever();
                     break;
                 case 4:
+                    EscreverA();
                     break;
                 default:
                     System.out.println("Opção invalida");
@@ -51,9 +57,35 @@ public class Main {
         } while (op != 0);
     }
 
+    private static void EscreverA() {
+        // Forma facil
+        ArrayList<String> text = new ArrayList<>();
+        text.add("Ejemplo 1");
+        text.add("Ejemplo 2");
+        text.add("Ejemplo 3");
+        text.add("Ejemplo 4");
+        try {
+            Files.write(Path.of("case1.txt"), text);
+            System.out.println("Ficheiro atualizado com sucesso!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        //Falta forma larga
+    }
+
     private static void Escrever() {
         System.out.println("Texto para escrever no ficheiro:");
         String text = in.nextLine();
+
+        Path dir = Path.of("case3.txt");
+        try {
+            Files.writeString(dir, text);
+            System.out.println("Ficheiro atualizado com sucesso!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        /*
         if (text.isEmpty()) {
             System.out.println("O campo não pode ser vazio");
             Escrever();
@@ -66,11 +98,24 @@ public class Main {
             System.out.println("Ficheiro atualizado com sucesso!");
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
     }
 
 
     private static void LeituraA() {
+        // Forma mas rapida
+        Path dir = Path.of("case2.txt");
+        try {
+            List<String> text = Files.readAllLines(dir);
+            System.out.println("Array criado com sucesso a partir do ficheiro.\nConteudo:");
+            for (int i = 0; i < text.size(); i++) {
+                System.out.println("Linha " + (i + 1) + ": " + text.get(i));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        /*
         try {
             BufferedReader reader = new BufferedReader(new FileReader("case2.txt"));
             //String[] lines = reader.lines().toArray(String[]::new); // Forma facil.
@@ -87,26 +132,48 @@ public class Main {
             }
             reader.close();
             System.out.println("Array criado com sucesso a partir do ficheiro.\nConteudo:");
-            for (String s : array) {
-                System.out.println(s);
+            for (int i = 0; i < array.length; i++) {
+                System.out.println("Linha " + (i + 1) + ": " + array[i]);
             }
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
     }
 
     private static void LeituraS() {
+        // Forma mas rapida
+        try {
+            String text = Files.readString(Path.of("case1.txt"));
+            if (text.isEmpty()) {
+                System.out.println("Ficheiro vacio.");
+            } else {
+                System.out.println("Conteudo do ficheiro:");
+                System.out.println(text);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        /*
         try {
             BufferedReader reader = new BufferedReader(new FileReader("case1.txt"));
             String line, text = "";
             while ((line = reader.readLine()) != null) {
                 text += line + " ";
+                //text.append(line).append(" ");
             }
             reader.close();
-            System.out.println(text);
+            if (text.isEmpty()) {
+                System.out.println("Ficheiro vacio.");
+            } else {
+                System.out.println("Conteudo do ficheiro:");
+                System.out.println(text);
+            }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }*/
     }
 }

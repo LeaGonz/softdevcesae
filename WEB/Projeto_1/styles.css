@@ -26,7 +26,7 @@ p strong{
 header {
     background-image: url(img/back.jpg);
     background-size: cover;
-    padding: 120px;
+    padding: 110px;
     margin-bottom: 20px;
     color: #fff;
 }
@@ -38,6 +38,7 @@ header h1 {
 header p {
     font-style: italic;
 }
+/* Main */
 
 /* Cards */
 .img_p{

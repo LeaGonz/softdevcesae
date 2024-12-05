@@ -1,3 +1,4 @@
-case 1 texto. texto.
-texto y mas texto.
-otro texto con mas texto.
+Ejemplo 1
+Ejemplo 2
+Ejemplo 3
+Ejemplo 4

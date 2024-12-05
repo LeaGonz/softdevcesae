@@ -1,0 +1,1 @@
+b. Ler um ficheiro de texto para um array de strings, em que cada linha é uma posição do array, e o apresente o seu conteúdo 

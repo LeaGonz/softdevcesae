@@ -1,0 +1,1 @@
+a. Ler um ficheiro de texto para uma única string e o apresente o seu conteúdo.     
