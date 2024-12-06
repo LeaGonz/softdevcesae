@@ -1,13 +1,20 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     static Scanner in = new Scanner(System.in);
+    static ArrayList<String> dataGeral = new ArrayList<>();
     static ArrayList<String> alunos = new ArrayList<>();
-    static ArrayList<Integer> notas = new ArrayList<>();
-    static int op = 1;
+    static ArrayList<Integer> nota1 = new ArrayList<>();
+    static ArrayList<Integer> nota2 = new ArrayList<>();
+    static ArrayList<Integer> exame = new ArrayList<>();
 
     public static void main(String[] args) {
         /*
@@ -53,6 +60,7 @@ public class Main {
         2. Imprimir os dados da turma (output acima – deve ser recalculado sempre que haja nova alteração);
         3. Ler e gravar os dados em ficheiro
          */
+        int op = 1;
         do {
             System.out.println("*** CESAE - Controlo de Notas ***");
             System.out.println("Menu Alunos:");
@@ -68,6 +76,8 @@ public class Main {
                     break;
                 case 1:
                     Inserir();
+                    Atualizar();
+                    Mostrar();
                     break;
                 case 2:
                     Editar();
@@ -90,20 +100,61 @@ public class Main {
         } while (op != 0);
     }
 
+    private static void Mostrar() {
+        System.out.println("*** CESAE - Controlo de Notas ***");
+        System.out.println("Lista de Alunos");
+        System.out.println("ID\t-\tAluno\t-\tTrabalho 1\t-\tTrabalho 2\t-\tExame");
+        for (int i = 0; i < alunos.size(); i++) {
+            System.out.println((i+1) + ".\t\t" + alunos.get(i) + "\t\t\t" + nota1.get(i) + "\t\t\t\t" + nota2.get(i) + "\t\t\t\t" + exame.get(i));
+        }
+    }
+
+    private static void Atualizar() {
+        // Preenchemos arrays
+        try {
+            List<String> temp = Files.readAllLines(Path.of("DataGeral.txt"));
+            for(int i = 0; i < temp.size(); i++){
+                String linha = temp.get(i);
+                String[] dados = linha.split(";");
+                alunos.add(dados[0]);
+                nota1.add(Integer.parseInt(dados[1]));
+                nota2.add(Integer.parseInt(dados[2]));
+                exame.add(Integer.parseInt(dados[3]));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());        }
+    }
+
     private static void Inserir() {
-        String nome;
+        String datos;
         do {
             System.out.println("\n*** CESAE - Controlo de Notas ***");
-            System.out.println("0- Voltar ao menu principal");
+            System.out.println("0- Voltar ao menu principal\n");
             System.out.println("-- Inserir Aluno --");
             System.out.print("Nome: ");
-            nome = in.nextLine();
+            datos = in.nextLine();
+            alunos.add(datos);
 
-            if (!nome.equals("0")) {
-                alunos.add(nome);
-                System.out.println("Aluno " + (alunos.indexOf(alunos.getLast()) + 1) + ". " + alunos.getLast() + " inserido com sucesso!");
+            if (!datos.equals("0")) {
+                System.out.println("-- Inserir Notas --");
+                for (int i = 1; i <= 3; i++) {
+                    if (i == 3) {
+                        System.out.print("Exame: ");
+                        datos = in.nextLine();
+                        exame.add(Integer.parseInt(datos));
+                    } else if (i == 1){
+                        System.out.print("Trabalho " + i + ": ");
+                        datos = in.nextLine();
+                        nota1.add(Integer.parseInt(datos));
+                    } else {
+                        System.out.print("Trabalho " + i + ": ");
+                        datos = in.nextLine();
+                        nota2.add(Integer.parseInt(datos));
+                    }
+                }
+                System.out.println("Aluno inserido com sucesso!");
             }
-        } while (!nome.equals("0"));
+        } while (!datos.equals("0"));
     }
 
     private static void Editar() {
