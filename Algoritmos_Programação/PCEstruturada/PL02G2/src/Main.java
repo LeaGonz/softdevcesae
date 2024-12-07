@@ -1,8 +1,9 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ public class Main {
     static ArrayList<Integer> nota1 = new ArrayList<>();
     static ArrayList<Integer> nota2 = new ArrayList<>();
     static ArrayList<Integer> exame = new ArrayList<>();
+    static Path dir = Path.of("DataGeral.txt");
 
     public static void main(String[] args) {
         /*
@@ -60,14 +62,17 @@ public class Main {
         2. Imprimir os dados da turma (output acima – deve ser recalculado sempre que haja nova alteração);
         3. Ler e gravar os dados em ficheiro
          */
+        // Preenchemos arrays
+        AtualizarArrays();
+
         int op = 1;
         do {
             System.out.println("*** CESAE - Controlo de Notas ***");
+            System.out.println("0- Sair");
             System.out.println("Menu Alunos:");
             System.out.println("1- Inserir    |  2- Editar  |  3- Eliminar  |  4- Imprimir dados da Turma");
             System.out.println("Menu Ficheiros:");
             System.out.println("5- Ler dados  |  6- Gravar dados");
-            System.out.println("0- Sair");
             op = in.nextInt();
             in = new Scanner(System.in);
 
@@ -76,8 +81,6 @@ public class Main {
                     break;
                 case 1:
                     Inserir();
-                    Atualizar();
-                    Mostrar();
                     break;
                 case 2:
                     Editar();
@@ -100,75 +103,185 @@ public class Main {
         } while (op != 0);
     }
 
-    private static void Mostrar() {
-        System.out.println("*** CESAE - Controlo de Notas ***");
-        System.out.println("Lista de Alunos");
-        System.out.println("ID\t-\tAluno\t-\tTrabalho 1\t-\tTrabalho 2\t-\tExame");
-        for (int i = 0; i < alunos.size(); i++) {
-            System.out.println((i+1) + ".\t\t" + alunos.get(i) + "\t\t\t" + nota1.get(i) + "\t\t\t\t" + nota2.get(i) + "\t\t\t\t" + exame.get(i));
+    private static boolean Mostrar() {
+        if (alunos.isEmpty()) {
+            System.out.println("Base de dados de Alunos vazia.\n");
+            return true;
+        } else {
+            System.out.println("Lista de Alunos");
+            System.out.println("ID\t-\tAluno\t-\tTrabalho 1\t-\tTrabalho 2\t-\tExame");
+            for (int i = 0; i < alunos.size(); i++) {
+                System.out.println((i + 1) + ".\t\t" + alunos.get(i) + "\t\t\t" + nota1.get(i) + "\t\t\t\t" + nota2.get(i) + "\t\t\t\t" + exame.get(i));
+            }
+            System.out.println();
+            return false;
         }
     }
 
-    private static void Atualizar() {
+    private static void AtualizarTxt() {
+        // Preencher TXT
+        ArrayList<String> linha = new ArrayList<>();
+        for (int i = 0; i < alunos.size(); i++) {
+            linha.add(alunos.get(i) + ";" + nota1.get(i) + ";" + nota2.get(i) + ";" + exame.get(i));
+        }
+        try {
+            Files.write(dir, linha);
+            System.out.println("\nBase de dados atualizada.");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void AtualizarArrays() {
         // Preenchemos arrays
         try {
-            List<String> temp = Files.readAllLines(Path.of("DataGeral.txt"));
-            for(int i = 0; i < temp.size(); i++){
-                String linha = temp.get(i);
-                String[] dados = linha.split(";");
-                alunos.add(dados[0]);
-                nota1.add(Integer.parseInt(dados[1]));
-                nota2.add(Integer.parseInt(dados[2]));
-                exame.add(Integer.parseInt(dados[3]));
+            List<String> temp = Files.readAllLines(dir);
+            for (String linha : temp) {
+                String[] linhaArray = linha.split(";");
+                alunos.add(linhaArray[0]);
+                nota1.add(Integer.parseInt(linhaArray[1]));
+                nota2.add(Integer.parseInt(linhaArray[2]));
+                exame.add(Integer.parseInt(linhaArray[3]));
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());        }
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void Inserir() {
         String datos;
         do {
-            System.out.println("\n*** CESAE - Controlo de Notas ***");
+            System.out.println("\n*** CESAE - Controlo de Notas - Módulo Inserir ***");
             System.out.println("0- Voltar ao menu principal\n");
             System.out.println("-- Inserir Aluno --");
             System.out.print("Nome: ");
             datos = in.nextLine();
-            alunos.add(datos);
 
             if (!datos.equals("0")) {
+                alunos.add(datos);
+                // Validação numerica
                 System.out.println("-- Inserir Notas --");
                 for (int i = 1; i <= 3; i++) {
-                    if (i == 3) {
-                        System.out.print("Exame: ");
-                        datos = in.nextLine();
-                        exame.add(Integer.parseInt(datos));
-                    } else if (i == 1){
-                        System.out.print("Trabalho " + i + ": ");
-                        datos = in.nextLine();
-                        nota1.add(Integer.parseInt(datos));
-                    } else {
-                        System.out.print("Trabalho " + i + ": ");
-                        datos = in.nextLine();
-                        nota2.add(Integer.parseInt(datos));
+                    try {
+                        if (i == 3) {
+                            System.out.print("Exame: ");
+                            datos = in.nextLine();
+                            exame.add(Integer.parseInt(datos));
+                        } else if (i == 1) {
+                            System.out.print("Trabalho " + i + ": ");
+                            datos = in.nextLine();
+                            nota1.add(Integer.parseInt(datos));
+                        } else {
+                            System.out.print("Trabalho " + i + ": ");
+                            datos = in.nextLine();
+                            nota2.add(Integer.parseInt(datos));
+                        }
+                    } catch (NumberFormatException e) {
+                        i--;
+                        System.out.println("Valor inválido, deve de ser numérico.");
                     }
                 }
+
+                AtualizarTxt();
                 System.out.println("Aluno inserido com sucesso!");
             }
-        } while (!datos.equals("0"));
+        }
+        while (!datos.equals("0"));
+        System.out.println("Saiu do modulo Inserir");
     }
 
     private static void Editar() {
+        int id = 1, op;
+        do {
+
+            System.out.println("\n*** CESAE - Controlo de Notas - Módulo Editar ***");
+            System.out.println("0- Voltar ao menu principal\n");
+            System.out.println("-- Editar dados dos Alunos --");
+            if (Mostrar()) {
+                return;
+            }
+            System.out.print("Insira o ID do aluno a editar: ");
+            id = in.nextInt();
+
+            if (id != 0 && id <= alunos.size()) {
+                System.out.println("Que informação quer editar do aluno: " + alunos.get(id - 1) + "?");
+                System.out.println("0- Voltar ao menu anterior");
+                System.out.println("1- Nome\t| Notas: 2- Trabalho 1\t3- Trabalho 2\t4- Exame");
+                op = in.nextInt();
+                in = new Scanner(System.in);
+
+                do {
+                    try {
+                        switch (op) {
+                            case 0:
+                                break;
+                            case 1:
+                                System.out.print("Novo nome: ");
+                                alunos.set(id - 1, in.nextLine());
+                                break;
+                            case 2:
+                                System.out.print("Nova nota trabalho 1: ");
+                                nota1.set(id - 1, in.nextInt());
+                                break;
+                            case 3:
+                                System.out.print("Nova nota trabalho 2: ");
+                                nota2.set(id - 1, in.nextInt());
+                                break;
+                            case 4:
+                                System.out.print("Nova nota exame: ");
+                                exame.set(id - 1, in.nextInt());
+                                break;
+                            default:
+                                System.out.println("Opção invalida.");
+                        }
+                        op = 0;
+                        AtualizarTxt();
+                        System.out.println("Aluno (" + alunos.get(id-1) + ") editado com sucesso!");
+                    } catch (InputMismatchException e) {
+                        in = new Scanner(System.in);
+                        System.out.println("Valor inválido, deve de ser numérico.");
+                    }
+                } while (op != 0);
+            }
+
+        } while (id != 0);
     }
 
     private static void Eliminar() {
+        int id = 1;
+        do {
+            System.out.println("\n*** CESAE - Controlo de Notas - Módulo Eliminar ***");
+            System.out.println("0- Voltar ao menu principal\n");
+            System.out.println("-- Eliminar Aluno --");
+            if (Mostrar()) {
+                return;
+            }
+            System.out.print("Insira o ID do aluno a eliminar: ");
+            id = in.nextInt();
+            if (id != 0 && id <= alunos.size()) {
+                // Remove dos arrays
+                alunos.remove(id - 1);
+                nota1.remove(id - 1);
+                nota2.remove(id - 1);
+                exame.remove(id - 1);
+
+                AtualizarTxt();
+                System.out.println("Aluno com ID (" + id + ") eliminado com sucesso!");
+            }
+        } while (id != 0);
+        System.out.println("Saiu do modulo Eliminar");
     }
 
     private static void Imprimir() {
     }
 
     private static void Ler() {
+        System.out.println("\n*** CESAE - Controlo de Notas ***");
+        Mostrar();
     }
 
     private static void Gravar() {
+        System.out.println("\n*** CESAE - Controlo de Notas ***");
+        AtualizarTxt();
     }
 }
