@@ -26,7 +26,7 @@ p strong {
 
 /* Header */
 header {
-    background-image: url(img/back.jpg);
+    background-image: url(/img/back.jpg);
     background-size: cover;
     padding: 110px;
     margin-bottom: 20px;
@@ -46,6 +46,10 @@ header p {
 .img {
     height: 180px;
     object-fit: cover;
+}
+.img_sobre{
+    max-height: 200px;
+    max-width: 180px;
 }
 
 /* Footer */
