@@ -1,26 +1,28 @@
 /* Fuente general */
 body {
+    height: 100%;
+    margin: 0;
     font-family: "Nunito Sans", sans-serif;
     font-optical-sizing: auto;
-    /* font-weight: <weight>; */
     font-style: normal;
     font-variation-settings:
         "wdth" 100,
         "YTLC" 500;
-    }
+}
+
 .coming-soon-regular {
     font-family: "Coming Soon", cursive;
     font-weight: 400;
     font-style: normal;
 }
+
 .pp {
-    margin-bottom: 15px;
     text-align: justify;
 }
-p strong{
+
+p strong {
     color: rgb(252, 164, 2);
 }
-/* Nav bar */
 
 /* Header */
 header {
@@ -37,19 +39,15 @@ header h1 {
 
 header p {
     font-style: italic;
+    color: #070707;
 }
-/* Main */
 
 /* Cards */
-.img_p{
-    width: 90%;
-    height: auto;
+.img {
+    height: 180px;
     object-fit: cover;
 }
-.img{
-    height: 180px;
-    object-fit: cover; 
-}
+
 /* Footer */
 footer {
     background-color: #070707;
@@ -58,6 +56,6 @@ footer {
 }
 
 footer a {
-    color: #fff;
-    margin: 15px;
+    color: rgb(252, 164, 2);
+    margin: 5px;
 }
