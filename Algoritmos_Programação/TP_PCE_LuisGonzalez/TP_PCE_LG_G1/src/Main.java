@@ -1,12 +1,14 @@
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
+    public static final String RESET = "\033[0m";
+    public static final String RED = "\033[0;31m";    // Red
+    public static final String GREEN = "\033[0;32m";  // Green
+
     static Scanner in = new Scanner(System.in);
     static Random rnd = new Random();
-    static ArrayList<Integer> numeros = new ArrayList<Integer>();
-    static ArrayList<Integer> estrelas = new ArrayList<Integer>();
+    static int[] chave_vence = new int[7];
+    static int[][] chave_uti;
 
     public static void main(String[] args) {
         /*
@@ -40,6 +42,8 @@ public class Main {
                     SimularVencedor();
                     break;
                 case 2:
+                    BoletimUtili();
+                    break;
                 case 3:
                 case 4:
                 default:
@@ -48,30 +52,92 @@ public class Main {
 
     }
 
-    private static void CriarChave() {
-        // 5 numeros
-        for (int i = 0; i < 5; i++) {
-            int n = rnd.nextInt(1, 51);
-            if (!numeros.contains(n)) {
-                numeros.add(n);
+    private static void ChaveVencedora() {
+        // Gerar list temp
+        ArrayList<Integer> temp = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            temp.add(i + 1);
+        }
+        for (int i = 0; i < 12; i++) {
+            temp.add(i + 1);
+        }
+        // Preenchemos chave vencedora com temp
+        for (int i = 0; i < 7; i++) {
+            if (i < 5) {
+                int index = rnd.nextInt(0, 49);
+                chave_vence[i] = temp.get(index);
+                temp.remove(index);
             } else {
-                i--;
+                int index = rnd.nextInt(50, 61);
+                chave_vence[i] = temp.get(index);
+                temp.remove(index);
+            }
+            System.out.println();
+        }
+    }
+
+    private static void BoletimUtili() {
+        ChaveVencedora(); // Criamos chave vencedora
+
+        System.out.println("BEM-VINDO AO EUROMILHÕES");
+        System.out.println("Regras: escolha 5 números e 2 estrelas por chave");
+        System.out.println("Quantas chaves deseja jogar? (Máximo 5)");
+        int chaves = in.nextInt();
+        chave_uti = new int[chaves][7];
+
+        // Criamos chaves
+        System.out.println("\nEscolha 5 números e 2 estrelas por chave");
+        for (int i = 0; i < chaves; i++) {
+            System.out.println("Chave " + (i + 1));
+            // 5 numeros
+            for (int j = 0; j < 5; j++) {
+                System.out.print("numero " + (j + 1) + ":");
+                chave_uti[i][j] = in.nextInt();
+            }
+            for (int k = 0; k < 2; k++) {
+                System.out.print("Estrela " + (k + 1) + ":");
+                chave_uti[i][5 + k] = in.nextInt();
             }
         }
-        // 2 estrelas
-        for (int i = 0; i < 2; i++) {
-            int n = rnd.nextInt(1, 12);
-            if (!estrelas.contains(n)) {
-                estrelas.add(n);
-            } else {
-                i--;
+        // Fim Criamos chaves
+        CompararChaves();
+
+        //MostrarChave();
+    }
+
+    private static void CompararChaves() {
+        for (int i = 0; i < chave_uti.length; i++) {
+            for (int j = 0; j < chave_uti[i].length; j++) {
+                System.out.println();
+            }
+        }
+    }
+
+    private static void MostrarChave() {
+        System.out.println("Chave");
+        // 50 numeros
+        for (int j = 1; j < 51; j++) {
+            System.out.printf("%2d|", j);
+            if ((j) % 6 == 0) {
+                System.out.println();
+            }
+        }
+        System.out.println();
+        // 12 estrelas
+        for (int j = 1; j < 13; j++) {
+            System.out.printf("<%2d> ", j);
+            if ((j) % 3 == 0) {
+                System.out.println();
             }
         }
     }
 
     private static void SimularVencedor() {
-        CriarChave();
-        System.out.println(numeros + "|" + estrelas);
+        ChaveVencedora();
+        System.out.println("Chave Vencedora");
+        System.out.printf("%-15s %35s%n", "Ordem de saída", "Chave Ordenada");
+        System.out.printf("%-15s", chave_vence.toString());
+        System.out.printf(GREEN + "%30s-%1s%n%n" + RESET, chave_vence.toString());
     }
 
 }

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="33144b51-230b-4389-988f-10d7e57bb760" name="Changes" comment="">
+    <list default="true" id="f6f61b73-4d8e-49a8-a20d-594071c8dccf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/PL05_1/PL05_1.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PL05_2/PL05_2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PL05_3/PL05_3.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../TP_PCE_LuisGonzalez/TP_PCE_LG_G1/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP_PCE_LuisGonzalez/TP_PCE_LG_G1/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -12,10 +15,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
-}</component>
-  <component name="ProjectId" id="2pQahRIeGOzGqLtWIyJPCpWTY7c" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2q1Pydrp2SWf0GNXYMDjq91kbMT" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -23,10 +26,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/sw2024/Desktop/softdevcesae/Algoritmos_Programação/Algoritmos/PL03",
+    "last_opened_file_path": "C:/Users/sw2024/Desktop/softdevcesae/Algoritmos_Programação/Algoritmos/PL02",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -42,13 +44,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="33144b51-230b-4389-988f-10d7e57bb760" name="Changes" comment="" />
-      <created>1732700871744</created>
+      <changelist id="f6f61b73-4d8e-49a8-a20d-594071c8dccf" name="Changes" comment="" />
+      <created>1733827363729</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1732700871744</updated>
-      <workItem from="1732700872936" duration="25000" />
-      <workItem from="1733827401400" duration="107000" />
+      <updated>1733827363729</updated>
+      <workItem from="1733827364782" duration="37000" />
     </task>
     <servers />
   </component>
