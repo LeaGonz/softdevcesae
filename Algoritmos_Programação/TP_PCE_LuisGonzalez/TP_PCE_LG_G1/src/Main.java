@@ -1,9 +1,10 @@
 import java.util.*;
 
 public class Main {
-    public static final String RESET = "\033[0m";
-    public static final String RED = "\033[0;31m";    // Red
-    public static final String GREEN = "\033[0;32m";  // Green
+    public static final String reset = "\033[0m";
+    public static final String vermelho = "\033[0;31m";
+    public static final String verde = "\033[0;32m";
+    public static final String amarelo = "\033[0;33m";
 
     static Scanner in = new Scanner(System.in);
     static Random rnd = new Random();
@@ -53,7 +54,7 @@ public class Main {
     }
 
     private static void ChaveVencedora() {
-        // Gerar list temp
+        // Gerar list temp com todos os numeros
         ArrayList<Integer> temp = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             temp.add(i + 1);
@@ -62,17 +63,18 @@ public class Main {
             temp.add(i + 1);
         }
         // Preenchemos chave vencedora com temp
+        int index;
         for (int i = 0; i < 7; i++) {
             if (i < 5) {
-                int index = rnd.nextInt(0, 49);
-                chave_vence[i] = temp.get(index);
-                temp.remove(index);
+                // 5 numeros
+                index = rnd.nextInt(0, (49 - i));
             } else {
-                int index = rnd.nextInt(50, 61);
-                chave_vence[i] = temp.get(index);
-                temp.remove(index);
+                // 2 estrelas
+                index = rnd.nextInt((45), (temp.size() - 1));
             }
-            System.out.println();
+            chave_vence[i] = temp.get(index);
+            // Eliminamos valores do temp para evitar duplicados
+            temp.remove(index);
         }
     }
 
@@ -134,10 +136,24 @@ public class Main {
 
     private static void SimularVencedor() {
         ChaveVencedora();
-        System.out.println("Chave Vencedora");
-        System.out.printf("%-15s %35s%n", "Ordem de saída", "Chave Ordenada");
-        System.out.printf("%-15s", chave_vence.toString());
-        System.out.printf(GREEN + "%30s-%1s%n%n" + RESET, chave_vence.toString());
+        System.out.print("Chave Vencedora: ");
+        // Ordenar chave vencedora
+        ArrayList<Integer> temp = new ArrayList<>();
+        for (int i = 0; i < chave_vence.length - 2; i++) {
+            temp.add(chave_vence[i]);
+        }
+        Collections.sort(temp);
+        for (int i : temp) {
+            System.out.print(verde + "|" + i);
+        }
+        temp.clear();
+        for (int i = 5; i < chave_vence.length; i++) {
+            temp.add(chave_vence[i]);
+        }
+        Collections.sort(temp);
+        for (int i : temp) {
+            System.out.print(amarelo + "<" + i + ">" + reset);
+        }
+        temp.clear();
     }
-
 }
