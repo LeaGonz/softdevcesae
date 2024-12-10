@@ -67,10 +67,10 @@ public class Main {
         for (int i = 0; i < 7; i++) {
             if (i < 5) {
                 // 5 numeros
-                index = rnd.nextInt(0, (49 - i));
+                index = rnd.nextInt((50 - i));
             } else {
                 // 2 estrelas
-                index = rnd.nextInt((45), (temp.size() - 1));
+                index = rnd.nextInt((45), temp.size());
             }
             chave_vence[i] = temp.get(index);
             // Eliminamos valores do temp para evitar duplicados
