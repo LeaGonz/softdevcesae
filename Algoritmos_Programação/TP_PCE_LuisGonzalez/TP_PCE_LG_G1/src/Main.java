@@ -1,13 +1,17 @@
 import java.util.*;
 
 public class Main {
-    public static final String reset = "\033[0m";
-    public static final String vermelho = "\033[0;31m";
-    public static final String verde = "\033[0;32m";
-    public static final String amarelo = "\033[0;33m";
+    static final String reset = "\033[0m";
+    static final String vermelho = "\033[0;31m";
+    static final String verde = "\033[0;32m";
+    static final String amarelo = "\033[0;33m";
 
     static Scanner in = new Scanner(System.in);
     static Random rnd = new Random();
+    static ArrayList<Integer> chaveVencedora = new ArrayList<>();
+    static ArrayList<ArrayList<Integer>> chavesUtilizador = new ArrayList<>();
+    static ArrayList<ArrayList<Integer>> chavesAleatorias = new ArrayList<>();
+
     static int[] chave_vence = new int[7];
     static int[][] chave_uti;
 
@@ -26,7 +30,6 @@ public class Main {
 
         do {
             System.out.println("BEM-VINDO AO EUROMILHÕES");
-            System.out.println("Regras: escolha 5 números e 2 estrelas por chave");
             System.out.println("Menu do Jogo:");
             System.out.println("1- Simular um sorteio vencedor");
             System.out.println("2- Criar um Boletim pelo utilizador");
@@ -43,79 +46,85 @@ public class Main {
                     SimularVencedor();
                     break;
                 case 2:
-                    BoletimUtili();
+                    BoletimUtilizador();
+                    CompararChaves();
                     break;
                 case 3:
                 case 4:
                 default:
+                    System.out.println("Opção invalida!\n");
             }
         } while (op != 0);
 
     }
 
-    private static void ChaveVencedora() {
-        // Gerar list temp com todos os numeros
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            temp.add(i + 1);
-        }
-        for (int i = 0; i < 12; i++) {
-            temp.add(i + 1);
-        }
-        // Preenchemos chave vencedora com temp
-        int index;
-        for (int i = 0; i < 7; i++) {
-            if (i < 5) {
-                // 5 numeros
-                index = rnd.nextInt((50 - i));
-            } else {
-                // 2 estrelas
-                index = rnd.nextInt((45), temp.size());
-            }
-            chave_vence[i] = temp.get(index);
-            // Eliminamos valores do temp para evitar duplicados
-            temp.remove(index);
-        }
-    }
+    private static void BoletimUtilizador() {
+        // Listas temporais
+        ArrayList<Integer> numeros = new ArrayList<>();
+        ArrayList<Integer> estrelas = new ArrayList<>();
+        ArrayList<Integer> utilizadorChave = new ArrayList<>();
+        int chaves, n;
+        boolean validar = true;
 
-    private static void BoletimUtili() {
-        ChaveVencedora(); // Criamos chave vencedora
-
-        System.out.println("BEM-VINDO AO EUROMILHÕES");
+        System.out.println("\nMenu 2 - Criar um Boletim pelo utilizador");
         System.out.println("Regras: escolha 5 números e 2 estrelas por chave");
-        System.out.println("Quantas chaves deseja jogar? (Máximo 5)");
-        int chaves = in.nextInt();
-        chave_uti = new int[chaves][7];
-
-        // Criamos chaves
-        System.out.println("\nEscolha 5 números e 2 estrelas por chave");
+        // Validamos maximo de chaves
+        do {
+            System.out.println("Quantas chaves deseja jogar? (Máximo 5)");
+            chaves = in.nextInt();
+            if (chaves <= 5) {
+                validar = false;
+            } else {
+                System.out.println("\nA quantidade de chaves não pode ser superior a 5!\n");
+            }
+        } while (validar);
+        // Ciclo para criar quantidades de chaves
         for (int i = 0; i < chaves; i++) {
-            System.out.println("Chave " + (i + 1));
-            // 5 numeros
-            for (int j = 0; j < 5; j++) {
-                System.out.print("numero " + (j + 1) + ":");
-                chave_uti[i][j] = in.nextInt();
+            System.out.println("<- Chave " + (i + 1) + " ->");
+            // 5 numeros pelo utiliador
+            while (numeros.size() < 5) {
+                System.out.print("numero " + (numeros.size() + 1) + ": ");
+                n = in.nextInt();
+                // Validamos se o numero é valido ou não
+                if (n < 1 || n > 50) {
+                    System.out.println("Número fora do intervalo, deve ser entra 1-50!");
+                } else if (numeros.contains(n)) {
+                    System.out.println("O número já existe. Por favor, escolha outro.");
+                } else {
+                    numeros.add(n);
+                }
             }
-            for (int k = 0; k < 2; k++) {
-                System.out.print("Estrela " + (k + 1) + ":");
-                chave_uti[i][5 + k] = in.nextInt();
+            // 2 estrelas pelo utilizador
+            while (estrelas.size() < 2) {
+                System.out.print("Estrela " + (estrelas.size() + 1) + ": ");
+                n = in.nextInt();
+                // Validamos se o numero é valido ou não
+                if (n < 1 || n > 12) {
+                    System.out.println("Número fora do intervalo, deve ser entra 1-12!");
+                } else if (estrelas.contains(n)) {
+                    System.out.println("A estrela já existe. Por favor, escolha outra.");
+                } else {
+                    estrelas.add(n);
+                }
             }
-        }
-        // Fim Criamos chaves
-        CompararChaves();
 
-        //MostrarChave();
+            // Unimos listas
+            utilizadorChave.addAll(numeros);
+            utilizadorChave.addAll(estrelas);
+            // Preenchemos lista principal
+            chavesUtilizador.add(new ArrayList<>(utilizadorChave));
+
+            // Limpamos chaves temporais
+            numeros.clear();
+            estrelas.clear();
+            utilizadorChave.clear();
+        }
+        // Comparamos chaves com a chave vencedora
+        // ChaveVencedora();
+        // CompararChaves();
     }
 
-    private static void CompararChaves() {
-        for (int i = 0; i < chave_uti.length; i++) {
-            for (int j = 0; j < chave_uti[i].length; j++) {
-                System.out.println();
-            }
-        }
-    }
-
-    private static void MostrarChave() {
+    private static void Mostrar() {
         System.out.println("Chave");
         // 50 numeros
         for (int j = 1; j < 51; j++) {
@@ -134,26 +143,66 @@ public class Main {
         }
     }
 
+    private static void CompararChaves() {
+        int acertosNum = 0;
+        int acertoEstre = 0;
+        for (int i = 0; i < chavesUtilizador.size(); i++) {
+            for (int j = 0; j < chavesUtilizador.get(i).size(); j++) {
+                System.out.println(chavesUtilizador.get(i).get(j));
+            }
+        }
+
+
+        System.out.println("\nAcertos ->");
+        //MostrarChaveVencedora();
+        System.out.println("Números: " + acertosNum + " Estrelas: " + acertoEstre + "\n\n");
+    }
+
+//-------------------------------------------------------
+
     private static void SimularVencedor() {
-        ChaveVencedora();
+        System.out.println("\nMenu 1 - Simular um sorteio vencedor");
         System.out.print("Chave Vencedora: ");
-        // Ordenar chave vencedora
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i = 0; i < chave_vence.length - 2; i++) {
-            temp.add(chave_vence[i]);
+        ChaveVencedora();
+        chaveVencedora.clear();
+    }
+
+    private static void ChaveVencedora() {
+        ArrayList<Integer> numeros = new ArrayList<>();
+        ArrayList<Integer> estrelas = new ArrayList<>();
+        int n;
+        // Geramos 5 numeros entre 1 - 50
+        while (numeros.size() < 5) {
+            n = rnd.nextInt(1, 51);
+            if (!numeros.contains(n)) {
+                numeros.add(n);
+            }
         }
-        Collections.sort(temp);
-        for (int i : temp) {
-            System.out.print(verde + "|" + i);
+        // Geramos 2 estrelas entre 1-12
+        while (estrelas.size() < 2) {
+            n = rnd.nextInt(1, 13);
+            if (!estrelas.contains(n)) {
+                estrelas.add(n);
+            }
         }
-        temp.clear();
-        for (int i = 5; i < chave_vence.length; i++) {
-            temp.add(chave_vence[i]);
+        // Ordenamos
+        Collections.sort(numeros);
+        Collections.sort(estrelas);
+        // Unimos chaves na chaveVencedora
+        chaveVencedora.addAll(numeros);
+        chaveVencedora.addAll(estrelas);
+
+        MostrarChaves(chaveVencedora);
+    }
+
+    private static void MostrarChaves(ArrayList<Integer> chave) {
+        for (int i = 0; i < chave.size(); i++) {
+            if (i < 5) {
+                System.out.printf(verde + "|%d|", chave.get(i));
+            } else {
+                System.out.printf(amarelo + "<%d>" + reset, chave.get(i));
+            }
         }
-        Collections.sort(temp);
-        for (int i : temp) {
-            System.out.print(amarelo + "<" + i + ">" + reset);
-        }
-        temp.clear();
+        System.out.println("\n");
     }
 }
