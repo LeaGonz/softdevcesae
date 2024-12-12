@@ -29,8 +29,8 @@ public class Main {
             System.out.println("\nBEM-VINDO AO EUROMILHÕES");
             System.out.println("Menu do Jogo:");
             System.out.println("1- Simular um sorteio vencedor");
-            System.out.println("2- Criar um Boletim pelo utilizador");
-            System.out.println("3- Criar um Boletim aleatorio");
+            System.out.println("2- Criar um Boletim Utilizador");
+            System.out.println("3- Criar um Boletim Aleatorio");
             System.out.println("4- Simulação de Apostas para Ganhar");
             System.out.println("0- Sair");
             op = in.nextInt();
@@ -44,11 +44,9 @@ public class Main {
                     break;
                 case 2:
                     BoletimUtilizador();
-                    GerarChaveVencedora();
-                    CompararChaves(chavesUtilizador);
                     break;
                 case 3:
-                    CompararChaves(chavesAleatorias);
+                    BoletimAleatorio();
                     break;
                 case 4:
                 default:
@@ -58,30 +56,31 @@ public class Main {
 
     }
 
+    private static void BoletimAleatorio() {
+        chaveVencedora.clear();
+        System.out.println("\nMenu 3 - Criar um Boletim Aleatorio");
+        int chaves = chavesQTD();
+        
+
+    }
+    //-------------------------------------------------------
+
     private static void BoletimUtilizador() {
         chavesUtilizador.clear();
         // Listas temporais
         ArrayList<Integer> numeros = new ArrayList<>();
         ArrayList<Integer> estrelas = new ArrayList<>();
         ArrayList<Integer> utilizadorChave = new ArrayList<>();
-        int chaves, n;
-        boolean validar = true;
+        int n;
 
-        System.out.println("\nMenu 2 - Criar um Boletim pelo utilizador");
+        System.out.println("\nMenu 2 - Criar um Boletim Utilizador");
         System.out.println("Regras: escolha 5 números e 2 estrelas por chave");
-        // Validamos maximo de chaves
-        do {
-            System.out.println("Quantas chaves deseja jogar? (Máximo 5)");
-            chaves = in.nextInt();
-            if (chaves <= 5) {
-                validar = false;
-            } else {
-                System.out.println("\nA quantidade de chaves não pode ser superior a 5!\n");
-            }
-        } while (validar);
+        int chaves = chavesQTD();
+
         // Ciclo para criar quantidades de chaves
         for (int i = 0; i < chaves; i++) {
             System.out.println("<- Chave " + (i + 1) + " ->");
+
             // 5 numeros pelo utiliador
             while (numeros.size() < 5) {
                 System.out.print("numero " + (numeros.size() + 1) + ": ");
@@ -122,8 +121,26 @@ public class Main {
             estrelas.clear();
             utilizadorChave.clear();
         }
+        GerarChaveAle(chaveVencedora);
+        CompararChaves(chavesUtilizador);
     }
-    //-------------------------------------------------------
+
+    private static int chavesQTD() {
+        int n;
+        boolean validar = true;
+        // Validamos maximo de chaves
+        do {
+            System.out.println("Quantas chaves deseja jogar? (Máximo 5)");
+            n = in.nextInt();
+            if (n > 0 & n <= 5) {
+                validar = false;
+            } else {
+                System.out.println("\nA quantidade de chaves invalida!\n");
+            }
+        } while (validar);
+
+        return n;
+    }
 
     private static void CompararChaves(ArrayList<ArrayList<Integer>> chaveComparar) {
         // Ciclo quantidades de chaves
@@ -161,11 +178,11 @@ public class Main {
     private static void SimularVencedor() {
         System.out.println("\nMenu 1 - Simular um sorteio vencedor");
         System.out.print("Chave Vencedora: ");
-        GerarChaveVencedora();
+        GerarChaveAle(chaveVencedora);
         MostrarChaves(chaveVencedora);
     }
 
-    private static void GerarChaveVencedora() {
+    private static void GerarChaveAle(ArrayList<Integer> chave) {
         chaveVencedora.clear();
         ArrayList<Integer> numeros = new ArrayList<>();
         ArrayList<Integer> estrelas = new ArrayList<>();
@@ -188,8 +205,8 @@ public class Main {
         Collections.sort(numeros);
         Collections.sort(estrelas);
         // Unimos chaves na chaveVencedora
-        chaveVencedora.addAll(numeros);
-        chaveVencedora.addAll(estrelas);
+        chave.addAll(numeros);
+        chave.addAll(estrelas);
     }
 
     private static void MostrarChaves(ArrayList<Integer> chave) {
