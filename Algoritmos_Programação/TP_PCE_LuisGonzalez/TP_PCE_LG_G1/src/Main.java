@@ -30,7 +30,6 @@ public class Main {
             System.out.println("3- Criar um Boletim Aleatorio");
             System.out.println("4- Simulação quantidade de vezes para Ganhar");
             System.out.println("0- Sair");
-            // Validação valor não numérico
             try {
                 op = in.nextInt();
                 in = new Scanner(System.in);
@@ -42,6 +41,7 @@ public class Main {
 
             switch (op) {
                 case 0:
+                    System.out.println(verde + "Obrigado por participar! Até breve.");
                     break;
                 case 1:
                     SimularVencedor();
@@ -56,7 +56,7 @@ public class Main {
                     SimularGanhar();
                     break;
                 default:
-                    System.out.println("Opção invalida!\n");
+                    System.out.println(amarelo + "Opção invalida!\n" + reset);
             }
         } while (op != 0);
 
@@ -188,7 +188,6 @@ public class Main {
         boolean validar = true;
         // Validamos maximo de chaves
         do {
-            // Validação valor não numérico
             try {
                 System.out.println("Quantas chaves deseja jogar? (Máximo 5)");
                 n = in.nextInt();
