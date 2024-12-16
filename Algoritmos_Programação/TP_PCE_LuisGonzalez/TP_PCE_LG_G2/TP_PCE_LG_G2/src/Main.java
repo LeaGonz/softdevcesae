@@ -34,14 +34,16 @@ vencedor será o que se aproximar mais do valor do peso do saco.
             System.out.println("4- Gravar em ficheiro 'Ranking de Ouvintes'");
             System.out.println("5- Ler ficheiro 'Ranking de Ouvintes'");
             System.out.println("0- Sair");
-            try {
+            op = validarOp();
+            /*try {
+                System.out.print("Opção: ");
                 op = in.nextInt();
                 in = new Scanner(System.in);
             } catch (InputMismatchException e) {
                 System.out.println(amarelo + "Opção invalida! Por favor, deve inserir um número do menu!\n" + reset);
                 in = new Scanner(System.in);
                 continue;
-            }
+            }*/
 
             switch (op) {
                 case 0:
@@ -65,21 +67,23 @@ vencedor será o que se aproximar mais do valor do peso do saco.
     }
 
     private static void MenuOvintes() {
-        int op = 1;
+        int op;
         do {
-            System.out.println(verde + "Menu Ouvintes" + reset);
+            System.out.println(verde + "\nMenu Ouvintes" + reset);
             System.out.println("1- Inserir Ouvinte");
-            System.out.println("2- Consultar Ouvintes");
+            System.out.println("2- Lista de Ouvintes");
             System.out.println("3- Remover Ouvinte");
             System.out.println("0- Voltar ao menu principal");
-            try {
+            op = validarOp();
+            /*try {
+                System.out.print("Opção: ");
                 op = in.nextInt();
                 in = new Scanner(System.in);
             } catch (InputMismatchException e) {
                 System.out.println(amarelo + "Opção invalida! Por favor, deve inserir um número do menu!\n" + reset);
                 in = new Scanner(System.in);
                 continue;
-            }
+            }*/
 
             switch (op) {
                 case 0:
@@ -88,7 +92,7 @@ vencedor será o que se aproximar mais do valor do peso do saco.
                     inserirOuvinte();
                     break;
                 case 2:
-                    consultarOuvintes();
+                    listaOuvintes();
                     break;
                 case 3:
                     removerOuvintes();
@@ -100,13 +104,24 @@ vencedor será o que se aproximar mais do valor do peso do saco.
     }
 
     private static void removerOuvintes() {
+        System.out.println(verde + "\nRemover Ouvintes" + reset);
+        if (listaOuvintes()) {
+            System.out.print("ID do ouvinte a remover: ");
+            int id = in.nextInt();
+            in = new Scanner(System.in);
+            if (id > 0 && id <= ouvintes.size()) {
+                System.out.println(ouvintes.get(id - 1) + " removido com sucesso!");
+            } else {
+                System.out.println(id + " Nao existe");
+            }
+        }
     }
 
     private static void inserirOuvinte() {
         ArrayList<Integer> ganhos = new ArrayList<>();
         boolean inserido = false;
         while (!inserido) {
-            System.out.println(verde + "Inserir Ouvinte" + reset);
+            System.out.println(verde + "\nInserir Ouvinte" + reset);
             System.out.print("Nome: ");
             String nome = in.nextLine();
             if (ouvintes.contains(nome)) {
@@ -125,7 +140,7 @@ vencedor será o que se aproximar mais do valor do peso do saco.
         }
     } // validado
 
-    private static void consultarOuvintes() {
+    private static boolean listaOuvintes() {
         if (!ouvintes.isEmpty()) {
             System.out.println(verde + "\nLista de Ouvintes" + reset);
             System.out.printf(amarelo + "%-2s| %-22s| %-8s| %-8s%n" + reset, "ID", "Nomes", "Jogos", "Jogos Acertados");
@@ -133,8 +148,27 @@ vencedor será o que se aproximar mais do valor do peso do saco.
             for (int i = 0; i < ouvintes.size(); i++) {
                 System.out.printf("%-2d| %-22s| %-8d| %-8d%n", i + 1, ouvintes.get(i), jogosTotal.get(i), jogosGanhos.get(i).getFirst());
             }
+            return true;
         } else {
-            System.out.println(amarelo + "Não existem ouvintes para mostrar! Para inserir, selecione a opção 1 do menu.\n" + reset);
+            System.out.println(amarelo + "Não existem ouvintes para mostrar! Pode inserir na opção 1 do menu.\n" + reset);
+            return false;
         }
     } // validado
+
+    private static int validarOp() {
+        boolean validar = true;
+        int op = 0;
+        do {
+            try {
+                System.out.print("Opção: ");
+                op = in.nextInt();
+                in = new Scanner(System.in);
+                validar = false;
+            } catch (InputMismatchException e) {
+                System.out.println(amarelo + "Opção invalida! Por favor, deve inserir um número do menu!\n" + reset);
+                in = new Scanner(System.in);
+            }
+        } while (validar);
+        return op;
+    }
 }
