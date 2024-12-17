@@ -69,57 +69,67 @@ vencedor será o que se aproximar mais do valor do peso do saco.
     private static void jogoSaco() {
         System.out.println(verde + "\nJOGO DO SACO" + reset);
         if (!ouvintes.isEmpty()) {
-            ArrayList<Integer> ids = new ArrayList<>();
+            ArrayList<Integer> id = new ArrayList<>();
             ArrayList<Integer> jogaram = new ArrayList<>();
-            int jogador, diferenca = 150;
-            int pesoini = rnd.nextInt(1000, 10001); // peso inicial
-            int pesoCerto = rnd.nextInt(pesoini, (pesoini + 151)); // peso certo
+            int jogador, dif = Integer.MAX_VALUE;
+            int pesoIni = rnd.nextInt(1000, 10001); // peso inicial
+            int pesoCerto = rnd.nextInt(pesoIni, (pesoIni + 151)); // peso certo
             int nJogadores = rnd.nextInt(2, ouvintes.size() + 1); // quantidades de jogadores
 
-            System.out.println("Regra: adivinhar o peso do saco. Será dado o peso inicial mais uma margem de 150g.\nEm cada jogo jogaram entre 2 a maximo " + ouvintes.size() + " jogadores.\n");
-            System.out.println(amarelo + "Adivinhe o peso do saco entre " + pesoini + "g e " + (pesoini + 150) + "g | " + nJogadores + " jogadores." + reset);
+            System.out.println("Regras: Adivinhar o peso do saco. Será dado o peso inicial mais uma margem de 150g.");
+            System.out.println("Em cada jogo jogaram entre 2 a maximo " + ouvintes.size() + " jogadores.\n");
+            System.out.println(amarelo + "Adivinhe o peso do saco entre " + pesoIni + "g e " + (pesoIni + 150) + "g | " + nJogadores + " jogadores." + reset);
+            System.out.println("-".repeat(55));
 
-            // Ciclo do turnos jogadores
+            // Ciclo turnos dos jogadores
             for (int i = 0; i < nJogadores; i++) {
-                // evitamos jogadores duplicados
+                // Evitamos jogadores duplicados
                 do {
-                    jogador = rnd.nextInt(ouvintes.size()); // jogador aleatorio
+                    jogador = rnd.nextInt(ouvintes.size()); // indice do jogador aleatorio
                 } while (jogaram.contains(jogador));
                 jogaram.add(jogador);
-                // peso jogador aleatorio
-                int pesoJogador = rnd.nextInt(pesoini, (pesoini + 151));
-                System.out.println("Jogador " + (i + 1) + ": " + ouvintes.get(jogador) + " peso: " + pesoJogador + "g.");
-                // Preenchemos jogos jogados
-                jogosTotal.set(jogador, jogosTotal.get(jogador) + 1);
-                // Acerto exato
-                if (pesoJogador == pesoCerto && diferenca != 0) {
-                    ids.clear();
-                    diferenca = 0;
-                    ids.add(jogador);
-                } else if (pesoJogador == pesoCerto) {
-                    ids.add(jogador);
-                    // Acerto mais proximo
-                } else if (Math.abs(pesoJogador - pesoCerto) < diferenca) {
-                    diferenca = Math.abs(pesoJogador - pesoCerto);
-                    ids.clear();
-                    ids.add(jogador);
-                } else if (Math.abs(pesoJogador - pesoCerto) == diferenca) {
-                    ids.add(jogador);
-                }
-            } // fim cilo
 
-            // Preenchemos acertos
-            for (int i = 0; i < ids.size(); i++) {
-                jogosGanhos.set(ids.get(i), jogosGanhos.get(i) + 1);
+                // Peso jogador aleatorio
+                int pesoJogador = rnd.nextInt(pesoIni, (pesoIni + 151));
+                System.out.println("Jogador " + (i + 1) + ": " + ouvintes.get(jogador) + " diz que o peso correto é: " + verde + pesoJogador + "g." + reset);
+
+                // Preenchemos jogos totales
+                jogosTotal.set(jogador, jogosTotal.get(jogador) + 1);
+
+                // Acerto exato
+                if (pesoJogador == pesoCerto && dif == 0) {
+                    id.add(jogador);
+
+                } else if (pesoJogador == pesoCerto) {
+                    id.clear();
+                    dif = 0;
+                    id.add(jogador);
+                    
+                    // Acerto mais próximo
+                } else if (Math.abs(pesoJogador - pesoCerto) < dif) {
+                    dif = Math.abs(pesoJogador - pesoCerto);
+                    id.clear();
+                    id.add(jogador);
+                    // Acerto mais próximo quando for mais de um jogador a dizer
+                } else if (Math.abs(pesoJogador - pesoCerto) == dif) {
+                    id.add(jogador);
+                }
+
+            } // fim ciclo
+
+            // Preenchemos acertos com arraylist id e mostramos
+            for (int i = 0; i < id.size(); i++) {
+                jogosGanhos.set(id.get(i), jogosGanhos.get(id.get(i)) + 1);
+                System.out.println(ouvintes.get(id.get(i)) + verde + " acertou!" + reset);
             }
 
-            // Mostramos lista
-            listaOuvintes();
+            // Mostramos vencedores
+            //listaOuvintes();
         } else {
             System.out.println(amarelo + "Não existem ouvintes para jogar! Por favor, insira ouvintes." + reset);
         }
 
-    }
+    } // validado
 
     private static void menuOvintes() {
         int op;
