@@ -24,7 +24,15 @@ Faça uma aplicação que permita aos ouvintes jogar no “Jogo do Saco”. Impl
 Em cada jogo devem ser selecionados de forma aleatória quais os ouvintes que vão jogar e a sua ordem. Em cada jogo o
 vencedor será o que se aproximar mais do valor do peso do saco.
          */
-
+        ouvintes.add("luis");
+        ouvintes.add("andreina");
+        ouvintes.add("anabela");
+        jogosTotal.add(0);
+        jogosTotal.add(0);
+        jogosTotal.add(0);
+        jogosGanhos.add(0);
+        jogosGanhos.add(0);
+        jogosGanhos.add(0);
         int op;
         do {
             System.out.println(verde + "\nBEM-VINDO AO JOGO DO SACO" + reset);
@@ -60,18 +68,56 @@ vencedor será o que se aproximar mais do valor do peso do saco.
 
     private static void jogoSaco() {
         System.out.println(verde + "\nJOGO DO SACO" + reset);
-        System.out.println("Regra: adivinhar o peso do saco. Será dado o peso inicial mais uma margem de 150g.\nEm cada ronda jogaram entra 2 a 4 jogadores.\n");
         if (!ouvintes.isEmpty()) {
-            int pesoini = rnd.nextInt(4000, 5001);
-            int pesoCerto = rnd.nextInt(pesoini, (pesoini + 150));
-            System.out.println("Adivinhe o peso do saco entre " + pesoini + "g e " + (pesoini + 150) + "g.");
-            int jogador = rnd.nextInt(ouvintes.size());
-            int pesoJogador = rnd.nextInt(pesoini, (pesoini + 150));
-            System.out.println("Jogador: " + ouvintes.get(jogador) + " peso: " + pesoJogador + "g.");
+            ArrayList<Integer> ids = new ArrayList<>();
+            ArrayList<Integer> jogaram = new ArrayList<>();
+            int jogador, diferenca = 150;
+            int pesoini = rnd.nextInt(1000, 10001); // peso inicial
+            int pesoCerto = rnd.nextInt(pesoini, (pesoini + 151)); // peso certo
+            int nJogadores = rnd.nextInt(2, ouvintes.size() + 1); // quantidades de jogadores
+
+            System.out.println("Regra: adivinhar o peso do saco. Será dado o peso inicial mais uma margem de 150g.\nEm cada jogo jogaram entre 2 a maximo " + ouvintes.size() + " jogadores.\n");
+            System.out.println(amarelo + "Adivinhe o peso do saco entre " + pesoini + "g e " + (pesoini + 150) + "g | " + nJogadores + " jogadores." + reset);
+
+            // Ciclo do turnos jogadores
+            for (int i = 0; i < nJogadores; i++) {
+                // evitamos jogadores duplicados
+                do {
+                    jogador = rnd.nextInt(ouvintes.size()); // jogador aleatorio
+                } while (jogaram.contains(jogador));
+                jogaram.add(jogador);
+                // peso jogador aleatorio
+                int pesoJogador = rnd.nextInt(pesoini, (pesoini + 151));
+                System.out.println("Jogador " + (i + 1) + ": " + ouvintes.get(jogador) + " peso: " + pesoJogador + "g.");
+                // Preenchemos jogos jogados
+                jogosTotal.set(jogador, jogosTotal.get(jogador) + 1);
+                // Acerto exato
+                if (pesoJogador == pesoCerto && diferenca != 0) {
+                    ids.clear();
+                    diferenca = 0;
+                    ids.add(jogador);
+                } else if (pesoJogador == pesoCerto) {
+                    ids.add(jogador);
+                    // Acerto mais proximo
+                } else if (Math.abs(pesoJogador - pesoCerto) < diferenca) {
+                    diferenca = Math.abs(pesoJogador - pesoCerto);
+                    ids.clear();
+                    ids.add(jogador);
+                } else if (Math.abs(pesoJogador - pesoCerto) == diferenca) {
+                    ids.add(jogador);
+                }
+            } // fim cilo
+
+            // Preenchemos acertos
+            for (int i = 0; i < ids.size(); i++) {
+                jogosGanhos.set(ids.get(i), jogosGanhos.get(i) + 1);
+            }
+
+            // Mostramos lista
+            listaOuvintes();
         } else {
             System.out.println(amarelo + "Não existem ouvintes para jogar! Por favor, insira ouvintes." + reset);
         }
-
 
     }
 
