@@ -1,18 +1,13 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 
 /*
 O INE pretende um programa informático para a elaboração das estatísticas e apresentação dos resultados do último ato
 eleitoral. Para cada um dos distritos, existe a seguinte informação: o número de votantes inscritos, o número de votos
 nulos, o número de votos em branco e o número de votos de cada um dos partidos concorrentes.
 Com o intuito de satisfazer as necessidades do INE implemente as seguintes funcionalidades:
-
-1.Leitura - efetua o preenchimento do nome dos distritos, eleitores inscritos, votos nulos, votos brancos e votação
-em cada partido. É disponibilizado um ficheiro de texto com a informação da eleição no seguinte formato:
-Distrito|inscritos|votantes|nulos|brancos|ad|ps|ch|il|be
-2. Visualização - visualiza a informação no seguinte formato:
 
 3. Total de Votantes por Distrito - acrescenta informação relativa ao total de votantes por distrito e retorna o distrito
 com maior número de votos depositados nas urnas. Ter em atenção que pode ser mais do que um distrito.
@@ -47,7 +42,8 @@ public class Main {
     static final String verde = "\033[0;32m";
     static final String amarelo = "\033[0;33m";
     // Variaveis principais
-    static ArrayList<String> distrito = new ArrayList<>();
+    static ArrayList<Integer> indices = new ArrayList<>();
+    static ArrayList<String> distritos = new ArrayList<>();
     static ArrayList<Integer> inscritos = new ArrayList<>();
     static ArrayList<Integer> votantes = new ArrayList<>();
     static ArrayList<Integer> nulos = new ArrayList<>();
@@ -64,7 +60,10 @@ public class Main {
         int op;
         do {
             System.out.println(verde + "\nINE | Instituto Nacional de Estatística " + reset);
-            System.out.println("1- Atualizar Base de datos do Sistema Eleitoral");
+            System.out.println("1- Atualizar Base de dados do Sistema Eleitoral");
+            if (!distritos.isEmpty()) {
+                System.out.println("2- Visualizar dados do Sistema Eleitoral");
+            }
             System.out.println("0- Sair");
             op = validarOpcao();
 
@@ -76,6 +75,7 @@ public class Main {
                     leituraFicheiro();
                     break;
                 case 2:
+                    visualizarDados();
                     break;
                 case 3:
                     break;
@@ -89,9 +89,73 @@ public class Main {
         } while (op != 0);
     }
 
-    private static void leituraFicheiro() {
-
+    private static boolean visualizarDados() {
+        System.out.println(verde + "\nDados do Sistema Eleitoral" + reset);
+        // Listamos tabela de dados
+        if (!distritos.isEmpty()) {
+            System.out.printf(amarelo + "%-10s| %-10s| %-10s| %-6s| %-10s| %-8s| %-8s| %-8s| %-8s| %-8s| %-10s| %-10s%n" + reset,
+                    "Distrito", "Inscritos", "Votantes", "Nulos", "Brancos", "AD", "PS", "CH", "IL", "BE", "Outros", "Total");
+            System.out.println("-".repeat(125));
+            for (int i = 0; i < distritos.size(); i++) {
+                System.out.printf(verde + "%-10s" + reset + "| %-10d| %-10d| %-6d| %-10d| %-8d| %-8d| %-8d| %-8d| %-8d| %-10d| %-10d%n",
+                        distritos.get(i), inscritos.get(i), votantes.get(i), nulos.get(i), brancos.get(i), ad.get(i), ps.get(i), ch.get(i)
+                        , il.get(i), be.get(i), 0, 0);
+            }
+            return true;
+        } else {
+            System.out.println(amarelo + "Não existem ouvintes para mostrar! Pode inserir na opção 1 do menu." + reset);
+            return false;
+        }
     }
+
+    private static void leituraFicheiro() {
+        System.out.println(verde + "\nINE | Atualizar Base de dados do Sistema Eleitoral" + reset);
+
+        try {
+            Path dirBD = Path.of("distritos.txt");
+            List<String> linhas = Files.readAllLines(dirBD);
+            // Verificamos si o ficheiro tem informação
+            if (!linhas.isEmpty()) {
+                // Limpamos as listas para receber nova informação
+                limparDados();
+                // Ciclo para preencher cada variável
+                for (String linha : linhas) {
+                    String[] lines = linha.split(";");
+                    distritos.add(lines[0]);
+                    inscritos.add(Integer.parseInt(lines[1]));
+                    votantes.add(Integer.parseInt(lines[2]));
+                    nulos.add(Integer.parseInt(lines[3]));
+                    brancos.add(Integer.parseInt(lines[4]));
+                    ad.add(Integer.parseInt(lines[5]));
+                    ps.add(Integer.parseInt(lines[6]));
+                    ch.add(Integer.parseInt(lines[7]));
+                    il.add(Integer.parseInt(lines[8]));
+                    be.add(Integer.parseInt(lines[9]));
+                }
+                System.out.println(verde + "Ficheiro lido com sucesso. Base de dados atualizada!" + reset);
+            } else {
+                System.out.println(amarelo + "Não existem dados no ficheiro." + reset);
+            }
+        } catch (IOException e) {
+            System.out.println(vermelho + "Não existe o ficheiro: " + e.getMessage() + reset);
+        }
+    }
+
+    private static void limparDados() {
+        indices.clear();
+        distritos.clear();
+        inscritos.clear();
+        votantes.clear();
+        nulos.clear();
+        brancos.clear();
+        ad.clear();
+        ps.clear();
+        ch.clear();
+        il.clear();
+        be.clear();
+        outros.clear();
+        total.clear();
+    } // validado
 
     private static int validarOpcao() {
         boolean validar = true;
