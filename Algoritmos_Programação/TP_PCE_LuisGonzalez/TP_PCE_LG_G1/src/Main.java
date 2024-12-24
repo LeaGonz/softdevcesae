@@ -41,7 +41,7 @@ public class Main {
 
             switch (op) {
                 case 0:
-                    System.out.println(verde + "Obrigado por participar! Até breve.");
+                    System.out.println(vermelho + "Obrigado por participar! Até breve.");
                     break;
                 case 1:
                     SimularVencedor();
@@ -248,14 +248,17 @@ public class Main {
                     {"11º Premio", "1", "2"},
                     {"12º Premio", "2", "1"},
                     {"13º Premio", "2", "0"}};
+            boolean premioValido = false;
             for (String[] pre : premio) {
                 int nu = Integer.parseInt(pre[1]);
                 int est = Integer.parseInt(pre[2]);
                 if (nu == acertosNum && est == acertosEstre) {
                     System.out.println(verde + "Ganhou o: " + pre[0] + reset + " Números: " + acertosNum + " Estrelas: " + acertosEstre);
+                    premioValido = true;
+                    break;
                 }
             }
-            System.out.println(vermelho + "Sem prémio nesta oportunidade." + reset);
+            if(!premioValido) System.out.println(vermelho + "Sem prémio nesta oportunidade." + reset);
         } // Fim ciclo principal
     }
 
