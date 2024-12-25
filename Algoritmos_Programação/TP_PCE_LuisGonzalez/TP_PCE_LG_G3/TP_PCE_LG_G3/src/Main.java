@@ -4,8 +4,6 @@ import java.nio.file.Path;
 import java.util.*;
 
 /*
-8. Atualização - atualiza a informação de um distrito, de acordo com os resultados de uma freguesia em que as
-eleições tiveram de se realizar num dia posterior.
 9. Email - imprime o endereço de correio eletrónico do distrito com mais votos inválidos (nulos e brancos). Ter em
 atenção que pode ser mais do que um distrito. Considerar que o endereço do distrito é composto pela 1ª, 2ª,
 penúltima e última letra do distrito + "@ine.pt".
@@ -56,6 +54,7 @@ public class Main {
                 System.out.println("4- Partido(s) com maior número de votos");
                 System.out.println("5- Partido por distrito com maior número de votos");
                 System.out.println("6- Atualização de votos por distrito");
+                System.out.println("7- Correio eletrónico do distrito com mais votos inválidos");
             }
             System.out.println("0- Sair");
             op = validarOpcao();
@@ -82,10 +81,50 @@ public class Main {
                 case 6:
                     atualizarVotos();
                     break;
+                case 7:
+                    correioEletronico();
+                    break;
                 default:
                     System.out.println(amarelo + "Opção invalida!" + reset);
             }
         } while (op != 0);
+    }
+
+    private static void correioEletronico() {
+        // Somamos os nulos/brancos por distrito, logo chamamos o metodo para criar
+        // e-mail no formato solicitado. Se o nome do distrito só tem 4 letras ou menos
+        // o e-mail vai ser igual ao nome do distrito
+        System.out.println(verde + "\nCorreio eletrónico do distrito com mais votos inválidos" + reset);
+
+        // Somamos os nulos e brancos de cada distrito e armazenamos no arraylist temp
+        ArrayList<Integer> invalidos = new ArrayList<>();
+        for (int i = 0; i < distritos.size(); i++) {
+            invalidos.add(nulos.get(i) + brancos.get(i));
+        }
+        // Obtemos o maior
+        int maior = Collections.max(invalidos);
+
+        // Geramos o(s) email(s)
+        for (int i = 0; i < distritos.size(); i++) {
+            if (invalidos.get(i) == maior) {
+                String distrito = distritos.get(i).trim().toLowerCase();
+                String email = gerarEmail(distrito);
+                System.out.println(distritos.get(i) + ": " + amarelo + email + reset);
+            }
+        }
+    }
+
+    private static String gerarEmail(String distrito) {
+        // Metodo para criar o e-mail
+        String email = "";
+        if (distrito.length() > 4) {
+            email = distrito.substring(0, 2);
+            email += distrito.substring(distrito.length() - 2);
+        } else {
+            email = distrito;
+        }
+        email += "@ine.pt";
+        return email;
     }
 
     private static void atualizarVotos() {
@@ -207,7 +246,7 @@ public class Main {
                 for (int i = 0; i < principais.size(); i++) {
                     principais.get(i).set(id, temporais.get(i).get(id));
                 }
-                total.set(id,totalSoma(id));
+                total.set(id, totalSoma(id));
                 System.out.println(verde + "Dados atualizados com sucesso para o distrito: "
                         + amarelo + distritos.get(id) + reset);
                 mostrarTabela(index);
