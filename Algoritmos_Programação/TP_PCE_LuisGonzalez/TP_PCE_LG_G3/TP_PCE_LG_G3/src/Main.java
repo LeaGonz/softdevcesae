@@ -1,14 +1,12 @@
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+import static java.io.File.*;
+
 /*
-9. Email - imprime o endereço de correio eletrónico do distrito com mais votos inválidos (nulos e brancos). Ter em
-atenção que pode ser mais do que um distrito. Considerar que o endereço do distrito é composto pela 1ª, 2ª,
-penúltima e última letra do distrito + "@ine.pt".
-10. Guardar Informacao - guarda no ficheiro de texto “distritos.txt” e em linhas diferentes a informação disponível
-de cada um dos distritos no formato da alínea 1.
 11. Validador:
 a. Não é possível que o somatório dos votos de um distrito ser superior aos inscritos;
 b. Sempre que haja uma alteração num valor das colunas inscritos, votantes, nulos, brancos, ad, ps, ch, il
@@ -55,6 +53,7 @@ public class Main {
                 System.out.println("5- Partido por distrito com maior número de votos");
                 System.out.println("6- Atualização de votos por distrito");
                 System.out.println("7- Correio eletrónico do distrito com mais votos inválidos");
+                System.out.println("8- Guardar dados no ficheiro");
             }
             System.out.println("0- Sair");
             op = validarOpcao();
@@ -84,10 +83,43 @@ public class Main {
                 case 7:
                     correioEletronico();
                     break;
+                case 8:
+                    guardarFicheiro();
+                    break;
                 default:
                     System.out.println(amarelo + "Opção invalida!" + reset);
             }
         } while (op != 0);
+    }
+
+    private static void guardarFicheiro() {
+        System.out.println(verde + "\nGuardar dados do Sistema Eleitoral no ficheiro" + reset);
+
+        // Path do ficheiro distrito.txt
+        Path dir = Path.of("distritos.txt");
+
+        // Guardamos no ficheiro
+        try {
+            String lines = "";
+            for (int i = 0; i < distritos.size(); i++) {
+                // Criamos cada linha no formato solicitado
+                lines += (distritos.get(i) + ";" +
+                        inscritos.get(i) + ";" +
+                        votantes.get(i) + ";" +
+                        nulos.get(i) + ";" +
+                        brancos.get(i) + ";" +
+                        ad.get(i) + ";" +
+                        ps.get(i) + ";" +
+                        ch.get(i) + ";" +
+                        il.get(i) + ";" +
+                        be.get(i) + "\n");
+            }
+            // Escrevemos no ficheiro
+            Files.writeString(dir, lines);
+            System.out.println(amarelo + "Ficheiro criado com sucesso!" + reset);
+        } catch (IOException e) {
+            System.out.println(vermelho + e.getMessage() + reset);
+        }
     }
 
     private static void correioEletronico() {
@@ -112,7 +144,7 @@ public class Main {
                 System.out.println(distritos.get(i) + ": " + amarelo + email + reset);
             }
         }
-    }
+    } // validado
 
     private static String gerarEmail(String distrito) {
         // Metodo para criar o e-mail
@@ -125,7 +157,7 @@ public class Main {
         }
         email += "@ine.pt";
         return email;
-    }
+    } // validado
 
     private static void atualizarVotos() {
         // Ciclo do menu
