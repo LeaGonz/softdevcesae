@@ -19,6 +19,7 @@ c. Quando um ficheiro é carregado tem de ser verificado se os valores inseridos
 não podem ser menos que total de votantes; votantes tem de ser igual a soma de nulos, brancos, ad, ps,
 ch, il, be e outros).
  */
+
 public class Main {
     static Scanner in = new Scanner(System.in);
     static Random rnd = new Random();
@@ -151,27 +152,74 @@ public class Main {
         // Ciclo do menu
         int valor;
         System.out.println("Selecione os votos a atualizar | " + amarelo + "Instruções:" + reset + " o novo valor será " +
-                "somado ao valor atual, portanto, só deve inserir os novos votos da freguesia faltante. " +
+                "somado ao valor atual, portanto, só deve inserir os novos votos da freguesia faltante.\n" +
                 "Inserir zero(0) no caso de não haver novos votos.\n");
 
-        // Ciclo para solicitar cada valor
-        List<ArrayList<Integer>> votos = List.of(nulosTemp, brancosTemp, adTemp, psTemp, chTemp, ilTemp, beTemp, outrosTemp);
+        List<ArrayList<Integer>> temporais = List.of(nulosTemp, brancosTemp, adTemp, psTemp, chTemp, ilTemp,
+                beTemp, outrosTemp, votantesTemp);
         String[] nomes = {"nulos", "brancos", "AD", "PS", "CH", "IL", "BE", "outros"};
 
-        for (int i = 0; i < votos.size(); i++) {
-            System.out.println("Votos " + nomes[i] + " atuais: " + amarelo + votos.get(i).get(id) + reset);
+        // Inicio ciclo principal
+        for (int i = 0; i < temporais.size() - 1; i++) {
+            System.out.println("Votos " + nomes[i] + " atuais: " + amarelo + temporais.get(i).get(id) + reset +
+                    " | Votantes atuais: " + amarelo + votantesTemp.get(id) + reset +
+                    " | Total inscritos: " + vermelho + inscritos.get(id) + reset);
             // Verificamos que seja um valor numérico
             valor = validarValor();
 
-            // Validamos se novo (valor + votos atuais) + votantes, não é maior a inscritos
-            int somaValor = (valor + votos.get(i).get(id));
-            int validarInscritos = somaValor + votantes.get(id);
+            // Validamos se novo (valor + partido votos atuais) + votantes, é ou não maior aos inscritos
+            int somaValor = (valor + temporais.get(i).get(id));
+            int validarInscritos = valor + votantesTemp.get(id);
             if (validarInscritos <= inscritos.get(id)) {
                 System.out.println("Novos votos " + nomes[i] + ": " + somaValor + "\n");
+                // Atualizamos votantes e partido votos atuais da opção atual
+                votantesTemp.set(id, validarInscritos);
+                temporais.get(i).set(id, somaValor);
+                if (validarInscritos == inscritos.get(id)) {
+                    System.out.println(amarelo + "Total de votantes igual ao total de inscritos, não é possivel inserir mais votos.\n" + reset);
+                    break;
+                }
+            } else {
+                System.out.println(amarelo + "\nQuantidade de votos invalida. O total de votos não pode ser maior ao total de " +
+                        "inscritos: " + vermelho + inscritos.get(id) + reset + "\n");
+                i--;
+            }
+        } // Fim ciclo principal
+
+        // Mostramos novos dados inseridos pelo utilizador.
+        System.out.println(verde + "Novos votos para o distrito: " + amarelo + distritos.get(id) + reset);
+        System.out.println("-".repeat(100));
+        System.out.printf(amarelo + "%-10s| %-6s| %-10s| %-8s| %-8s| %-8s| %-8s| %-8s| %-10s%n" + reset,
+                "Votantes", "Nulos", "Brancos", "AD", "PS", "CH", "IL", "BE", "Outros");
+        System.out.println("-".repeat(100));
+        System.out.printf("%-10s| %-6s| %-10s| %-8s| %-8s| %-8s| %-8s| %-8s| %-10s%n", votantesTemp.get(id),
+                nulosTemp.get(id), brancosTemp.get(id), adTemp.get(id), psTemp.get(id), chTemp.get(id),
+                ilTemp.get(id), beTemp.get(id), outrosTemp.get(id));
+
+        // Perguntamos se os dados são validos, se sim, atualizamos arrayList principais
+        while (true) {
+            System.out.println("\nOs dados inseridos são corretos? S/N");
+            String confirmar = in.nextLine().trim().toUpperCase();
+            if ("S".equals(confirmar)) {
+                // Atualiamos todos os arrayList principais com os temporais
+                ArrayList<Integer> index = new ArrayList<>();
+                List<ArrayList<Integer>> principais = List.of(nulos, brancos, ad, ps, ch, il, be, outros, votantes);
+                for (int i = 0; i < principais.size(); i++) {
+                    principais.get(i).set(id, temporais.get(i).get(id));
+                }
+                total.set(id,totalSoma(id));
+                System.out.println(verde + "Dados atualizados com sucesso para o distrito: "
+                        + amarelo + distritos.get(id) + reset);
+                mostrarTabela(index);
+                break;
+            } else if ("N".equals(confirmar)) {
+                System.out.println(vermelho + "Os dados não foram atualizados. Pode inserir novamente." + reset);
+                break;
+            } else {
+                System.out.println("Opção invalida!");
             }
         }
-
-    }
+    } // validado a medias
 
     private static int validarValor() {
         boolean validar = true;
@@ -181,7 +229,7 @@ public class Main {
                 System.out.print("Nova quantidade de votos: ");
                 valor = in.nextInt();
                 in = new Scanner(System.in);
-                if (valor > 0) validar = false;
+                if (valor >= 0) validar = false;
                 else System.out.println(amarelo + "O valor não pode ser negativo.\n" + reset);
             } catch (InputMismatchException e) {
                 System.out.println(amarelo + "O valor deve ser numérico!\n" + reset);
@@ -190,7 +238,6 @@ public class Main {
         } while (validar);
         return valor;
     } // validado
-
 
     private static void distritosPartidosMaisVotos() {
         listaPartidos();
