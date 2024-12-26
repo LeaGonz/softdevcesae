@@ -1,10 +1,7 @@
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-
-import static java.io.File.*;
 
 /*
 11. Validador:
@@ -98,7 +95,7 @@ public class Main {
         // Path do ficheiro distrito.txt
         Path dir = Path.of("distritos.txt");
 
-        // Guardamos no ficheiro
+        // Ciclo para ler linhas e criar string com o formato solicitado
         try {
             String lines = "";
             for (int i = 0; i < distritos.size(); i++) {
@@ -126,9 +123,10 @@ public class Main {
         // Somamos os nulos/brancos por distrito, logo chamamos o metodo para criar
         // e-mail no formato solicitado. Se o nome do distrito só tem 4 letras ou menos
         // o e-mail vai ser igual ao nome do distrito
+
         System.out.println(verde + "\nCorreio eletrónico do distrito com mais votos inválidos" + reset);
 
-        // Somamos os nulos e brancos de cada distrito e armazenamos no arraylist temp
+        // Somamos os nulos e brancos de cada distrito e armazenamos num arraylist temp
         ArrayList<Integer> invalidos = new ArrayList<>();
         for (int i = 0; i < distritos.size(); i++) {
             invalidos.add(nulos.get(i) + brancos.get(i));
@@ -136,7 +134,7 @@ public class Main {
         // Obtemos o maior
         int maior = Collections.max(invalidos);
 
-        // Geramos o(s) email(s)
+        // Geramos o(s) email(s) do(s) maior(es)
         for (int i = 0; i < distritos.size(); i++) {
             if (invalidos.get(i) == maior) {
                 String distrito = distritos.get(i).trim().toLowerCase();
@@ -144,10 +142,11 @@ public class Main {
                 System.out.println(distritos.get(i) + ": " + amarelo + email + reset);
             }
         }
-    } // validado
+    }
 
     private static String gerarEmail(String distrito) {
-        // Metodo para criar o e-mail
+        // Metodo para criar o e-mail. Se o nome do distrito só tem 4 letras ou menos
+        // O e-mail vai ser igual ao nome do distrito
         String email = "";
         if (distrito.length() > 4) {
             email = distrito.substring(0, 2);
@@ -157,10 +156,10 @@ public class Main {
         }
         email += "@ine.pt";
         return email;
-    } // validado
+    }
 
     private static void atualizarVotos() {
-        // Ciclo do menu
+        // Ciclo do menu principal
         int op;
         do {
             System.out.println(verde + "\nAtualização de votos" + reset);
@@ -170,6 +169,7 @@ public class Main {
 
             switch (op) {
                 case 0:
+                    System.out.println(amarelo + "Voltando ao menu anterior..." + reset);
                     break;
                 case 1:
                     selecionarDistrito();
@@ -178,37 +178,41 @@ public class Main {
                     System.out.println(amarelo + "Opção invalida!" + reset);
             }
         } while (op != 0);
-
     }
 
     private static void selecionarDistrito() {
-        // Ciclo para novos valores
+        // Ciclo menu dos distritos, mostramos a listagem dos distritos e selecionamos por ID
         while (true) {
             System.out.println();
             System.out.println("-".repeat(15));
             System.out.printf(amarelo + "%-3s| %-12s%n" + reset, "ID", "Distritos");
             System.out.println("-".repeat(15));
-            // Mostro o listado dos distritos
+            // Mostro o listado dos distritos e ID
             for (int i = 0; i < distritos.size(); i++) {
                 System.out.printf(verde + "%-3d|" + reset + " %-12s%n", i + 1, distritos.get(i));
             }
-            // Solicito o id do distrito
+
+            // Solicito o ID do distrito, se utilizador escrever 0, voltamos ao menu anterior
             System.out.println("\nInsira o ID do distrito a editar. (zero(0) para voltar ao menu anterior) ");
             int id = validarOpcao();
-            // Validamos se ID é valido
+
+            // Validamos se ID é valido e passamos o id do distrito a atualizar ao metodo 'atualizarDadosDistrito'
             if (id > 0 && id <= distritos.size()) {
                 atualizarDadosDistrito((id - 1));
                 break;
             } else if (id == 0) {
+                System.out.println(amarelo + "Voltando ao menu anterior..." + reset);
                 break;
             } else {
-                System.out.println(amarelo + "Não existe distrito com o ID indicado. Insira um do listado:" + reset);
+                System.out.println(amarelo + "Não existe distrito com o ID indicado. Insira um da listagem:" + reset);
             }
         }
     }
 
     private static void atualizarDadosDistrito(int id) {
-        // Variaveis temporais
+        /* Variáveis temporais, usamos só para ter os dados antes de passar as variáveis principais
+        deste modo não atualizo a informação sem o utilizador estar completamente seguro de o fazer*/
+
         ArrayList<Integer> votantesTemp = new ArrayList<>(votantes);
         ArrayList<Integer> nulosTemp = new ArrayList<>(nulos);
         ArrayList<Integer> brancosTemp = new ArrayList<>(brancos);
@@ -220,34 +224,43 @@ public class Main {
         ArrayList<Integer> outrosTemp = new ArrayList<>(outros);
 
         System.out.println(verde + "\nAtualizar dados do distrito: " + amarelo + distritos.get(id) + reset);
+
         // Ciclo do menu
         int valor;
         System.out.println("Selecione os votos a atualizar | " + amarelo + "Instruções:" + reset + " o novo valor será " +
-                "somado ao valor atual, portanto, só deve inserir os novos votos da freguesia faltante.\n" +
+                "somado ao valor atual, portanto, só deve inserir os novos votos da freguesia restante.\n" +
                 "Inserir zero(0) no caso de não haver novos votos.\n");
 
+        // Criamos uma lista com as variáveis temporais e nomes, assim damos melhor manuseio no ciclo
         List<ArrayList<Integer>> temporais = List.of(nulosTemp, brancosTemp, adTemp, psTemp, chTemp, ilTemp,
                 beTemp, outrosTemp, votantesTemp);
         String[] nomes = {"nulos", "brancos", "AD", "PS", "CH", "IL", "BE", "outros"};
 
-        // Inicio ciclo principal
+        /* Inicio ciclo principal, vamos até (temporais −1) porque não é preciso atualizar votantesTemp
+         manualmente, os dados de votantes são calculados de maneira automática */
+
         for (int i = 0; i < temporais.size() - 1; i++) {
             System.out.println("Votos " + nomes[i] + " atuais: " + amarelo + temporais.get(i).get(id) + reset +
                     " | Votantes atuais: " + amarelo + votantesTemp.get(id) + reset +
                     " | Total inscritos: " + vermelho + inscritos.get(id) + reset);
             // Verificamos que seja um valor numérico
-            valor = validarValor();
+            valor = validarValor(nomes[i]);
 
-            // Validamos se novo (valor + partido votos atuais) + votantes, é ou não maior aos inscritos
-            int somaValor = (valor + temporais.get(i).get(id));
+            int novoValor = (valor + temporais.get(i).get(id));
+            // Validamos se novo (valor + votantes), é ou não maior aos inscritos
             int validarInscritos = valor + votantesTemp.get(id);
+
             if (validarInscritos <= inscritos.get(id)) {
-                System.out.println("Novos votos " + nomes[i] + ": " + somaValor + "\n");
-                // Atualizamos votantes e partido votos atuais da opção atual
+                System.out.println("Novos votos " + nomes[i] + ": " + novoValor + "\n");
+                // Atualizamos votantes e votos atuais da opção escolhida
                 votantesTemp.set(id, validarInscritos);
-                temporais.get(i).set(id, somaValor);
-                if (validarInscritos == inscritos.get(id)) {
-                    System.out.println(amarelo + "Total de votantes igual ao total de inscritos, não é possivel inserir mais votos.\n" + reset);
+                temporais.get(i).set(id, novoValor);
+
+                /* Se quantidade de votantes igual à quantidade de inscritos, saímos do ciclo
+                e não é possível inserir mais votos */
+
+                if (votantesTemp.get(id).equals(inscritos.get(id))) {
+                    System.out.println(amarelo + "Total de votantes igual ao total de inscritos, não é possível inserir mais votos.\n" + reset);
                     break;
                 }
             } else {
@@ -272,15 +285,19 @@ public class Main {
             System.out.println("\nOs dados inseridos são corretos? S/N");
             String confirmar = in.nextLine().trim().toUpperCase();
             if ("S".equals(confirmar)) {
-                // Atualiamos todos os arrayList principais com os temporais
+                // Atualizamos todos os arrayList principais com os temporais
                 ArrayList<Integer> index = new ArrayList<>();
                 List<ArrayList<Integer>> principais = List.of(nulos, brancos, ad, ps, ch, il, be, outros, votantes);
                 for (int i = 0; i < principais.size(); i++) {
                     principais.get(i).set(id, temporais.get(i).get(id));
                 }
+
+                // Atualizamos total de votos com o metodo "totalSoma"
                 total.set(id, totalSoma(id));
                 System.out.println(verde + "Dados atualizados com sucesso para o distrito: "
                         + amarelo + distritos.get(id) + reset);
+
+                // Mostramos tabela principal com todos os dados atualizados
                 mostrarTabela(index);
                 break;
             } else if ("N".equals(confirmar)) {
@@ -290,25 +307,24 @@ public class Main {
                 System.out.println("Opção invalida!");
             }
         }
-    } // validado a medias
+    }
 
-    private static int validarValor() {
-        boolean validar = true;
+    private static int validarValor(String nome) {
         int valor = 0;
-        do {
+        while (true) {
             try {
-                System.out.print("Nova quantidade de votos: ");
+                System.out.print("Nova quantidade de votos " + nome + ": ");
                 valor = in.nextInt();
                 in = new Scanner(System.in);
-                if (valor >= 0) validar = false;
+                if (valor >= 0) break;
                 else System.out.println(amarelo + "O valor não pode ser negativo.\n" + reset);
             } catch (InputMismatchException e) {
-                System.out.println(amarelo + "O valor deve ser numérico!\n" + reset);
+                System.out.println(amarelo + "O valor não é valido!\n" + reset);
                 in = new Scanner(System.in);
             }
-        } while (validar);
+        }
         return valor;
-    } // validado
+    }
 
     private static void distritosPartidosMaisVotos() {
         listaPartidos();
@@ -548,19 +564,19 @@ public class Main {
     } // validado
 
     private static int validarOpcao() {
-        boolean validar = true;
+        // Neste metodo validamos se o input é numérico e valido
         int op = 0;
-        do {
+        while (true) {
             try {
                 System.out.print("Opção: ");
                 op = in.nextInt();
                 in = new Scanner(System.in);
-                validar = false;
+                break;
             } catch (InputMismatchException e) {
                 System.out.println(amarelo + "Opção invalida! Por favor, deve inserir um número do menu!\n" + reset);
                 in = new Scanner(System.in);
             }
-        } while (validar);
+        }
         return op;
-    } // validado
+    }
 }
