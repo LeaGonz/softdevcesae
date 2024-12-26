@@ -3,16 +3,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-/*
-11. Validador:
-a. Não é possível que o somatório dos votos de um distrito ser superior aos inscritos;
-b. Sempre que haja uma alteração num valor das colunas inscritos, votantes, nulos, brancos, ad, ps, ch, il
-ou be, a diferença tem de ser calculada nos outros.
-c. Quando um ficheiro é carregado tem de ser verificado se os valores inseridos são ou não válidos (inscritos
-não podem ser menos que total de votantes; votantes tem de ser igual a soma de nulos, brancos, ad, ps,
-ch, il, be e outros).
- */
-
 public class Main {
     static Scanner in = new Scanner(System.in);
     static Random rnd = new Random();
@@ -211,8 +201,7 @@ public class Main {
 
     private static void atualizarDadosDistrito(int id) {
         /* Variáveis temporais, usamos só para ter os dados antes de passar as variáveis principais
-        deste modo não atualizo a informação sem o utilizador estar completamente seguro de o fazer*/
-
+        deste modo não atualizo a informação sem o utilizador estar completamente seguro de o fazer */
         ArrayList<Integer> votantesTemp = new ArrayList<>(votantes);
         ArrayList<Integer> nulosTemp = new ArrayList<>(nulos);
         ArrayList<Integer> brancosTemp = new ArrayList<>(brancos);
@@ -222,11 +211,11 @@ public class Main {
         ArrayList<Integer> ilTemp = new ArrayList<>(il);
         ArrayList<Integer> beTemp = new ArrayList<>(be);
         ArrayList<Integer> outrosTemp = new ArrayList<>(outros);
+        /* -----------------------------------------------------------------------------------------*/
 
         System.out.println(verde + "\nAtualizar dados do distrito: " + amarelo + distritos.get(id) + reset);
 
         // Ciclo do menu
-        int valor;
         System.out.println("Selecione os votos a atualizar | " + amarelo + "Instruções:" + reset + " o novo valor será " +
                 "somado ao valor atual, portanto, só deve inserir os novos votos da freguesia restante.\n" +
                 "Inserir zero(0) no caso de não haver novos votos.\n");
@@ -239,6 +228,7 @@ public class Main {
         /* Inicio ciclo principal, vamos até (temporais −1) porque não é preciso atualizar votantesTemp
          manualmente, os dados de votantes são calculados de maneira automática */
 
+        int valor;
         for (int i = 0; i < temporais.size() - 1; i++) {
             System.out.println("Votos " + nomes[i] + " atuais: " + amarelo + temporais.get(i).get(id) + reset +
                     " | Votantes atuais: " + amarelo + votantesTemp.get(id) + reset +
@@ -271,14 +261,7 @@ public class Main {
         } // Fim ciclo principal
 
         // Mostramos novos dados inseridos pelo utilizador.
-        System.out.println(verde + "Novos votos para o distrito: " + amarelo + distritos.get(id) + reset);
-        System.out.println("-".repeat(100));
-        System.out.printf(amarelo + "%-10s| %-6s| %-10s| %-8s| %-8s| %-8s| %-8s| %-8s| %-10s%n" + reset,
-                "Votantes", "Nulos", "Brancos", "AD", "PS", "CH", "IL", "BE", "Outros");
-        System.out.println("-".repeat(100));
-        System.out.printf("%-10s| %-6s| %-10s| %-8s| %-8s| %-8s| %-8s| %-8s| %-10s%n", votantesTemp.get(id),
-                nulosTemp.get(id), brancosTemp.get(id), adTemp.get(id), psTemp.get(id), chTemp.get(id),
-                ilTemp.get(id), beTemp.get(id), outrosTemp.get(id));
+        mostrarTabelaTemp(id, temporais);
 
         // Perguntamos se os dados são validos, se sim, atualizamos arrayList principais
         while (true) {
@@ -309,6 +292,18 @@ public class Main {
         }
     }
 
+    private static void mostrarTabelaTemp(int id, List<ArrayList<Integer>> temporais) {
+        System.out.println(verde + "Novos votos para o distrito: " + amarelo + distritos.get(id) + reset);
+        System.out.println("-".repeat(100));
+        System.out.printf(amarelo + "%-10s| %-6s| %-10s| %-8s| %-8s| %-8s| %-8s| %-8s| %-10s%n" + reset,
+                "Votantes", "Nulos", "Brancos", "AD", "PS", "CH", "IL", "BE", "Outros");
+        System.out.println("-".repeat(100));
+        System.out.printf("%-10s| %-6s| %-10s| %-8s| %-8s| %-8s| %-8s| %-8s| %-10s%n", temporais.getLast().get(id),
+                temporais.getFirst().get(id), temporais.get(1).get(id), temporais.get(2).get(id),
+                temporais.get(3).get(id), temporais.get(4).get(id), temporais.get(5).get(id),
+                temporais.get(6).get(id), temporais.get(7).get(id));
+    }
+
     private static int validarValor(String nome) {
         int valor = 0;
         while (true) {
@@ -327,22 +322,27 @@ public class Main {
     }
 
     private static void distritosPartidosMaisVotos() {
+        // Lista dos nomes dos partidos
         listaPartidos();
-
         System.out.println(verde + "\nPartido por distrito com maior número de votos" + reset);
 
         // Comparamos cada partido por distrito
         List<ArrayList<Integer>> listas = List.of(ad, ps, ch, il, be, outros);
+        // Criamos um arrayList para guardar os indices dos partidos com maior votos
         ArrayList<Integer> indicesTemp = new ArrayList<>();
+
         // Percorremos cada distrito (i)
         for (int i = 0; i < distritos.size(); i++) {
             int maior = 0;
             double soma = 0;
-            // Percorremos cada partido(j) do mesmo distrito (i) e somamos os votos validos (sem nulos nem brancos)
-            // Guardamos o(s) índice(s) do(s) ganhador(es)
+
+            /* Percorremos cada partido(j) do mesmo distrito (i) e somamos os votos validos (sem nulos nem brancos)
+            Guardamos o(s) índice(s) do(s) ganhador(es) */
+
             for (int j = 0; j < listas.size(); j++) {
                 soma += listas.get(j).get(i);
-                // Verificamos qual é o maior e se há empates
+                /* Verificamos qual é o maior e se há empates, sempre que exista um maior, limpamos temp e
+                guardamos o novo índice */
                 if (listas.get(j).get(i) > maior) {
                     maior = listas.get(j).get(i);
                     indicesTemp.clear();
@@ -351,22 +351,26 @@ public class Main {
                     indicesTemp.add(j);
                 }
             }
+
+            /* Mostramos o distrito (i) e o(s) partido(s) com maior votos */
             for (Integer index : indicesTemp) {
                 System.out.printf(amarelo + "- %s" + reset + ": ganhou %s com %d votos e uma percentagem de %.2f%%%n",
                         distritos.get(i), partidos.get(index), maior, ((maior / soma) * 100));
             }
         }
-    } // validado
+    }
 
     private static void partidoMaisVotos() {
         ArrayList<Integer> index = new ArrayList<>();
-        // Lista dos partidos
+        // Lista dos nomes dos partidos
         listaPartidos();
 
         // Lista com todos os partidos
         List<ArrayList<Integer>> partido = List.of(ad, ps, ch, il, be, outros);
+
         // Arraylist para guardar soma dos votos por partido
         ArrayList<Integer> votos = new ArrayList<>();
+
         // Ciclo para calcular soma total por partido
         for (ArrayList<Integer> partidos : partido) {
             int soma = 0;
@@ -375,10 +379,13 @@ public class Main {
             }
             votos.add(soma);
         }
-        // Ordenamos e Obtemos o partido com maior números de votos
+
+        // Obtemos o partido com maior números de votos
         int maior = Collections.max(votos);
+
         // Soma do total de votos validos, VVE — votos validamente expressos (total - (nulos + brancos))
         double somaT = somaVVE();
+
         // Mostramos o(s) partido(s) com mais votos
         System.out.println(verde + "\nPartido(s) com maior número de votos | Total de votos validamente expressos: " + reset + somaT);
         for (int i = 0; i < partidos.size(); i++) {
@@ -394,8 +401,12 @@ public class Main {
     }
 
     private static void distritosMaisVotos() {
+        // Passamos o arrayLit para ordenar decrescente o arrayList "indices"
         ordenDecrescente(total);
+
+        // Temporal para guardar índices dos partidos com mais votos
         ArrayList<Integer> index = new ArrayList<>();
+
         // Mostramos os distritos com mais votos
         System.out.println(verde + "\nDistrito(s) com maior número de votos" + reset);
         for (int i = 0; i < total.size(); i++) {
