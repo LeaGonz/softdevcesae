@@ -12,9 +12,9 @@ public class Main {
     static final String verde = "\033[0;32m";
     static final String amarelo = "\033[0;33m";
     // Variaveis principais
-    static ArrayList<String> distritos = new ArrayList<>();
     static ArrayList<String> partidos = new ArrayList<>();
     static ArrayList<Integer> indices = new ArrayList<>();
+    static ArrayList<String> distritos = new ArrayList<>();
     static ArrayList<Integer> inscritos = new ArrayList<>();
     static ArrayList<Integer> votantes = new ArrayList<>();
     static ArrayList<Integer> nulos = new ArrayList<>();
@@ -45,36 +45,49 @@ public class Main {
             System.out.println("0- Sair");
             op = validarOpcao();
 
-            switch (op) {
-                case 0:
-                    System.out.println(vermelho + "INE | Até breve.");
-                    break;
-                case 1:
-                    leituraFicheiro();
-                    break;
-                case 2:
-                    visualizarDados();
-                    break;
-                case 3:
-                    distritosMaisVotos();
-                    break;
-                case 4:
-                    partidoMaisVotos();
-                    break;
-                case 5:
-                    distritosPartidosMaisVotos();
-                    break;
-                case 6:
-                    atualizarVotos();
-                    break;
-                case 7:
-                    correioEletronico();
-                    break;
-                case 8:
-                    guardarFicheiro();
-                    break;
-                default:
-                    System.out.println(amarelo + "Opção invalida!" + reset);
+            if (!distritos.isEmpty()) {
+                switch (op) {
+                    case 0:
+                        System.out.println(vermelho + "INE | Até breve.");
+                        break;
+                    case 1:
+                        leituraFicheiro();
+                        break;
+                    case 2:
+                        visualizarDados();
+                        break;
+                    case 3:
+                        distritosMaisVotos();
+                        break;
+                    case 4:
+                        partidoMaisVotos();
+                        break;
+                    case 5:
+                        distritosPartidosMaisVotos();
+                        break;
+                    case 6:
+                        atualizarVotos();
+                        break;
+                    case 7:
+                        correioEletronico();
+                        break;
+                    case 8:
+                        guardarFicheiro();
+                        break;
+                    default:
+                        System.out.println(amarelo + "Opção invalida!" + reset);
+                }
+            } else {
+                switch (op) {
+                    case 0:
+                        System.out.println(vermelho + "INE | Até breve.");
+                        break;
+                    case 1:
+                        leituraFicheiro();
+                        break;
+                    default:
+                        System.out.println(amarelo + "Opção invalida!" + reset);
+                }
             }
         } while (op != 0);
     }
@@ -463,35 +476,85 @@ public class Main {
         try {
             Path dirBD = Path.of("distritos.txt");
             List<String> linhas = Files.readAllLines(dirBD);
+
             // Verificamos se o ficheiro tem informação
             if (!linhas.isEmpty()) {
+                // Verificamos se o ficheiro tem uma linha em branco
                 // Limpamos as listas para receber nova informação
                 limparDados();
                 // Lista dos arraylist
                 List<ArrayList<Integer>> listas = List.of(inscritos, votantes, nulos, brancos, ad, ps, ch, il, be);
+
                 // Ciclo para preencher cada variável
                 for (String linha : linhas) {
-                    String[] lines = linha.split(";");
-                    distritos.add(lines[0]);
-                    // Preenchemos cada arraylist
-                    for (int i = 0; i < listas.size(); i++) {
-                        listas.get(i).add(Integer.parseInt(lines[i + 1]));
+                    if (!linha.isEmpty()) {
+                        String[] lines = linha.split(";");
+                        if (lines.length == 10) {
+                            distritos.add(lines[0]);
+                            // Preenchemos cada arraylist
+                            for (int i = 0; i < listas.size(); i++) {
+                                listas.get(i).add(Integer.parseInt(lines[i + 1].trim()));
+                            }
+                            // Validamos se inscritos não podem ser menos que total de votantes
+                            if (validarInscritos()) break;
+                        } else {
+                            System.out.println(amarelo + "Linha inválida: " + linha + reset);
+                        }
                     }
                 }
+
                 // Atualizo votos outros partidos, total de votos e os indices
                 for (int i = 0; i < distritos.size(); i++) {
                     outros.add(outrosValor(i));
                     total.add(totalSoma(i));
                     indices.add((i));
-                }
 
-                System.out.println(verde + "Ficheiro lido com sucesso." + reset + " Base de dados atualizada!");
+                    // Validamos se o total de votos é menor ou igual aos inscritos por cada partido
+                    if (validarTotal(i)) break;
+
+                } // Fim validação
+                if (!distritos.isEmpty())
+                    System.out.println(verde + "Ficheiro lido com sucesso." + reset + " Base de dados atualizada!");
+
             } else {
                 System.out.println(amarelo + "Não existem dados no ficheiro." + reset);
             }
-        } catch (IOException e) {
+
+        } catch (
+                IOException e) {
             System.out.println(vermelho + "Não existe o ficheiro: " + e.getMessage() + reset);
+        } catch (NumberFormatException e) {
+            limparDados();
+            System.out.println(vermelho + "Linha com formato inválido! Revisar ficheiro." + e.getMessage() + reset);
         }
+    }
+
+    private static boolean validarTotal(int i) {
+        /* Validamos se o total de votos é menor ou igual aos inscritos por cada partido,
+        se um partido não cumprir com esta condição, saímos do metodo é não será possível
+        continuar com a atualização da base de dados */
+        if (total.get(i) > inscritos.get(i)) {
+            System.out.println(vermelho + "O total de votos do distrito " + amarelo + distritos.get(i) +
+                    vermelho + " é superior ao número de votantes inscritos.\nNão será possível" +
+                    " continuar com a atualização da base de dados.");
+            // limpamos variaveis
+            limparDados();
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean validarInscritos() {
+        // Validamos se inscritos não podem ser menos que total de votantes
+        if (inscritos.getLast() < votantes.getLast()) {
+            System.out.println(vermelho + "O total de inscritos em " + amarelo + distritos.getLast() +
+                    vermelho + " é inferior ao número de votantes.\nNão será possível" +
+                    " continuar com a atualização da base de dados.");
+            // limpamos variaveis
+            limparDados();
+            return true;
+        }
+        return false;
     }
 
     private static void mostrarTabela(ArrayList<Integer> index) {
@@ -512,9 +575,9 @@ public class Main {
                 }
             }
         } else {
-            System.out.println(amarelo + "Não existem ouvintes para mostrar! Pode inserir na opção 1 do menu." + reset);
+            System.out.println(amarelo + "Não existe informação para mostrar!" + reset);
         }
-    } // Validado
+    }
 
     private static double somaVVE() {
         double soma = 0;
@@ -528,7 +591,7 @@ public class Main {
             soma -= n;
         }
         return soma;
-    } // validado
+    }
 
     private static int totalSoma(int i) {
         List<ArrayList<Integer>> listas = List.of(nulos, brancos, ad, ps, ch, il, be, outros);
@@ -545,7 +608,7 @@ public class Main {
         for (ArrayList<Integer> list : listas) {
             somaOutros += list.get(i);
         }
-        return votantes.get(i) - somaOutros;
+        return Math.abs(votantes.get(i) - somaOutros);
     }
 
     private static void listaPartidos() {
@@ -556,7 +619,7 @@ public class Main {
         partidos.add("IL");
         partidos.add("BE");
         partidos.add("Outros");
-    } // validado
+    }
 
     private static void limparDados() {
         indices.clear();
@@ -572,7 +635,7 @@ public class Main {
         be.clear();
         outros.clear();
         total.clear();
-    } // validado
+    }
 
     private static int validarOpcao() {
         // Neste metodo validamos se o input é numérico e valido
