@@ -12,6 +12,16 @@ body {
     font-style: normal;
 }
 
+/* Header */
+header {
+    background-image: url(/img/Montanha.jpg);
+    background-size: cover;
+    height: 816px;
+    /* padding: 110px; */
+    /* margin-bottom: 20px; */
+    color: #fff;
+}
+
 /* Footer */
 .main-container {
     min-height: 100%;
@@ -21,12 +31,10 @@ body {
 
 footer {
     background-color: #000000;
-    /* padding: 40px; */
     color: #fff;
     margin-top: auto;
 }
 
 footer a {
     color: #FFFFFF66;
-    /* margin: 5px; */
 }
