@@ -1,0 +1,5 @@
+Ranking | Nomes                 | Jogos Acertados  | Jogos   
+------------------------------------------------------------
+1       | Luis                  | 0                | 0       
+2       | Bruno                 | 0                | 0       
+3       | Anabela de Malhadas   | 0                | 0       

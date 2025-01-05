@@ -1,0 +1,32 @@
+html,
+body {
+    height: 100%;
+}
+
+/* FUENTE */
+body {
+    font-family: "Jura", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    /* <weight>: Use a value from 300 to 700 */
+    font-style: normal;
+}
+
+/* Footer */
+.main-container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    background-color: #000000;
+    /* padding: 40px; */
+    color: #fff;
+    margin-top: auto;
+}
+
+footer a {
+    color: #FFFFFF66;
+    /* margin: 5px; */
+}

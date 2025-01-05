@@ -11,16 +11,6 @@ public class Main {
     static ArrayList<Integer> chaveVencedora = new ArrayList<>();
 
     public static void main(String[] args) {
-        /*
-        O Euromilhões é um jogo de sorte ou azar no qual o jogador deve preencher uma chave composta por 5 números de 1 a
-        50 e 2 estrelas (números) de 1 a 12. Crie uma aplicação que permita ao utilizador:
-        1. Simular um sorteio (sortear uma chave vencedora que deve ser apresentada ao utilizador de forma ordenada).
-        2. Criar um boletim com 1 a 5 chaves (inseridas pelo utilizador) e comparar com a chave vencedora desse sorteio.
-        3. Criar um boletim com 1 a 5 chaves (criadas aleatoriamente) e comparar com a chave vencedora desse sorteio.
-        4. Simular quantas vezes seria necessário jogar (sempre com a mesma chave) de forma a conseguir ganhar o 1º
-        prémio (5 números e 2 estrelas).
-        Informação extra: https://www.jogossantacasa.pt/web/SCCartazResult/
-         */
         int op = 1;
         do {
             System.out.println(verde + "\nBEM-VINDO AO EUROMILHÕES" + reset);
@@ -30,7 +20,9 @@ public class Main {
             System.out.println("3- Criar um Boletim Aleatorio");
             System.out.println("4- Simulação quantidade de vezes para Ganhar");
             System.out.println("0- Sair");
+            // Validamos se o input é numérico e valido
             try {
+                System.out.print("Opção: ");
                 op = in.nextInt();
                 in = new Scanner(System.in);
             } catch (InputMismatchException e) {
@@ -63,12 +55,14 @@ public class Main {
     }
 
     private static void SimularGanhar() {
-        ArrayList<Integer> chaveUnica = new ArrayList<>();
+        /* Geramos uma chave unica do utilziador, e comparamos com diferentes chaves vencedoras, até
+        que ambas chaves sejam iguais. Contabilizamos tentativas e tempo */
         int count = 0;
         System.out.println("\nMenu 4 - Simulação quantidade de vezes para Ganhar");
         System.out.println("Regras: escolha 5 números e 2 estrelas por chave");
         System.out.println("<- Chave Unica ->");
-        // Gerar chaves utilizador
+        // Gerar chaves utilizador com o metodo "GerarChaveUti"
+        ArrayList<Integer> chaveUnica;
         chaveUnica = GerarChaveUti();
         // Mostramos chave
         MostrarChaves(chaveUnica);
@@ -81,7 +75,9 @@ public class Main {
             count++;
             // limpamos chave antes de gerar novos valores
             chaveVencedora.clear();
+            // Geramos nova chave vencedora com o metodo "GerarChaveAle"
             chaveVencedora = GerarChaveAle();
+            // Sort para logo comparar com a chave do utilizador
             Collections.sort(chaveVencedora);
             if (count % 1_000_000 == 0) {
                 System.out.println("Tentativas realizadas: " + vermelho + count + reset);
@@ -95,6 +91,8 @@ public class Main {
     }
 
     private static ArrayList<Integer> GerarChaveUti() {
+        /* Metodo para gerar chaves do utilizador, usamos arrayLists temporais para logo juntar tudo,
+        numa chave unica do utilizador, deste modo evitamos números duplicados */
         ArrayList<Integer> numeros = new ArrayList<>();
         ArrayList<Integer> estrelas = new ArrayList<>();
         ArrayList<Integer> chaveUti = new ArrayList<>();
@@ -138,15 +136,18 @@ public class Main {
                 in = new Scanner(System.in);
             }
         }
-        // Unimos listas
+        // Unimos arrayLists numa so
         chaveUti.addAll(numeros);
         chaveUti.addAll(estrelas);
         return chaveUti;
-    }// Validado
+    }
 
     private static void BoletimAleatorio() {
+        /* Metodo para criar Boletim aleatório de até 5 chaves, para logo comparar com uma
+        chave vencedora e informar ao utilizador quando uma chave ganha ou não */
+
         ArrayList<ArrayList<Integer>> chavesAleatorias = new ArrayList<>();
-        ArrayList<Integer> chave = new ArrayList<>();
+        ArrayList<Integer> chave;
         System.out.println("\nMenu 3 - Criar um Boletim Aleatorio");
         int chaves = chavesQTD();
 
@@ -155,14 +156,19 @@ public class Main {
             chave = GerarChaveAle();
             chavesAleatorias.add(chave);
         }
-        chaveVencedora.clear(); // limpamos chave antes de gerar novos valores
+
+        // limpamos chave antes de gerar novos valores
+        chaveVencedora.clear();
         chaveVencedora = GerarChaveAle();
         CompararChaves(chavesAleatorias);
     }
 
     private static void BoletimUtilizador() {
+        /* Metodo para criar Boletim por o utilizador de até 5 chaves, para logo comparar com uma
+        chave vencedora e informar ao utilizador quando uma chave ganha ou não */
+
         ArrayList<ArrayList<Integer>> chavesUtilizador = new ArrayList<>();
-        ArrayList<Integer> chave = new ArrayList<>();
+        ArrayList<Integer> chave;
 
         System.out.println("\nMenu 2 - Criar um Boletim Utilizador");
         System.out.println("Regras: escolha 5 números e 2 estrelas por chave");
@@ -178,12 +184,16 @@ public class Main {
             // Mostramos chave
             MostrarChaves(chavesUtilizador.get(i));
         }
-        chaveVencedora.clear(); // limpamos chave antes de gerar novos valores
+
+        // limpamos chave antes de gerar novos valores
+        chaveVencedora.clear();
         chaveVencedora = GerarChaveAle();
         CompararChaves(chavesUtilizador);
     }
 
     private static int chavesQTD() {
+        /* Metodo para validar o input de quantidades de chaves, e retornamos o valor da "n" com
+        a quantidade de chaves a gerar */
         int n = 0;
         boolean validar = true;
         // Validamos maximo de chaves
@@ -202,9 +212,13 @@ public class Main {
             }
         } while (validar);
         return n;
-    } // Validado
+    }
 
     private static void CompararChaves(ArrayList<ArrayList<Integer>> chaveComparar) {
+        /* Metodo para comparar chaves (aleatórias ou do utilizador) com a chave vencedora,
+        guardamos os acertos dos números e estrelas, para comparar logo com um array que contém
+         todos os possíveis prémios */
+
         // Ciclo quantidades de chaves
         for (int i = 0; i < chaveComparar.size(); i++) {
             int acertosNum = 0;
@@ -233,7 +247,10 @@ public class Main {
             MostrarChaves(chaveComparar.get(i));
             System.out.print("Chave Vencedora -> \t\t");
             MostrarChaves(chaveVencedora);
-            // Evaluamos prémios
+            /* Avaliamos prémios: comparamos a variável "acertosNum" com o índice 1 do array, e comparamos a variável
+            "acertosEstre" com o índice 2 do array, deste modo se são iguais, mostramos o índice 0, que contém
+             o nome do prémio */
+
             String[][] premio = {
                     {"1º Premio", "5", "2"},
                     {"2º Premio", "5", "1"},
@@ -263,7 +280,9 @@ public class Main {
     }
 
     private static void SimularVencedor() {
-        chaveVencedora.clear(); // limpamos chave antes de gerar novos valores
+        /* Metodo para gerar uma única chave vencedora aleatória, com o metodo "GerarChaveAle" */
+        // limpamos chave antes de gerar novos valores
+        chaveVencedora.clear();
         System.out.println("\nMenu 1 - Simular um sorteio vencedor");
         System.out.print("Chave Vencedora: ");
         chaveVencedora = GerarChaveAle();
@@ -271,6 +290,9 @@ public class Main {
     }
 
     private static ArrayList<Integer> GerarChaveAle() {
+        /* Metodo para gerar uma chave aleatória e mostrá-la ordenada, geramos os números e
+        * estrelas por separado, deste modo evitamos números duplicados */
+
         ArrayList<Integer> numeros = new ArrayList<>();
         ArrayList<Integer> estrelas = new ArrayList<>();
         ArrayList<Integer> chave = new ArrayList<>();
@@ -299,6 +321,7 @@ public class Main {
     }
 
     private static void MostrarChaves(ArrayList<Integer> chave) {
+        /* Metodo para mostrar uma chave */
         for (int i = 0; i < chave.size(); i++) {
             if (i < 5) {
                 System.out.printf(verde + "|%d|", chave.get(i));
