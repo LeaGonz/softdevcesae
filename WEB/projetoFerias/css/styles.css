@@ -4,7 +4,8 @@ body {
 }
 
 /* FUENTE */
-body {
+body,
+html {
     font-family: "Jura", serif;
     font-optical-sizing: auto;
     font-weight: 700;
@@ -14,13 +15,59 @@ body {
 
 /* Header */
 header {
+    /* Ruta de la imagen */
     background-image: url(/img/Montanha.jpg);
+    /* Ajusta la imagen para cubrir toda el área */
     background-size: cover;
-    height: 816px;
-    /* padding: 110px; */
-    /* margin-bottom: 20px; */
-    color: #fff;
+    /* Centra la imagen */
+    background-position: center;
+    /* Evita que la imagen se repita */
+    background-repeat: no-repeat;
+    /* Usa el 100% de la altura de la ventana */
+    height: 100vh;
+    /* Texto en blanco */
+    color: #FFFFFF;
 }
+
+header h1 {
+    font-family: "Josefin Slab", serif;
+    font-size: 85px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* FIM Header */
+/* Main */
+main {
+    background: rgba(180, 155, 44, 0.25);
+}
+
+.p43 {
+    font-family: "Jura", serif;
+    font-size: 43px;
+    color: rgba(0, 0, 0, 1);
+    margin: 0;
+}
+
+.p30 {
+    font-family: "Jura", serif;
+    font-size: 30px;
+    color: rgba(0, 0, 0, 1);
+    margin: 0;
+}
+
+.p20 {
+    font-family: "Jura", serif;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 1);
+    margin: 0;
+}
+
+.span1 {
+    color: #686931;
+}
+
+/* FIM Main */
 
 /* Footer */
 .main-container {
@@ -38,3 +85,15 @@ footer {
 footer a {
     color: #FFFFFF66;
 }
+
+.p30 {
+    font-family: "Jura", serif;
+    font-size: 30px;
+}
+
+.p15 {
+    font-family: "Jura", serif;
+    font-size: 15px;
+}
+
+/* FIM Footer */
