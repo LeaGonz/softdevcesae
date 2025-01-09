@@ -1,0 +1,40 @@
+body, html { 
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #C8BA98
+}
+h1 {
+    font-family: 'Ubuntu';
+    text-align: center;
+    padding: 20px;
+    color: #B8543F !important;
+}
+h4 {
+    font-family: 'Ubuntu';
+    text-align: left;
+    padding: 20px;
+    color: #B8543F !important;
+}
+h5{
+    font-family: 'Ubuntu';
+    font-size: 17px;
+    font-weight: bold;
+    padding: 0;
+    margin-bottom: -12px;
+    color: #B8543F !important;
+}
+.card { 
+    padding: 12px;
+    color: #B8543F;
+    font-family: 'Nanum Gothic';
+    font-size: 14px;
+    text-align: left;
+    background-color: #E8DDBF;
+    border: 1.5px solid #A89873;
+    border-radius: 0;
+}
+a{
+    color: black;
+}
+
