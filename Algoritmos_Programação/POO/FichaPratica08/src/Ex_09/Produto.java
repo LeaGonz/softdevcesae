@@ -6,23 +6,24 @@ public class Produto {
     private int stock = 0;
 
     // Construtor
-    Produto(String nome, double preco, int stock) {
+    Produto(String nome, double preco) {
         this.nome = nome;
         this.preco = preco;
-        this.stock = stock;
     }
+
     // Metodos instâncias
     public void Comprar(int stock) {
-        if (this.stock > stock) {
-            this.stock -= stock;
-            System.out.println("Compra com sucesso. Stock atual: " + this.stock);
-        } else {
-            System.out.println("Stock insuficiente, atual: " + this.stock);
-        }
+        this.stock += stock;
+        System.out.println("Comprado " + stock + " und com sucesso. Stock atual: " + this.stock);
     }
 
     public void Vender(int stock) {
-
+        if (this.stock > stock) {
+            this.stock -= stock;
+            System.out.println("Venta " + stock + " und com sucesso. Stock atual: " + this.stock);
+        } else {
+            System.out.println("Venta " + stock + " und não possivel, stock insuficiente. Stock atual: " + this.stock);
+        }
     }
 
 }
