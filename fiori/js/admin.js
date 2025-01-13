@@ -21,8 +21,10 @@ function limparReservas() {
     localStorage.removeItem('reservas');
     location.reload();
 }
+// Chamamos a função limparReservas() quando o botão for clicado
+document.getElementById('limparReservasBtn').addEventListener('click', limparReservas);
 
-// function para apagar uma reserva
+// function para apagar uma reserva individual pelo id
 function apagarReserva(id) {
     let reservas = JSON.parse(localStorage.getItem('reservas'));
     reservas.splice(id, 1); // Apagamos o elemento do id passado
@@ -30,6 +32,5 @@ function apagarReserva(id) {
     location.reload();
 }
 
-document.getElementById('limparReservasBtn').addEventListener('click', limparReservas);
 
 mostrarReservas();
