@@ -21,9 +21,9 @@ public class Carro {
         this.combustivel = combustivel;
         this.litros100km = litros100km;
     }
-
-    public enum TipoCombustivel {
-        GASOLINA, DIESEL, GPL
+    // GET
+    public String getModelo() {
+        return this.modelo;
     }
 
     // Metodos de instâncias
@@ -46,5 +46,35 @@ public class Carro {
                         "VRUUMMMMMM");
             }
         }
+    }
+
+    public Carro corrida(Carro adversario) {
+        if (this.potencia > adversario.potencia) { // Ganha this
+            return this;
+        } else if (this.potencia < adversario.potencia) { // Ganha adversario
+            return adversario;
+        } else { // Empate
+            if (this.cc > adversario.cc) { // Ganha this
+                return this;
+            } else if (this.cc < adversario.cc) { // Ganha adversario
+                return adversario;
+            } else { // Empate
+                if (this.anoFabricacao > adversario.anoFabricacao) { // This
+                    return this;
+                } else if (this.anoFabricacao < adversario.anoFabricacao) { // Adversario
+                    return adversario;
+                } else {
+                    return null; // Empate
+                }
+            }
+        }
+    }
+
+    public double consumo(double km) {
+        return (km * this.litros100km) / 100;
+    }
+
+    public void exibirDetalhes() {
+        System.out.println("Marca: " + this.marca + " Modelo: " + this.modelo + " Ano: " + this.anoFabricacao);
     }
 }
