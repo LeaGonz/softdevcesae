@@ -21,4 +21,8 @@ public class Pessoa {
     public String getNome() {
         return this.nome;
     }
+
+    public int getTelemovel() {return this.telemovel;}
+
+    public String getEmail() {return this.email;}
 }
