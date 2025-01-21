@@ -20,4 +20,8 @@ public class Marisco {
     public String getEspecie() {
         return this.especie;
     }
+
+    public double getPrecoKg() {
+        return precoKg;
+    }
 }

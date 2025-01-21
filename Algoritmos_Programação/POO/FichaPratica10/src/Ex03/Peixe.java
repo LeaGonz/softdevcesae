@@ -20,4 +20,8 @@ public class Peixe {
     public String getEspecie() {
         return this.especie;
     }
+
+    public double getPrecoKg() {
+        return precoKg;
+    }
 }
