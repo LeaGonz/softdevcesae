@@ -5,7 +5,12 @@ public class Peixe {
     private double peso;
     private double precoKg;
 
-    // construtor
+    /**
+     * Metodo construtor de <b>Peixe</b>
+     * @param especie
+     * @param peso (KG)
+     * @param precoKg
+     */
     public Peixe(String especie, double peso, double precoKg) {
         this.especie = especie;
         this.peso = peso;

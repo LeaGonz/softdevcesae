@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
@@ -10,12 +12,44 @@ class UserController extends Controller
     {
         $cesaeInfo = $this->getCesaeInfo();
         $contacts = $this->getContacts();
-        return view('users.all_users', compact('cesaeInfo','contacts'));
+
+        // $this->insertUserIntoDB();
+        // $this->updateUserIntoDB();
+        $allUsers = $this->getAllUsersFromDB();
+        // dd($allUsers);
+
+        return view('users.all_users', compact('cesaeInfo', 'contacts','allUsers'));
     }
 
     public function userAdd()
     {
         return view('users.add_user');
+    }
+
+    public function insertUserIntoDB()
+    {
+        DB::table('users')->insert([
+            'name' => 'Shiago',
+            'email' => 'shiago@luis.com',
+            'password' => '1234luis'
+        ]);
+
+        return response()->json('utilizador inserido com sucesso');
+    }
+
+    public function updateUserIntoDB()
+    {
+        DB::table('users')
+            ->where('id', 1)
+            ->update([
+                'updated_at' => now()
+            ]);
+    }
+
+    protected function getAllUsersFromDB(){
+        $users = DB::table('users')
+        -> get();
+        return $users;
     }
 
     private function getCesaeInfo()
