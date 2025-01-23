@@ -1,0 +1,24 @@
+CREATE TABLE TipoMaquina(
+	id int AUTO_INCREMENT,
+    nome varchar(50),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Maquina(
+	numero int AUTO_INCREMENT,
+    idTipo int not null,
+    dataUltimaManut datetime,
+    PRIMARY KEY (numero),
+    FOREIGN KEY (idTipo) REFERENCES TipoMaquina(id)
+);
+
+CREATE TABLE Servicio(
+	codFatura int AUTO_INCREMENT,
+    numMaquina int not null,
+    duracao time not null,
+    valor decimal(10,2) not null,
+    nifCliente varchar(9),
+    dataHora datetime DEFAULT now(),
+    CONSTRAINT PK_Servicio PRIMARY KEY (codFatura),
+    CONSTRAINT FK_Servicio_numMaquina FOREIGN KEY (numMaquina) REFERENCES 	  Maquina (numero)
+);

@@ -1,0 +1,9 @@
+/*alter TABLE servicio
+MODIFY codFatura int,
+ADD CONSTRAINT PK_SERVICIO PRIMARY KEY (codFatura);*/
+
+/*alter table servicio
+DROP CONSTRAINT `PRIMARY`;*/
+
+ALTER TABLE servicio
+add CONSTRAINT PK_SERVICO PRIMARY KEY (codFatura);
