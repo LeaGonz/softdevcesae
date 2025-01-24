@@ -23,3 +23,23 @@ INSERT into maquina (idTipo, dataUltimaManut) VALUES
 (1, '2025-01-24 10:30'),
 (2, '2025-01-21 14:20'),
 (1, '2025-02-25 16');*/
+
+-- SELECT * from servico 
+	-- where valor BETWEEN 5 and 15.7
+    -- where valor not in (8.5,15)
+    
+-- SELECT * FROM `tipomaquina` 
+	-- WHERE nome = 'lava'
+    -- where nome like 'lava'
+    -- where nome like 'lava%'
+    -- where nome like 'lav_';
+    
+-- SELECT count(*) as conteo from maquina
+	-- ORDER by dataUltimaManut
+    -- where dataUltimaManut is not null
+    -- where dataUltimaManut < (NOW() - INTERVAL 30 DAY)
+    
+SELECT SUM(valor) as total from servico
+	 where Month(dataHora) = 1 and Year(dataHora) = 2024
+    -- where dataHora like '2024-01-%'
+	-- where dataHora BETWEEN '2024-01-01' and '2024-01-31 23:59:59'
