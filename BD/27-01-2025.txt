@@ -1,0 +1,94 @@
+-- SELECT idArtigo, nome, preco from artigo where preco < 5
+-- SELECT nome, preco from artigo where preco>= 2 and preco <= 10
+-- SELECT nome, preco from artigo where preco BETWEEN 2 and 10
+-- SELECT nome, preco from artigo where preco<5 or preco>10
+-- SELECT nome, preco from artigo where preco not BETWEEN 5 and 10
+-- SELECT nome, preco from artigo where preco in (5.50,100)
+-- SELECT * from artigo WHERE nome LIKE 'M%'
+-- SELECT * from artigo WHERE nome LIKE 'M_'
+-- SELECT * from artigo ORDER by preco
+-- SELECT * from artigo ORDER by preco DESC
+-- SELECT * from artigo where preco > 500 order by preco DESC
+-- SELECT COUNT(nome) as TotalArtigos from artigo
+-- SELECT SUM(preco) as SomaPV from artigo
+-- SELECT AVG(preco) as MediaPV from artigo
+-- SELECT MAX(preco) as MaximoPV from artigo
+-- SELECT MIN(preco) as MinimoPV from artigo
+-- SELECT cidade from cliente
+-- SELECT DISTINCT cidade from cliente
+
+/*SELECT cliente.nome, venda.data, artigo.nome from artigo, cliente, venda, linhavenda
+where cliente.idCliente = venda.cliente 
+and venda.idVenta = linhavenda.venda 
+and linhavenda.artigo = artigo.idArtigo*/
+
+/*SELECT c.nome, v.data, a.nome from artigo a, cliente c, venda v, linhavenda l
+where c.idCliente = v.cliente AND
+v.idVenta = l.venda AND
+l.artigo = a.idArtigo*/
+
+-- SELECT c.nome, v.data from cliente c inner join venda v on c.idCliente = v.cliente
+-- SELECT c.nome, v.data from cliente c left join venda v on c.idCliente = v.cliente
+
+/*select c.nome, v.data, sum(l.quantidade * a.preco) as Total
+from cliente c, venda v, linhavenda l, artigo a
+WHERE c.idCliente = v.cliente
+AND v.idVenta = l.venda
+AND l.artigo = a.idArtigo
+GROUP by c.nome, v.data*/
+
+/*SELECT c.nome, v.data from cliente c, venda v, artigo a, linhavenda l
+WHERE c.idCliente = v.cliente
+AND v.idVenta = l.venda
+AND l.artigo = a.idArtigo
+ORDER by v.data DESC
+limit 1*/
+
+/*SELECT c.codPostal, COUNT(c.codPostal) as Cod
+FROM cliente c
+GROUP by c.codPostal HAVING COUNT(c.codPostal) > 2*/
+
+/*SELECT a.categoria, COUNT(a.nome) as TotalArtigos
+FROM artigo a
+GROUP by a.categoria*/
+
+-- SELECT c.nome from cliente c where c.idCliente not in (SELECT cliente from venda)
+
+-- SELECT nome, (SELECT count(*) FROM venda where venda.cliente = cliente.idCliente) from cliente
+
+-- SELECT nome from artigo WHERE preco >= ALL (SELECT preco from artigo)
+
+-- SELECT nome from artigo where preco > Any (SELECT preco from artigo)
+
+SELECT c.nome from cliente c UNION SELECT a.nome from artigo a
+
+
+
+
+
+
+
+
+
+-- CREATE DATABASE empresaLuis
+
+CREATE TABLE seccao (
+    numSec int AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(50),
+    cidade varchar(50)
+);
+
+ALTER TABLE seccao AUTO_INCREMENT = 10;
+SET GLOBAL auto_increment_increment = 10;
+
+INSERT into seccao (numSec, nome, cidade) VALUES
+(10,'Fabrico', 'Porto');
+
+INSERT into seccao (nome, cidade) VALUES
+('Comercial', 'Porto'),
+('Marketing', 'Braga'),
+('Planeamento', 'Guimarães'),
+('Administração', 'Porto'),
+('Informática', 'Braga'),
+('Recursos Humanos', 'Guimarães');
+
