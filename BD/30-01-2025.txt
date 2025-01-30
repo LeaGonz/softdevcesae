@@ -1,0 +1,113 @@
+/*CREATE TABLE cliente (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(50) not null,
+    morada varchar(250),
+    estado bit)*/
+    
+/*CREATE TABLE produto(
+    id int AUTO_INCREMENT,
+    CONSTRAINT PK_produto PRIMARY KEY (id),
+    deescricao varchar(100) not null,
+    preco decimal(10,2))*/
+    
+/*CREATE TABLE venda (
+    prod int,
+    CONSTRAINT FK_venda_pro FOREIGN KEY (prod) REFERENCES produto (id),
+    cli int,
+    CONSTRAINT FK_venda_cli FOREIGN KEY (cli) REFERENCES cliente (id),
+    `data` datetime,
+    PRIMARY KEY (prod,cli,`data`),
+    qtd int)*/
+    
+/*insert into cliente (nome, morada, estado) VALUES
+('Helena Monteiro','Perafita – Freixieiro', 1),
+('Raul Simas','Palmela',0)*/
+
+-- ALTER TABLE produto RENAME COLUMN deescricao to descricao
+
+/*INSERT INTO produto (descricao,preco) VALUES
+('Rato Logitec XPTO 1',10),
+('Monitor Sony Vaio XPTO',120)*/
+
+/*insert INTO venda (cli,prod,qtd,`data`) VALUES
+(1,1,1,'2012-04-05'),
+(2,1,5,'2012-04-05')*/
+
+-- UPDATE venda set qtd = 10 WHERE cli = 2
+-- update cliente set morada = 'Porto' WHERE id = 2
+-- UPDATE produto set preco = 100 WHERE id = 2
+-- SELECT * from produto
+-- SELECT nome from cliente WHERE estado = 1
+-- SELECT * from venda WHERE cli = 2
+-- SELECT * from venda WHERE cli = (SELECT id from cliente where nome = 'Raul Simas')
+-- SELECT * from venda INNER join cliente on venda.cli = cliente.id WHERE cliente.nome = 'Raul Simas'
+-- SELECT v.*,c.nome from venda v inner join cliente c on v.cli = c.id WHERE c.nome like ('H%')
+-- SELECT COUNT(v.cli) as vendas, c.nome from venda v inner join cliente c on v.cli = c.id WHERE c.nome = 'Raul Simas'
+-- SELECT MAX(preco) as caro from produto
+-- SELECT descricao, preco from produto where preco = (SELECT MAX(preco) from produto)
+-- SELECT * from produto WHERE preco <= 100
+-- SELECT nome from cliente where id NOT IN (SELECT cli from venda)
+-- SELECT SUM(v.qtd) * p.preco as TotalFaturado ,v.`data` from produto p RIGHT join venda v on p.id = v.prod GROUP by v.`data`, p.preco
+
+
+
+-********************************-**************************************-**************************
+
+/*CREATE TABLE cliente (
+    codCliente int AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(50) not null,
+    morada varchar(100),
+    telef int)*/
+
+/*CREATE TABLE encomenda(
+    codEncomenda int AUTO_INCREMENT PRIMARY KEY,
+    codCliente int,
+    `data` datetime)*/
+
+-- ALTER TABLE encomenda ADD CONSTRAINT FK_encomanda_cliente FOREIGN KEY (codCliente) REFERENCES cliente (codCliente)
+
+/*CREATE TABLE produto (
+    codProduto int AUTO_INCREMENT PRIMARY KEY,
+    descricao varchar(100),
+    preco decimal(10,2),
+    obs varchar(50))*/
+    
+/*CREATE TABLE linhaencomenda (
+    idEncomenda int,
+    idProduto int,
+    quantidade int,
+    desconto int,
+    CONSTRAINT FK_lina_encomenda FOREIGN KEY (idEncomenda) REFERENCES encomenda (codEncomenda),
+    CONSTRAINT FK_linha_produto FOREIGN KEY (idProduto) REFERENCES produto (codProduto),
+    PRIMARY KEY (idEncomenda, idProduto)
+)*/
+
+/*INSERT INTO cliente (nome, morada, telef) VALUES
+('Licinio', 'Rua da esquina','123456789'),
+('Fabio', 'Rua da outra esquina', '123456789'),
+('Maria', 'Rua da esquina da outra esquina', '123456789');
+ 
+INSERT INTO produto (descricao, preco) VALUES
+('Portatil', 1999.99),
+('teclado',99.95),
+('monitor',149.99);
+ 
+INSERT INTO encomenda (codCliente,`data`) VALUES
+(1,'2024-12-20'),
+(1,'2024-06-01'),
+(2,'2024-09-09');*/
+ 
+/*INSERT INTO linhaencomenda (idEncomenda,idProduto,quantidade) VALUES
+(1,2,25),
+(1,1,25),
+(2,3,1);*/
+
+-- SELECT * from cliente c WHERE morada = "Rua da esquina da outra esquina" ORDER by nome
+-- SELECT * from produto where descricao = 'teclado' ORDER by preco
+-- SELECT e.`data`, e.codCliente from encomenda e left join cliente c on e.codCliente = c.codCliente WHERE c.nome = 'Luis'
+SELECT SUM(l.quantidade) as TotalQuantidade, l.idEncomenda, p.descricao, c.nome 
+from linhaencomenda l INNER JOIN encomenda e on l.idEncomenda = e.codEncomenda 
+INNER JOIN cliente c on c.codCliente = e.codCliente
+INNER JOIN produto p on p.codProduto = l.idProduto
+WHERE e.codCliente = 1
+GROUP by p.descricao, l.idEncomenda

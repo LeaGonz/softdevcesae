@@ -27,7 +27,7 @@ public class Catalogo {
         if (this.listaAvioes.contains(novoAviao)) {
             this.listaAvioes.remove(novoAviao);
         } else {
-            System.out.println("O avião não está no catálogo");
+            System.out.println(novoAviao.getModelo() + " não está no catálogo");
         }
     }
 
@@ -63,6 +63,7 @@ public class Catalogo {
 
     /**
      * Calcula o total em € dos aviões do catálogo
+     *
      * @return
      */
     public double calcularTotal() {
