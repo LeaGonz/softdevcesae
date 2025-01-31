@@ -19,4 +19,10 @@ public class Ingrediente {
     public String getNome() {
         return nome;
     }
+    public double getCalorias() {
+        return calorias;
+    }
+    public String getCodigo() {
+        return codigo;
+    }
 }
