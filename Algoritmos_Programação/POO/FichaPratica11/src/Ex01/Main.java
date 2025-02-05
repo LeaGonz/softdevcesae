@@ -51,11 +51,7 @@ public class Main {
         catalogo.venderAviao(ac147);
 
         System.out.println();
-        //f16.exibirDetalhes();
-        catalogo.exibirDetalhes();
-
-        System.out.println();
-        catalogo.listarCatalogo();
+        ac147.exibirDetalhes();
 
         System.out.println("Valor total do catálogo: " + catalogo.calcularTotal() + " €");
     }
