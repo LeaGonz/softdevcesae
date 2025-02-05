@@ -14,6 +14,7 @@ public class AviaoCombate extends Aviao {
         this.paisOrigem = paisOrigem;
         this.camuflagem = camuflagem;
         this.listaArsenal = new ArrayList<>();
+        System.out.println("helo");
     }
 
     /**
@@ -58,9 +59,9 @@ public class AviaoCombate extends Aviao {
         }
     }
 
-    @Override
+//    @Override
     public void exibirDetalhes() {
-        super.exibirDetalhes();
+//        super.exibirDetalhes();
         System.out.println("País Origem: " + this.paisOrigem + " | Camuflagem: " + this.camuflagem);
         System.out.println("Arsenal: " + this.listaArsenal);
     }
