@@ -20,7 +20,10 @@ public class Vendedor {
         System.out.println("MOSTRAMOS 10 ITENS ALEATORIOS E AS SUAS ESPECIFICACOES");
     }
 
+    public void adicionarItem(ItemHeroi item){
+        this.loja.add(item);
 
+    }
     public void vender(Heroi heroiComprador){
 
     }

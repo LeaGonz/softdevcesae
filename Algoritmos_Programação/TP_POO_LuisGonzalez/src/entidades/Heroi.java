@@ -13,6 +13,7 @@ public abstract class Heroi extends Entidade {
 
     /**
      * Construtor
+     *
      * @param nome
      * @param hp
      * @param forca
@@ -20,20 +21,23 @@ public abstract class Heroi extends Entidade {
      * @param ouro
      * @param armaPrincipal
      */
-    public Heroi(String nome, int hp, int forca, int nivel, int ouro, ArmaPrincipal armaPrincipal) {
+    public Heroi(String nome, int hp, int forca, int nivel, int ouro) {
         super(nome, hp, forca);
         this.nivel = nivel;
         this.ouro = ouro;
-        this.armaPrincipal = armaPrincipal;
         this.inventario = new ArrayList<>();
     }
 
     /**
-     * Método de luta entre um herói e um entidades.NPC
+     * Método atacar dum herói a um NPC
      * @param lutadorNpc
      */
-    @Override
-    public void atacar(NPC lutadorNpc) {
-        System.out.println("METODO ATACA HEROI");
+    public abstract void atacar(NPC lutadorNpc);
+
+    /**
+     * Método listar e usar poções dum herói
+     */
+    public void usarPocao(){
+
     }
 }

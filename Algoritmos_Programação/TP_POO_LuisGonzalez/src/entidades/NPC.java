@@ -14,13 +14,4 @@ public class NPC extends Entidade {
         super(nome, hp, forca);
         this.ouro = ouro;
     }
-
-    /**
-     * Método de luta (FALTA REVISARLO)
-     * @param lutadorNpc
-     */
-    @Override
-    public void atacar(NPC lutadorNpc) {
-
-    }
 }

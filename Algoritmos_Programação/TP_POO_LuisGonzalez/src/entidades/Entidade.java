@@ -28,5 +28,4 @@ public abstract class Entidade {
         System.out.printf("HP: %-10d | HP máximo: %-10d%n", this.hp, this.maxHp);
     }
 
-    public abstract void atacar(NPC lutadorNpc);
 }
