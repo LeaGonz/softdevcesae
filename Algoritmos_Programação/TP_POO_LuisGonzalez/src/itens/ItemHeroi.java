@@ -1,11 +1,13 @@
-package items;
+package itens;
+
+import Enums.Personagem;
 
 import java.util.ArrayList;
 
 public abstract class ItemHeroi {
     protected String nome;
     protected int preco;
-    protected ArrayList<String> heroisPermitidos;
+    protected ArrayList<Personagem> heroisPermitidos;
 
     /**
      * Construtor
@@ -23,8 +25,6 @@ public abstract class ItemHeroi {
      * Método mostrar detalhes do Item
      */
     public void mostrarDetalhes() {
-        System.out.printf("Nome: %-10s | Preço: %-10d%n", this.nome, this.preco);
-        System.out.println("Herois: " + this.heroisPermitidos);
-
+        System.out.printf("Nome: %-30s | Preço: %-5d | Herói:%s%n", this.nome, this.preco, this.heroisPermitidos);
     }
 }

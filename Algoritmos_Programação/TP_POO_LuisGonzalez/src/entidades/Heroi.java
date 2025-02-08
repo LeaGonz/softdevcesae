@@ -1,15 +1,16 @@
 package entidades;
 
-import items.ArmaPrincipal;
-import items.Consumivel;
+import Enums.Personagem;
+import itens.ArmaPrincipal;
+import itens.Consumivel;
 
 import java.util.ArrayList;
 
 public abstract class Heroi extends Entidade {
-    protected int nivel;
-    protected int ouro;
-    protected ArmaPrincipal armaPrincipal;
-    protected ArrayList<Consumivel> inventario;
+    private int nivel;
+    private int ouro;
+    private ArmaPrincipal armaPrincipal;
+    private ArrayList<Consumivel> inventario;
 
     /**
      * Construtor
@@ -21,7 +22,7 @@ public abstract class Heroi extends Entidade {
      * @param ouro
      * @param armaPrincipal
      */
-    public Heroi(String nome, int hp, int forca, int nivel, int ouro) {
+    public Heroi(Personagem nome, int hp, int forca, int nivel, int ouro) {
         super(nome, hp, forca);
         this.nivel = nivel;
         this.ouro = ouro;
@@ -30,9 +31,11 @@ public abstract class Heroi extends Entidade {
 
     /**
      * Método atacar dum herói a um NPC
+     *
      * @param lutadorNpc
+     * @return
      */
-    public abstract void atacar(NPC lutadorNpc);
+    public abstract boolean atacar(NPC npc);
 
     /**
      * Método listar e usar poções dum herói
@@ -40,4 +43,25 @@ public abstract class Heroi extends Entidade {
     public void usarPocao(){
 
     }
+
+    /**
+     * Getters
+     */
+    public int getNivel() {
+        return nivel;
+    }
+
+    public int getOuro() {
+        return ouro;
+    }
+
+    public ArmaPrincipal getArmaPrincipal() {
+        return armaPrincipal;
+    }
+
+    public ArrayList<Consumivel> getInventario() {
+        return inventario;
+    }
+
+
 }

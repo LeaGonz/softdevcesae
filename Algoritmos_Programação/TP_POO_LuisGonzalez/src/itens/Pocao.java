@@ -1,18 +1,22 @@
-package items;
+package itens;
 
-public class Pocao extends Consumivel{
+import Enums.Personagem;
+
+public class Pocao extends Consumivel {
     protected int vidaCurar;
     protected int aumentoForca;
 
     /**
      * Construtor
+     *
      * @param nome
      * @param preco
+     * @param personagem
      * @param vidaCurar
      * @param aumentoForca
      */
-    public Pocao(String nome, int preco, int vidaCurar, int aumentoForca) {
-        super(nome, preco);
+    public Pocao(String nome, int preco, Personagem personagem, int vidaCurar, int aumentoForca) {
+        super(nome, preco, personagem);
         this.vidaCurar = vidaCurar;
         this.aumentoForca = aumentoForca;
     }
@@ -22,6 +26,7 @@ public class Pocao extends Consumivel{
      */
     @Override
     public void mostrarDetalhes() {
-        System.out.printf("Vida a curar: %-10d | Aumento de Força: %-10d%n", this.vidaCurar, this.aumentoForca);
+        super.mostrarDetalhes();
+        System.out.printf("Vida a curar: %-5d | Aumento da Força: %d%n", this.vidaCurar, this.aumentoForca);
     }
 }

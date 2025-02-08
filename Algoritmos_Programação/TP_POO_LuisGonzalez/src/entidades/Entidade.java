@@ -1,10 +1,12 @@
 package entidades;
 
+import Enums.Personagem;
+
 public abstract class Entidade {
-    protected String nome;
-    protected int maxHp;
-    protected int hp;
-    protected int forca;
+    private Personagem nome;
+    private int maxHp;
+    private int hp;
+    private int forca;
 
     /**
      * Construtor
@@ -13,7 +15,7 @@ public abstract class Entidade {
      * @param hp    vida da entidades.Entidade. maxHp vai ser igual a hp
      * @param forca
      */
-    public Entidade(String nome, int hp, int forca) {
+    public Entidade(Personagem nome, int hp, int forca) {
         this.nome = nome;
         this.hp = hp;
         this.maxHp = hp;
@@ -28,4 +30,31 @@ public abstract class Entidade {
         System.out.printf("HP: %-10d | HP máximo: %-10d%n", this.hp, this.maxHp);
     }
 
+    public void recebeAtaque(int dano) {
+        this.hp -= dano;
+        if (this.hp < 0) this.hp = 0;
+    }
+
+    public boolean vivo() {
+        return this.hp > 0;
+    }
+
+    /**
+     * Getters
+     */
+    public Personagem getNome() {
+        return nome;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getForca() {
+        return forca;
+    }
 }
