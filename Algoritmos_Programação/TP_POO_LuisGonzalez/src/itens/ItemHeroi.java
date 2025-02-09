@@ -27,4 +27,34 @@ public abstract class ItemHeroi {
     public void mostrarDetalhes() {
         System.out.printf("Nome: %-30s | Preço: %-5d | Herói:%s%n", this.nome, this.preco, this.heroisPermitidos);
     }
+
+    /**
+     * Getters
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    public int getPreco() {
+        return preco;
+    }
+
+    public ArrayList<Personagem> getHeroisPermitidos() {
+        return heroisPermitidos;
+    }
+
+    /**
+     * Setters
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setPreco(int preco) {
+        this.preco = preco;
+    }
+
+    public void setHeroisPermitidos(ArrayList<Personagem> heroisPermitidos) {
+        this.heroisPermitidos = heroisPermitidos;
+    }
 }

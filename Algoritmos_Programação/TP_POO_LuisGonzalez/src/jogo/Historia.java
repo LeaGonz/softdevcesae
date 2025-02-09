@@ -1,23 +1,26 @@
 package jogo;
 
+import entidades.Heroi;
+import itens.ItemHeroi;
+
 public class Historia {
 
     // Ato 1: A chegada a Wano e a infiltração
-
+    // *********************************************** INTRO ***********************************************
     public static void intro() {
-        String narracaoInicial = """
+        System.out.print("""
                 O vento sopra forte enquanto o Thousand Sunny navega em direção às costas de Wano, um país isolado e oprimido pelo shogun Orochi e pelo imperador pirata Kaido.
                 
                 Luffy e a sua tripulação chegaram aqui com um único objetivo: libertar Wano da sua tirania e derrotar a Kaido.
                 Mas o caminho não será fácil. Wano é um lugar perigoso, cheio de samurais leais a Orochi e bestas poderosas ao serviço de Kaido.
                 Estás pronto para embarcar nesta aventura?
                 
-                """;
-        System.out.print(narracaoInicial);
+                """);
     }
 
+    // *********************************************** ESCOLHA PERSONAGEM ***********************************************
     public static void escolhaPersonagem() {
-        String escolhaPersonagem = """
+        System.out.print("""
                 Antes de começares, deves escolher com quem queres iniciar esta aventura.
                 
                 Serás o Luffy, o capitão destemido que sonha em ser o Rei dos Piratas?
@@ -26,69 +29,105 @@ public class Historia {
                 
                 A escolha é tua...
                 
-                """;
-        System.out.print(escolhaPersonagem);
+                """);
     }
 
     public static void luffyIntro() {
-        String introducaoLuffy = """
-                'Ei, tu! Escolheste-me? Boa decisão! Eu sou Luffy, o futuro Rei dos Piratas!
-                Vamos derrotar o Kaido e libertar Wano! Não te preocupes, eu protejo-te!'
+        System.out.print("""
+                Ei, tu! Escolheste-me? Boa decisão! Eu sou Luffy, o futuro Rei dos Piratas!
+                Vamos derrotar o Kaido e libertar Wano! Não te preocupes, eu protejo-te!
                 
                 Luffy é o capitão destemido dos Chapéus de Palha, conhecido pela sua incrível força e pela sua vontade inabalável.
                 Com o seu poder da Gomu Gomu no Mi, ele estica o corpo como borracha para esmagar os inimigos.
                 
                 Estás pronto para partir nesta aventura com ele?
                 
-                """;
-        System.out.print(introducaoLuffy);
+                """);
     }
 
     public static void zoroIntro() {
-        String introducaoZoro = """
-                'Então escolheste-me? Bom, não te vou dececionar.
+        System.out.print("""
+                Então escolheste-me? Bom, não te vou dececionar.
                 Eu sou Zoro, o espadachim dos Chapéus de Palha, e vou cortar todos os que se atravessarem no nosso caminho.
-                Kaido e Orochi não sabem com quem estão a lidar.'
+                Kaido e Orochi não sabem com quem estão a lidar.
                 
                 Zoro é um mestre das três espadas, capaz de derrotar inimigos com uma precisão mortal.
                 Com a sua técnica Santoryu, ele é uma força imparável no campo de batalha.
                 
                 Preparado para lutar ao seu lado?
                 
-                """;
-        System.out.print(introducaoZoro);
+                """);
     }
 
     public static void sanjiIntro() {
-        String introducaoSanji = """
-                'Ah, escolheste-me? Bem, não podias ter feito melhor.
+        System.out.print("""
+                Ah, escolheste-me? Bem, não podias ter feito melhor.
                 Eu sou Sanji, o cozinheiro dos Chapéus de Palha, e os meus pontapés vão mandar Kaido e os seus capangas para o chão.
-                E depois da batalha, preparo-te um banquete!'
+                E depois da batalha, preparo-te um banquete!
                 
                 Sanji é um lutador elegante e poderoso, especializado em artes marciais com os pés.
                 Com o seu Diable Jambe, ele pode incendiar os inimigos com chamas intensas.
                 
                 Pronto para saborear a vitória com ele?
                 
-                """;
-        System.out.print(introducaoSanji);
+                """);
     }
 
+    // *********************************************** VENDEDOR ***********************************************
     public static void vendedorIntro() {
-        String introVendedor = """
-                'Oi, oi, oi! Parece que temos um aventureiro destemido por aqui!'
-                'Eu sou Barry, o vendedor mais confiável de Wano! Tenho tudo o que precisas para sobreviver nesta terra perigosa.
-                Armas, poções, consumível de combate... Se precisas, eu tenho!'
+        System.out.print("""
+                Oi, oi, oi! Parece que temos um aventureiro destemido por aqui!
+                Eu sou Barry, o vendedor mais confiável de Wano! Tenho tudo o que precisas para sobreviver nesta terra perigosa.
+                Armas, poções, consumível de combate... Se precisas, eu tenho!
                 
-                'Mas cuidado, os melhores itens não são de graça. Tens ouro suficiente?'
+                Mas cuidado, os melhores itens não são de graça.
                 
-                """;
-        System.out.print(introVendedor);
+                Estás a precisar de algo para a tua jornada? Tenho aqui algumas coisas que podem ser úteis... (S/N)
+                
+                """);
     }
 
-    public static void vendedorPergunta(){
-        "'Então, o que vais levar? Escolhe com sabedoria, aventureiro. Wano não perdoa os despreparados.'\n";
+    public static void vendedorPergunta() {
+        System.out.print("""
+                Então, o que vais levar? Escolhe com sabedoria, aventureiro. Wano não perdoa os despreparados.
+                
+                """);
+    }
 
+    public static void vendedorItemSim(Heroi heroi, ItemHeroi item) {
+        System.out.printf("""
+                Ah, excelente escolha, %s! "%s" vai servir-te bem nas tuas lutas.
+                
+                Lembra-te, uma boa ferramenta nas mãos certas pode mudar o rumo de uma batalha.
+                
+                """, heroi.getNome(), item.getNome());
+    }
+
+    public static void vendedorItemNao(Heroi heroi, ItemHeroi item) {
+        System.out.printf("""
+                Ei, %s! Estás mesmo a tentar comprar "%s"? Parece que não tens as habilidades ou o treino necessário para o usar corretamente.
+                
+                Talvez haja outras coisas na loja que se adaptem melhor ao teu estilo.
+                
+                """, heroi.getNome(), item.getNome());
+    }
+
+    public static void vendedorPerguntaMais() {
+        System.out.print("""
+                Estás interessado em mais alguma coisa? Tenho aqui alguns tesouros que podem ser úteis na tua jornada. (S/N)
+                
+                """);
+    }
+
+    public static void vendedorDespedida() {
+        System.out.print("""
+                Entendo, jovem! Nem sempre é fácil escolher o que precisamos.
+                
+                Mas lembra-te, se mudares de ideias, eu estarei por aqui, sempre com os melhores itens de Wano.
+                
+                Boa sorte na tua jornada! E cuidado com os inimigos...
+                
+                """);
     }
 
     String primeiraMissao = "Chegaste à vila dos kozuki, um lugar que outrora foi próspero, mas que agora está mergulhado na miséria sob o jugo de Orochi.\n" +

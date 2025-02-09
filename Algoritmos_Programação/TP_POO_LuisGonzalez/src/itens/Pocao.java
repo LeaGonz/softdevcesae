@@ -29,4 +29,26 @@ public class Pocao extends Consumivel {
         super.mostrarDetalhes();
         System.out.printf("Vida a curar: %-5d | Aumento da Força: %d%n", this.vidaCurar, this.aumentoForca);
     }
+
+    /**
+     * Getters
+     */
+    public int getVidaCurar() {
+        return vidaCurar;
+    }
+
+    public int getAumentoForca() {
+        return aumentoForca;
+    }
+
+    /**
+     * Setters
+     */
+    public void setVidaCurar(int vidaCurar) {
+        this.vidaCurar = vidaCurar;
+    }
+
+    public void setAumentoForca(int aumentoForca) {
+        this.aumentoForca = aumentoForca;
+    }
 }

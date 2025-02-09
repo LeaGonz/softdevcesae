@@ -10,6 +10,8 @@ import itens.Pocao;
 import java.util.Scanner;
 
 public class Jogo {
+    private static final Scanner in = new Scanner(System.in);
+
     /**
      * Método principal do jogo e recebe um herói
      */
@@ -45,7 +47,7 @@ public class Jogo {
             System.out.println(heroi.getNome() + " - " + heroi.getHp());
             System.out.println(npc.getNome() + " - " + npc.getHp());
             System.out.println("1- Atacar | 2- Mochila");
-            int escolha = Tools.validarEscolha();
+            int escolha = Tools.validarEscolhaNum();
             if (escolha == 2) {
                 System.out.println("Mochila");
                 break;
@@ -64,11 +66,11 @@ public class Jogo {
         int PONTOS, OURO, FORCA_MAX;
 
         System.out.println("Escolha um personagem para iniciar o jogo\n1- Luffy\n2- Zoro\n3- Sanji");
-        int personagem = Tools.validarEscolha();
+        int personagem = Tools.validarEscolhaNum();
 
         // DIFICULDADE
         System.out.println("Escolha dificuldade\n1-Fácil\n2-Difícil");
-        int dificuldade = Tools.validarEscolha();
+        int dificuldade = Tools.validarEscolhaNum();
         if (dificuldade == 1) {
             PONTOS = 300;
             OURO = 20;
@@ -86,7 +88,7 @@ public class Jogo {
 
         do {
             System.out.println("Forçã \uD83D\uDCAA(Mín|Max " + (FORCA_MIN / PONTOS_FORCA) + "|" + (FORCA_MAX / PONTOS_FORCA) + " -> (" + FORCA_MIN + "|" + FORCA_MAX + "pts))");
-            distribuir = Tools.validarEscolha();
+            distribuir = Tools.validarEscolhaNum();
             if (distribuir >= FORCA_MIN && distribuir <= PONTOS) {
                 forca = distribuir / PONTOS_FORCA;
                 vida = PONTOS - distribuir;
@@ -140,17 +142,13 @@ public class Jogo {
 
     public void vender(Vendedor vendedor, Heroi heroi) {
         Historia.vendedorIntro();
-
-        vendedor.imprimirLoja();
-        vendedor.vender(heroi);
-    }
-
-    /**
-     * Método para pausar a execução
-     */
-    public static void pausar() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\nPresione ENTER para continuar...");
-        scanner.nextLine();
+        if (Tools.validarSimNao()) {
+            do {
+                vendedor.mostrarLoja();
+                Historia.vendedorPergunta();
+                vendedor.vender(heroi);
+                Historia.vendedorPerguntaMais();
+            } while (Tools.validarSimNao());
+        }
     }
 }

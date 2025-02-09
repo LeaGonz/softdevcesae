@@ -8,11 +8,11 @@ public class Main {
 
         // INTRO
         Historia.intro();
-        Jogo.pausar();
+        Tools.pausar();
 
         // Escolha de Personagem
         Historia.escolhaPersonagem();
-        Jogo.pausar();
+        Tools.pausar();
         Heroi jogador = jogo.criarPersonagem();
 
         jogo.onePieceWano(jogador);

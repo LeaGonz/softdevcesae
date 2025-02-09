@@ -30,11 +30,33 @@ public abstract class Entidade {
         System.out.printf("HP: %-10d | HP máximo: %-10d%n", this.hp, this.maxHp);
     }
 
+    /**
+     * Método para subtrair o dano dum ataque
+     *
+     * @param dano
+     */
     public void recebeAtaque(int dano) {
         this.hp -= dano;
         if (this.hp < 0) this.hp = 0;
     }
 
+    public boolean atacaNpc(Heroi heroi, int ataque) {
+        heroi.recebeAtaque(ataque);
+        System.out.println(this.getNome() + " ataca e causa " + ataque + " de dano!");
+
+        // Verificar HP do herói
+        if (!this.vivo()) {
+            System.out.println(heroi.getNome() + " ha perdido");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Método para verificar se a Entidade continua viva
+     *
+     * @return
+     */
     public boolean vivo() {
         return this.hp > 0;
     }

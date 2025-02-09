@@ -9,14 +9,22 @@ public class Sanji extends Heroi {
     }
 
     /**
-     * Método de luta entre Sanji e um entidades. NPC
+     * Método de luta entre Sanji e um NPC
+     * Herói recebe mais 10% de dano, por falta de proteção
      *
-     * @param lutadorNpc
+     * @param npc
      * @return
      */
     @Override
-    public boolean atacar(NPC lutadorNpc) {
+    public boolean atacar(NPC npc) {
+        // Ataca o Herói
+        if (!this.atacaHeroi(npc)) {
+            return false;
+        }
 
-        return false;
+        // Ataca o NPC
+        int ataque = (int) Math.round((npc.getForca() + (npc.getForca() * 0.1)));
+        return npc.atacaNpc(this, ataque);
     }
 }
+
