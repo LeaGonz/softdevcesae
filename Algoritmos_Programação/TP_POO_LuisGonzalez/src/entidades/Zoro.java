@@ -17,12 +17,27 @@ public class Zoro extends Heroi {
     @Override
     public boolean atacar(NPC npc) {
         // Ataca o Herói
-        if (!this.atacaHeroi(npc)) {
+        int ataque = this.tipoAtaque();
+        npc.recebeAtaque(ataque);
+        System.out.println(this.getNome() + " ataca e causa " + ataque + " de dano!");
+
+        // Verificar HP do NPC
+        if (!npc.vivo()) {
+            System.out.println(npc.getNome() + " ha perdido");
+            npc = null;
             return false;
         }
 
         // Ataca o NPC
-        int ataque = npc.getForca();
-        return npc.atacaNpc(this, ataque);
+        ataque = npc.getForca();
+        this.recebeAtaque(ataque);
+        System.out.println(npc.getNome() + " ataca e causa " + ataque + " de dano!");
+
+        // Verificar HP do herói
+        if (!this.vivo()) {
+            System.out.println(this.getNome() + " ha perdido");
+            return false;
+        }
+        return true;
     }
 }

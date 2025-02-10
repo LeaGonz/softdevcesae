@@ -32,7 +32,6 @@ public class Jogo {
         combate(heroi);
     }
 
-
     /**
      * Método combate entre Herói e NPC
      *

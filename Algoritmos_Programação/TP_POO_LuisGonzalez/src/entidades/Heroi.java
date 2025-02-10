@@ -27,12 +27,11 @@ public abstract class Heroi extends Entidade {
      * @param inventario
      * @param ataqueEspecialUsado
      */
-    public Heroi(Personagem nome, int hp, int forca, int nivel, int ouro, ArmaPrincipal armaPrincipal, ArrayList<Consumivel> inventario, boolean ataqueEspecialUsado) {
+    public Heroi(Personagem nome, int hp, int forca, int nivel, int ouro) {
         super(nome, hp, forca);
         this.nivel = nivel;
         this.ouro = ouro;
-        this.armaPrincipal = armaPrincipal;
-        this.inventario = inventario;
+        this.inventario = new ArrayList<>();
         this.ataqueEspecialUsado = false;
     }
 
@@ -52,58 +51,42 @@ public abstract class Heroi extends Entidade {
     }
 
     /**
-     * Método auxiliar ataque de herói, reutilização de código
-     *
-     * @param npc
-     * @return
-     */
-    public boolean atacaHeroi(NPC npc) {
-        int ataque = tipoAtaque();
-
-        npc.recebeAtaque(ataque);
-        System.out.println(this.getNome() + " ataca e causa " + ataque + " de dano!");
-
-        // Verificar HP do NPC
-        if (!npc.vivo()) {
-            System.out.println(npc.getNome() + " ha perdido");
-            npc = null;
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Método para escolher o tipo de ataque (se for possível)
+     * Método para escolher o tipo de ataque (se for possível) entre normal, especial ou consumível
      *
      * @return
      */
-    private int tipoAtaque() {
-        int escolha, ataque = 0;
+    public int tipoAtaque() {
+        int escolha, ataque;
         do {
+            // Se há algum consumível
             if (!this.inventario.isEmpty()) {
+                // Se tem arma o herói
                 if (this.armaPrincipal != null) {
                     System.out.println("Escolha o tipo de ataque:\n1- Ataque Normal\n2- Ataque Especial (uso único)\n3- Ataque Consumível");
                     escolha = Tools.validarEscolhaNum();
-                    switch (escolha) {
-                        case 1:
-                            ataque = this.getForca() + this.armaPrincipal.getAtaque();
-                            break;
-                        case 2:
-                            ataque = ataqueEspecial();
-                            break;
-                        case 3:
-                            ataque = usarConsumivelCombate();
-                            break;
-                        default:
-                            break;
-                    }
-                    ;
+                    ataque = switch (escolha) {
+                        case 1 -> this.getForca() + this.armaPrincipal.getAtaque();
+                        case 2 -> ataqueEspecial();
+                        case 3 -> usarConsumivelCombate();
+                        default -> 0;
+                    };
+                    // Se só há consumíveis
                 } else {
                     System.out.println("Escolha o tipo de ataque: 1- Ataque Consumível");
+                    escolha = Tools.validarEscolhaNum();
+                    if (escolha == 1) ataque = usarConsumivelCombate();
+                    else ataque = 0;
                 }
+                // Se só tem arma o herói
             } else if (this.armaPrincipal != null) {
                 System.out.println("Escolha o tipo de ataque: 1- Ataque Normal\n2- Ataque Especial (uso único)");
-                ataque = this.getForca() + this.armaPrincipal.getAtaque();
+                escolha = Tools.validarEscolhaNum();
+                ataque = switch (escolha) {
+                    case 1 -> this.getForca() + this.armaPrincipal.getAtaque();
+                    case 2 -> ataqueEspecial();
+                    default -> 0;
+                };
+                // Se não tem arma só ataca com força
             } else {
                 ataque = this.getForca();
             }
@@ -111,7 +94,13 @@ public abstract class Heroi extends Entidade {
         return ataque;
     }
 
+    /**
+     * Método para o uso do consumivel tipo combate
+     *
+     * @return o valor do ataque selecionado / ou 0 se não há consumível
+     */
     private int usarConsumivelCombate() {
+        // ArrayList para adicionar os consumíveis tipo combate
         ArrayList<ConsumivelCombate> consuCombate = new ArrayList<>();
         int index = 1;
 
@@ -119,7 +108,7 @@ public abstract class Heroi extends Entidade {
 
         for (Consumivel consumivel : this.inventario) {
 
-            // Só adicionamos os consumíveis de tipo combate ao ArrayList consuCombate
+            // Verificamos o tipo do consumível
             if (consumivel instanceof ConsumivelCombate) {
                 consuCombate.add((ConsumivelCombate) consumivel);
                 System.out.print(index + "- ");
@@ -128,6 +117,7 @@ public abstract class Heroi extends Entidade {
             }
         }
 
+        // Se não foi adicionado nada no ArrayList, terminamos função
         if (consuCombate.isEmpty()) {
             return 0;
         }
@@ -140,9 +130,9 @@ public abstract class Heroi extends Entidade {
     }
 
     /**
-     * Método para validar o uso do ataque especial
+     * Método para validar se é possível o uso do ataque especial
      *
-     * @return o valor do ataque especial se for possível
+     * @return o valor do ataque especial se não foi usado
      */
     private int ataqueEspecial() {
         if (!this.ataqueEspecialUsado) {
@@ -154,8 +144,16 @@ public abstract class Heroi extends Entidade {
         }
     }
 
+    /**
+     * Método para alterar o ouro do herói
+     * @param ouroHeroi
+     */
+    protected void ouroHeroi(int ouroHeroi) {
+        this.ouro += ouroHeroi;
+    }
 
-    // ******************************** GETTERS / SETTERS ********************************
+
+// ******************************** GETTERS / SETTERS ********************************
 
     /**
      * Getters

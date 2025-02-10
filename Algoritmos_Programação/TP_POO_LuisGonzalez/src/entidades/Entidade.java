@@ -40,18 +40,6 @@ public abstract class Entidade {
         if (this.hp < 0) this.hp = 0;
     }
 
-    public boolean atacaNpc(Heroi heroi, int ataque) {
-        heroi.recebeAtaque(ataque);
-        System.out.println(this.getNome() + " ataca e causa " + ataque + " de dano!");
-
-        // Verificar HP do herói
-        if (!this.vivo()) {
-            System.out.println(heroi.getNome() + " ha perdido");
-            return false;
-        }
-        return true;
-    }
-
     /**
      * Método para verificar se a Entidade continua viva
      *
@@ -79,4 +67,5 @@ public abstract class Entidade {
     public int getForca() {
         return forca;
     }
+
 }

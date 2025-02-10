@@ -28,11 +28,30 @@ public class Luffy extends Heroi {
     public boolean atacar(NPC npc) {
         // Ataca primeiro o NPC
         int ataque = (int) (npc.getForca() * 0.8);
-        if (!npc.atacaNpc(this, ataque)) {
+        this.recebeAtaque(ataque);
+        System.out.println(npc.getNome() + " ataca e causa " + ataque + " de dano!");
+
+        // Verificar HP do herói
+        if (!this.vivo()) {
+            System.out.println(this.getNome() + " ha perdido");
             return false;
         }
 
         // Ataca o Herói
-        return this.atacaHeroi(npc);
+        ataque = this.tipoAtaque();
+        npc.recebeAtaque(ataque);
+        System.out.println(this.getNome() + " ataca e causa " + ataque + " de dano!");
+
+        // Verificar HP do NPC
+        if (!npc.vivo()) {
+            // Adicionamos ouro ao herói
+            this.ouroHeroi(npc.getOuro());
+            System.out.println(npc.getNome() + " ha perdido");
+            // Apagamos o NPC
+            npc = null;
+            return false;
+        }
+
+        return true;
     }
 }
