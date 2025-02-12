@@ -3,8 +3,8 @@ package itens;
 import Enums.Personagem;
 
 public class Pocao extends Consumivel {
-    protected int vidaCurar;
-    protected int aumentoForca;
+    private int vidaCurar;
+    private int aumentoForca;
 
     /**
      * Construtor

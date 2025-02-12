@@ -3,7 +3,7 @@ package itens;
 import Enums.Personagem;
 
 public class ConsumivelCombate extends Consumivel {
-    protected int ataqueInstantaneo;
+    private int ataqueInstantaneo;
 
     /**
      * Construtor

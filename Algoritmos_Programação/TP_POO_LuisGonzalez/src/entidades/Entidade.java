@@ -1,6 +1,7 @@
 package entidades;
 
 import Enums.Personagem;
+import jogo.Tools;
 
 public abstract class Entidade {
     private Personagem nome;
@@ -50,6 +51,23 @@ public abstract class Entidade {
     }
 
     /**
+     * Método de curação
+     * @param pocao
+     * @return true se foi recebida a poção
+     */
+    public boolean recebePocao(int pocao) {
+        if ((this.hp + pocao) > this.maxHp) {
+            System.out.println("Vai perder uma parte da cura da poção. Quer usar na mesma? (S/N)");
+
+            if (!Tools.validarSimNao()) return false;
+
+            this.hp += pocao;
+            if (this.hp > this.maxHp) this.hp = this.maxHp;
+        }
+        return true;
+    }
+
+    /**
      * Getters
      */
     public Personagem getNome() {
@@ -68,4 +86,22 @@ public abstract class Entidade {
         return forca;
     }
 
+    /**
+     * Setters
+     */
+    public void setNome(Personagem nome) {
+        this.nome = nome;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public void setForca(int forca) {
+        this.forca = forca;
+    }
 }

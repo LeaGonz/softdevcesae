@@ -12,7 +12,7 @@ public abstract class Consumivel extends ItemHeroi {
      */
     public Consumivel(String nome, int preco, Personagem personagem) {
         super(nome, preco);
-        super.heroisPermitidos.add(personagem);
+        super.getHeroisPermitidos().add(personagem);
 
     }
 }

@@ -52,6 +52,7 @@ public class Jogo {
                 break;
             }
         }
+        heroi.mostrarDetalhes();
     }
 
     /**
@@ -109,8 +110,7 @@ public class Jogo {
      * @return
      */
     public NPC criarNPC() {
-        NPC npc = new NPC(Personagem.NPC, 100, 5, 5);
-        return npc;
+        return new NPC(Personagem.NPC, 100, 50, 5);
     }
 
     /**

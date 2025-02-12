@@ -19,7 +19,7 @@ public class ArmaPrincipal extends ItemHeroi {
         super(nome, preco);
         this.ataque = ataque;
         this.ataqueEspecial = ataqueEspecial;
-        super.heroisPermitidos.add(personagem);
+        super.getHeroisPermitidos().add(personagem);
     }
 
     /**

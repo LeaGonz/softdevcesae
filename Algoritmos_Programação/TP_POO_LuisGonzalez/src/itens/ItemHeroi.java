@@ -5,9 +5,9 @@ import Enums.Personagem;
 import java.util.ArrayList;
 
 public abstract class ItemHeroi {
-    protected String nome;
-    protected int preco;
-    protected ArrayList<Personagem> heroisPermitidos;
+    private String nome;
+    private int preco;
+    private ArrayList<Personagem> heroisPermitidos;
 
     /**
      * Construtor

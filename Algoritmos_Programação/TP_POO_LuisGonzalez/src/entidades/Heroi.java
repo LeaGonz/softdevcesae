@@ -4,6 +4,7 @@ import Enums.Personagem;
 import itens.ArmaPrincipal;
 import itens.Consumivel;
 import itens.ConsumivelCombate;
+import itens.Pocao;
 import jogo.Tools;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public abstract class Heroi extends Entidade {
     private int ouro;
     private ArmaPrincipal armaPrincipal;
     private ArrayList<Consumivel> inventario;
+    private ArrayList<ConsumivelCombate> consuCombate;
+    private ArrayList<Pocao> pocoes;
     private boolean ataqueEspecialUsado;
 
     /**
@@ -44,10 +47,32 @@ public abstract class Heroi extends Entidade {
     public abstract boolean atacar(NPC npc);
 
     /**
-     * Método listar e usar poções dum herói
+     * Método do ataque dos herois ao NPC
+     *
+     * @param npc
+     * @return
      */
-    public void usarPocao() {
+    public boolean ataqueHeroi(NPC npc) {
+        int ataque = this.tipoAtaque();
+        npc.recebeAtaque(ataque);
+        System.out.println(this.getNome() + " ataca e causa " + ataque + " de dano!");
 
+        // Se o NPC morrer
+        if (!npc.vivo()) {
+            // Adicionar ouro NPC -> herói
+            this.ouroHeroi(npc.getOuro());
+            // Aumentar nível
+            this.nivel += 1;
+            // Aumentar força
+            this.setForca(this.getForca() + 1);
+            // Aumentar vida (HP)
+            this.setMaxHp(this.getMaxHp() + 10);
+            System.out.println(npc.getNome() + " ha perdido");
+            // Apagamos o NPC
+            npc = null;
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -58,9 +83,9 @@ public abstract class Heroi extends Entidade {
     public int tipoAtaque() {
         int escolha, ataque;
         do {
-            // Se há algum consumível
+            // Se há consumíveis
             if (!this.inventario.isEmpty()) {
-                // Se tem arma o herói
+                // Se tem arma e consumíveis
                 if (this.armaPrincipal != null) {
                     System.out.println("Escolha o tipo de ataque:\n1- Ataque Normal\n2- Ataque Especial (uso único)\n3- Ataque Consumível");
                     escolha = Tools.validarEscolhaNum();
@@ -77,7 +102,7 @@ public abstract class Heroi extends Entidade {
                     if (escolha == 1) ataque = usarConsumivelCombate();
                     else ataque = 0;
                 }
-                // Se só tem arma o herói
+                // Se só tem arma
             } else if (this.armaPrincipal != null) {
                 System.out.println("Escolha o tipo de ataque: 1- Ataque Normal\n2- Ataque Especial (uso único)");
                 escolha = Tools.validarEscolhaNum();
@@ -94,12 +119,30 @@ public abstract class Heroi extends Entidade {
         return ataque;
     }
 
+    public void atualizarConsumiveis() {
+        // ArrayList para adicionar os consumíveis tipo combate
+        consuCombate = new ArrayList<>();
+        // ArrayList para adicionar as poções
+        pocoes = new ArrayList<>();
+
+        for (Consumivel consumivel : this.inventario) {
+
+            if (consumivel instanceof ConsumivelCombate) {
+                consuCombate.add((ConsumivelCombate) consumivel);
+            }
+
+            if (consumivel instanceof Pocao) {
+                pocoes.add((Pocao) consumivel);
+            }
+        }
+    }
+
     /**
      * Método para o uso do consumivel tipo combate
      *
      * @return o valor do ataque selecionado / ou 0 se não há consumível
      */
-    private int usarConsumivelCombate() {
+    public int usarConsumivelCombate() {
         // ArrayList para adicionar os consumíveis tipo combate
         ArrayList<ConsumivelCombate> consuCombate = new ArrayList<>();
         int index = 1;
@@ -130,11 +173,40 @@ public abstract class Heroi extends Entidade {
     }
 
     /**
+     * Método listar e usar poções dum herói
+     */
+    public void usarPocao() {
+        atualizarConsumiveis();
+
+        if (pocoes.isEmpty()) {
+            System.out.println("Sem poções para usar!");
+            return;
+        }
+
+        System.out.println("Poções:");
+
+        for (int i = 0; i < pocoes.size(); i++) {
+            System.out.println((i + 1) + "- " + pocoes.get(i).getNome());
+            pocoes.get(i).mostrarDetalhes();
+        }
+
+        System.out.println("Escolha: ");
+        int escolha = Tools.validarEscolhaNum();
+
+        if (pocoes.get(escolha - 1).getVidaCurar() > 0) { //PENDIENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            this.recebePocao(pocoes.get(escolha - 1).getVidaCurar());
+        }
+
+        // Apagar o consumível do inventario principal
+        this.inventario.remove(pocoes.get(escolha - 1));
+    }
+
+    /**
      * Método para validar se é possível o uso do ataque especial
      *
      * @return o valor do ataque especial se não foi usado
      */
-    private int ataqueEspecial() {
+    public int ataqueEspecial() {
         if (!this.ataqueEspecialUsado) {
             this.ataqueEspecialUsado = true;
             return this.armaPrincipal.getAtaqueEspecial();
@@ -146,9 +218,10 @@ public abstract class Heroi extends Entidade {
 
     /**
      * Método para alterar o ouro do herói
+     *
      * @param ouroHeroi
      */
-    protected void ouroHeroi(int ouroHeroi) {
+    public void ouroHeroi(int ouroHeroi) {
         this.ouro += ouroHeroi;
     }
 
