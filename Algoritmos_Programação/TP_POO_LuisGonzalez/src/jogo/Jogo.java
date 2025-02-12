@@ -45,12 +45,6 @@ public class Jogo {
         while (heroi.atacar(npc)) {
             System.out.println(heroi.getNome() + " - " + heroi.getHp());
             System.out.println(npc.getNome() + " - " + npc.getHp());
-            System.out.println("1- Atacar | 2- Mochila");
-            int escolha = Tools.validarEscolhaNum();
-            if (escolha == 2) {
-                System.out.println("Mochila");
-                break;
-            }
         }
         heroi.mostrarDetalhes();
     }
@@ -119,9 +113,9 @@ public class Jogo {
     public void lojaVendedor(Vendedor vendedor) {
         // POÇÕES
         vendedor.adicionarItem(new Pocao("Nozes de Wano", 1, Personagem.Geral, 15, 0));
-        vendedor.adicionarItem(new Pocao("Maçã Energética", 2, Personagem.Geral, 25, 1));
-        vendedor.adicionarItem(new Pocao("Excite Maçã", 3, Personagem.Geral, 30, 5));
-        vendedor.adicionarItem(new Pocao("Potente Excite Maçã", 5, Personagem.Geral, 50, 10));
+        vendedor.adicionarItem(new Pocao("Maçã Energética", 2, Personagem.Geral, 0, 10));
+        vendedor.adicionarItem(new Pocao("Excite Maçã", 3, Personagem.Geral, 5, 15));
+        vendedor.adicionarItem(new Pocao("Potente Excite Maçã", 5, Personagem.Geral, 10, 20));
         vendedor.adicionarItem(new Pocao("Cerveja", 1, Personagem.Geral, 25, 1));
 
         // COMBATE
