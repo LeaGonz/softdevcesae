@@ -36,7 +36,7 @@ public abstract class ItemHeroi {
     }
 
     public int getPreco() {
-        return preco;
+        return this.preco;
     }
 
     public ArrayList<Personagem> getHeroisPermitidos() {

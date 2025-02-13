@@ -35,6 +35,13 @@ public abstract class Heroi extends Entidade {
         this.ataqueEspecialUsado = false;
     }
 
+    @Override
+    public void mostrarDetalhes() {
+        super.mostrarDetalhes();
+        System.out.println("Nivel: " + this.nivel);
+        System.out.println("Ouro: " + this.ouro);
+    }
+
     /**
      * Método atacar dum herói a um NPC
      *
@@ -78,9 +85,8 @@ public abstract class Heroi extends Entidade {
      * @return
      */
     public int tipoAtaque() {
-        int ataque, escolha = 0;
+        int ataque, escolha;
         do {
-            System.out.println("Escolha o tipo de ataque:");
             // Se há consumíveis e arma
             if (!this.inventario.isEmpty() && this.armaPrincipal != null) {
                 System.out.println("1- Ataque sem Arma\n2- Ataque com Arma\n3- Ataque Especial (uso único)\n4- Ataque Consumível\n5- Poções");
@@ -105,7 +111,7 @@ public abstract class Heroi extends Entidade {
                 default -> 0;
             };
 
-            // Somamos a escolha + o ataque com só força
+            // Somamos a escolha + o ataque com só força (seria igual a escolha 1, por isso não temos case 1)
             ataque += this.getForca();
 
         } while (ataque == this.getForca() && escolha != 1);
@@ -238,7 +244,7 @@ public abstract class Heroi extends Entidade {
     }
 
     public int getOuro() {
-        return ouro;
+        return this.ouro;
     }
 
     public ArmaPrincipal getArmaPrincipal() {
@@ -257,7 +263,7 @@ public abstract class Heroi extends Entidade {
     }
 
     public void setOuro(int ouro) {
-        this.ouro = ouro;
+        this.ouro += ouro;
     }
 
     public void setArmaPrincipal(ArmaPrincipal armaPrincipal) {

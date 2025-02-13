@@ -8,7 +8,6 @@ public abstract class Entidade {
     private int maxHp;
     private int hp;
     private int forca;
-    private int forcaTemporal;
 
     /**
      * Construtor
@@ -22,7 +21,6 @@ public abstract class Entidade {
         this.hp = hp;
         this.maxHp = hp;
         this.forca = forca;
-        this.forcaTemporal = 0;
     }
 
     /**
@@ -54,6 +52,7 @@ public abstract class Entidade {
 
     /**
      * Método de curação
+     *
      * @param pocao
      * @return true se foi recebida a poção
      */
@@ -63,18 +62,20 @@ public abstract class Entidade {
 
             if (!Tools.validarSimNao()) return;
 
-            this.hp += pocao;
-            if (this.hp > this.maxHp) this.hp = this.maxHp;
         }
+        this.hp += pocao;
+        if (this.hp > this.maxHp) this.hp = this.maxHp;
     }
 
     /**
      * Método para guardar a força temporal dada pelas poções
      * será usada num turno do combate
+     *
      * @param forca
      */
     public int recebeForca(int forca) {
-        return this.forcaTemporal += forca;
+        int forcaTemporal = 0;
+        return forcaTemporal + forca;
     }
 
     /**

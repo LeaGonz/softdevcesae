@@ -140,6 +140,7 @@ public class Jogo {
                 vendedor.mostrarLoja();
                 Historia.vendedorPergunta();
                 vendedor.vender(heroi);
+                heroi.mostrarDetalhes();
                 Historia.vendedorPerguntaMais();
             } while (Tools.validarSimNao());
         }
