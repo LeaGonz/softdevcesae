@@ -57,19 +57,21 @@ public class Jogo {
         int NIVEL_INI = 1;
         int FORCA_MIN = 50;
         int PONTOS_FORCA = 5;
-        int PONTOS, OURO, FORCA_MAX;
+        int PONTOS = 0;
+        int OURO = 0;
+        int FORCA_MAX = 0;
 
         System.out.println("Escolha um personagem para iniciar o jogo\n1- Luffy\n2- Zoro\n3- Sanji");
-        int personagem = Tools.validarEscolhaNum();
+        int personagem = Tools.validarEscolhaNum(1, 3);
 
         // DIFICULDADE
         System.out.println("Escolha dificuldade\n1-Fácil\n2-Difícil");
-        int dificuldade = Tools.validarEscolhaNum();
+        int dificuldade = Tools.validarEscolhaNum(1, 2);
         if (dificuldade == 1) {
             PONTOS = 300;
             OURO = 20;
             FORCA_MAX = 200;
-        } else {
+        } else if (dificuldade == 2) {
             PONTOS = 220;
             OURO = 15;
             FORCA_MAX = 120;
@@ -82,11 +84,13 @@ public class Jogo {
 
         do {
             System.out.println("Forçã \uD83D\uDCAA(Mín|Max " + (FORCA_MIN / PONTOS_FORCA) + "|" + (FORCA_MAX / PONTOS_FORCA) + " -> (" + FORCA_MIN + "|" + FORCA_MAX + "pts))");
-            distribuir = Tools.validarEscolhaNum();
-            if (distribuir >= FORCA_MIN && distribuir <= PONTOS) {
+            distribuir = Tools.validarEscolhaNum(FORCA_MIN, PONTOS);
+            if (distribuir >= FORCA_MIN && distribuir <= FORCA_MAX) {
                 forca = distribuir / PONTOS_FORCA;
                 vida = PONTOS - distribuir;
                 break;
+            } else {
+                System.out.println("Pontos de força inválidos");
             }
         } while (true);
 

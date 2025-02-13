@@ -64,7 +64,7 @@ public abstract class Heroi extends Entidade {
         // Se o NPC morrer
         if (!npc.vivo()) {
             // Adicionar ouro NPC -> herói
-            this.ouroHeroi(npc.getOuro());
+            this.setOuro(npc.getOuro());
             // Aumentar nível
             this.nivel += 1;
             // Aumentar força
@@ -85,23 +85,26 @@ public abstract class Heroi extends Entidade {
      * @return
      */
     public int tipoAtaque() {
-        int ataque, escolha;
+        int ataque, escolha, maxEscolha;
         do {
             // Se há consumíveis e arma
             if (!this.inventario.isEmpty() && this.armaPrincipal != null) {
                 System.out.println("1- Ataque sem Arma\n2- Ataque com Arma\n3- Ataque Especial (uso único)\n4- Ataque Consumível\n5- Poções");
+                maxEscolha = 5;
                 // Se só há consumíveis
             } else if (!this.inventario.isEmpty()) {
                 System.out.println("1- Ataque sem Arma\n2- Ataque Consumível\n3- Poções");
+                maxEscolha = 3;
                 // Se só tem arma
             } else if (this.armaPrincipal != null) {
                 System.out.println("1- Ataque sem Arma\n2- Ataque com Arma\n3- Ataque Especial (uso único)");
+                maxEscolha = 3;
             } else {
                 // Se não tem arma
                 return this.getForca();
             }
 
-            escolha = Tools.validarEscolhaNum();
+            escolha = Tools.validarEscolhaNum(1, maxEscolha);
 
             ataque = switch (escolha) {
                 case 2 -> (this.armaPrincipal != null) ? this.armaPrincipal.getAtaque() : usarConsumivelCombate();
@@ -147,30 +150,25 @@ public abstract class Heroi extends Entidade {
      * @return o valor do ataque selecionado / ou 0 se não há consumível
      */
     public int usarConsumivelCombate() {
-        // ArrayList para adicionar os consumíveis tipo combate
-        ArrayList<ConsumivelCombate> consuCombate = new ArrayList<>();
-        int index = 1;
+        atualizarConsumiveis();
 
-        System.out.println("Consumíveis de combate:");
-
-        for (Consumivel consumivel : this.inventario) {
-
-            // Verificamos o tipo do consumível
-            if (consumivel instanceof ConsumivelCombate) {
-                consuCombate.add((ConsumivelCombate) consumivel);
-                System.out.print(index + "- ");
-                consumivel.mostrarDetalhes();
-                index++;
-            }
-        }
-
-        // Se não foi adicionado nada no ArrayList, terminamos função
+        // Saimos se não há poções
         if (consuCombate.isEmpty()) {
+            System.out.println("Sem consumíveis de combate para usar!");
             return 0;
         }
 
-        System.out.print("Escolha: ");
-        int escolha = Tools.validarEscolhaNum();
+        System.out.println("Consumíveis de combate:");
+
+        // Listamos poções
+        for (int i = 0; i < consuCombate.size(); i++) {
+            System.out.println((i + 1) + "- " + consuCombate.get(i).getNome());
+            consuCombate.get(i).mostrarDetalhes();
+        }
+
+        int escolha = Tools.validarEscolhaNum(0, consuCombate.size());
+
+        // Apagar o consumível do inventario principal
         this.inventario.remove(consuCombate.get(escolha - 1));
 
         return consuCombate.get(escolha - 1).getAtaqueInstantaneo();
@@ -195,8 +193,7 @@ public abstract class Heroi extends Entidade {
             pocoes.get(i).mostrarDetalhes();
         }
 
-        System.out.println("Escolha: ");
-        int escolha = Tools.validarEscolhaNum();
+        int escolha = Tools.validarEscolhaNum(0, pocoes.size());
 
         // Apagar o consumível do inventario principal
         this.inventario.remove(pocoes.get(escolha - 1));
@@ -222,15 +219,6 @@ public abstract class Heroi extends Entidade {
             System.out.println("O ataque especial já foi usado");
             return 0;
         }
-    }
-
-    /**
-     * Método para alterar o ouro do herói
-     *
-     * @param ouroHeroi
-     */
-    public void ouroHeroi(int ouroHeroi) {
-        this.ouro += ouroHeroi;
     }
 
 

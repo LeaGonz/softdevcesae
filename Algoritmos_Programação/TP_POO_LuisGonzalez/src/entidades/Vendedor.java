@@ -56,11 +56,11 @@ public class Vendedor {
      * Método recebe o Herói como parâmetro, e verifica se a compra pode ser
      * efetuada
      *
-     * @param heroiComprador
+     * @param heroi
      */
     public void vender(Heroi heroi) {
-        System.out.print("Escolha um item: ");
-        int escolha = Tools.validarEscolhaNum();
+        int escolha = Tools.validarEscolhaNum(0, this.itensMostrados.size());
+        if (escolha == 0) return;
         ItemHeroi item = this.itensMostrados.get(escolha - 1);
 
         // Verificar se pode comprar
