@@ -7,14 +7,13 @@ public class Main {
         Jogo jogo = new Jogo();
 
         // INTRO
+        Historia.logoIntro();
         Historia.intro();
-        Tools.pausar();
 
         // Escolha de Personagem
-        Historia.escolhaPersonagem();
-        Tools.pausar();
         Heroi jogador = jogo.criarPersonagem();
 
         jogo.onePieceWano(jogador);
     }
 }
+

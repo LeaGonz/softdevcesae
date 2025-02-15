@@ -28,9 +28,14 @@ public class Luffy extends Heroi {
     public boolean atacar(NPC npc) {
         // Ataca primeiro o NPC
         int ataque = (int) (npc.getForca() * 0.8);
-        if (!npc.ataqueNPC(this, ataque)) return false;
+        if (!this.recebeAtaque(ataque)) return false;
 
         // Ataca o Herói
-        return this.ataqueHeroi(npc);
+        ataque = this.tipoAtaque();
+        if (!npc.recebeAtaque(ataque)) {
+            this.subirNivel(npc);
+            return false;
+        }
+        return true;
     }
 }

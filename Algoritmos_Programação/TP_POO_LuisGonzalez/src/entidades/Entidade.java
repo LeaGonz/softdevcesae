@@ -27,27 +27,37 @@ public abstract class Entidade {
      * Método mostrar detalhes da entidades.Entidade
      */
     public void mostrarDetalhes() {
-        System.out.printf("Nome: %-10s | Força: %-10d%n", this.nome, this.forca);
-        System.out.printf("HP: %-10d | HP máximo: %-10d%n", this.hp, this.maxHp);
+        System.out.printf(Tools.color.YELLOW + """
+                            ____________________________
+                          / \\                          \\
+                         |   | ☠️  Pirata: %s%s%s  👒
+                          \\_ |
+                             |      HP❤️: %s%s%s
+                             |      HP Max❤️‍🔥: %s%s%s
+                             |      Força💪: %s%s%s
+                        """ + Tools.color.RESET,
+                Tools.color.WHITE_BRIGHT, this.nome, Tools.color.YELLOW,
+                Tools.color.WHITE_BRIGHT, this.hp, Tools.color.YELLOW,
+                Tools.color.WHITE_BRIGHT, this.maxHp, Tools.color.YELLOW,
+                Tools.color.WHITE_BRIGHT, this.forca, Tools.color.RESET);
     }
+
 
     /**
      * Método para subtrair o dano dum ataque
      *
-     * @param dano
+     * @param ataque
      */
-    public void recebeAtaque(int dano) {
-        this.hp -= dano;
-        if (this.hp < 0) this.hp = 0;
-    }
+    public boolean recebeAtaque(int ataque) {
+        this.hp -= ataque;
+        System.out.println(this.getNome() + " sofre " + ataque + " de dano!");
 
-    /**
-     * Método para verificar se a Entidade continua viva
-     *
-     * @return
-     */
-    public boolean vivo() {
-        return this.hp > 0;
+        if (this.hp <= 0) {
+            this.hp = 0;
+            System.out.println(this.getNome() + " ha perdido");
+            return false;
+        }
+        return true;
     }
 
     /**

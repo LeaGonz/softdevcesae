@@ -18,10 +18,15 @@ public class Sanji extends Heroi {
     @Override
     public boolean atacar(NPC npc) {
         // Ataca o Herói
-        if (!this.ataqueHeroi(npc)) return false;
+        int ataque = this.tipoAtaque();
+        if (!npc.recebeAtaque(ataque)) {
+            this.subirNivel(npc);
+            return false;
+        }
+
         // Ataca o NPC
-        int ataque = (int) Math.round((npc.getForca() + (npc.getForca() * 0.1)));
-        return npc.ataqueNPC(this, ataque);
+        ataque = (int) Math.round((npc.getForca() + (npc.getForca() * 0.1)));
+        return this.recebeAtaque(ataque);
     }
 }
 

@@ -17,8 +17,13 @@ public class Zoro extends Heroi {
     @Override
     public boolean atacar(NPC npc) {
         // Ataca o Herói
-        if (!this.ataqueHeroi(npc)) return false;
+        int ataque = this.tipoAtaque();
+        if (!npc.recebeAtaque(ataque)) {
+            this.subirNivel(npc);
+            return false;
+        }
+
         // Ataca o NPC
-        return npc.ataqueNPC(this, npc.getForca());
+        return this.recebeAtaque(npc.getForca());
     }
 }

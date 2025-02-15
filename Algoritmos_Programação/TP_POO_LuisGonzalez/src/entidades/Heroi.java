@@ -37,9 +37,20 @@ public abstract class Heroi extends Entidade {
 
     @Override
     public void mostrarDetalhes() {
+
         super.mostrarDetalhes();
-        System.out.println("Nivel: " + this.nivel);
-        System.out.println("Ouro: " + this.ouro);
+
+        System.out.printf(Tools.color.YELLOW + """
+                             |      Nível🔰: %s%s%s
+                             |      Ouro🪙: %s%s%s
+                             |      Arma⚔️: %s%s%s
+                             |   _________________________|_
+                             \\_/___________________________/
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.WHITE_BRIGHT, this.nivel, Tools.color.YELLOW,
+                Tools.color.WHITE_BRIGHT, this.ouro, Tools.color.YELLOW,
+                Tools.color.WHITE_BRIGHT, (this.armaPrincipal != null ? this.armaPrincipal : ""), Tools.color.YELLOW);
     }
 
     /**
@@ -50,33 +61,23 @@ public abstract class Heroi extends Entidade {
      */
     public abstract boolean atacar(NPC npc);
 
+
     /**
-     * Método do ataque dos herois ao NPC
+     * Método de subida de nivel do herói
      *
      * @param npc
-     * @return
      */
-    public boolean ataqueHeroi(NPC npc) {
-        int ataque = this.tipoAtaque();
-        npc.recebeAtaque(ataque);
-        System.out.println(this.getNome() + " ataca e causa " + ataque + " de dano!");
-
-        // Se o NPC morrer
-        if (!npc.vivo()) {
-            // Adicionar ouro NPC -> herói
-            this.setOuro(npc.getOuro());
-            // Aumentar nível
-            this.nivel += 1;
-            // Aumentar força
-            this.setForca(this.getForca() + 1);
-            // Aumentar vida (HP)
-            this.setMaxHp(this.getMaxHp() + 10);
-            System.out.println(npc.getNome() + " ha perdido");
-            // Apagamos o NPC
-            npc = null;
-            return false;
-        }
-        return true;
+    public void subirNivel(NPC npc) {
+        // Adicionar ouro NPC -> herói
+        this.ouro += npc.getOuro();
+        // Aumentar nível
+        this.nivel += 1;
+        // Aumentar força
+        this.setForca(this.getForca() + 1);
+        // Aumentar vida (HP)
+        this.setMaxHp(this.getMaxHp() + 10);
+        // Mensagem
+        System.out.println(this.getNome() + " ha subido de nivel");
     }
 
     /**
