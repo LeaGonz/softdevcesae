@@ -41,11 +41,23 @@ public class Vendedor {
         }
 
         // Mostrar os 10 itens
-        System.out.println("Itens à venda:\n");
+        System.out.printf(Tools.color.YELLOW + """
+                            __________________________________________________________________________________________________________________
+                          / \\                                                                                                                \\
+                         |   |                                                   🏮   %sLOJA%s   🏮
+                          \\_ |                Nome                 Preço 🪙  Herói ☠️
+                        """,
+                Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW);
         for (int i = 0; i < this.itensMostrados.size(); i++) {
-            System.out.print((i + 1) + "- ");
+            System.out.printf("     | %-2s- ", (i + 1));
             this.itensMostrados.get(i).mostrarDetalhes();
         }
+        System.out.printf("""
+                     |   ______________________________________________________________________________________________________________|_
+                     \\_/_______________________________________________________________________________________________________________/
+                
+                """ + Tools.color.RESET);
     }
 
     public void adicionarItem(ItemHeroi item) {
@@ -57,33 +69,56 @@ public class Vendedor {
      * efetuada
      *
      * @param heroi
+     * @return
      */
-    public void vender(Heroi heroi) {
+    public boolean vender(Heroi heroi) {
         int escolha = Tools.validarEscolhaNum(0, this.itensMostrados.size());
-        if (escolha == 0) return;
+
+        // Se 0, retorna FALSE e saímos do método
+        if (escolha == 0) {
+            Historia.vendedorDespedida();
+            return false;
+        }
+        ;
+
         ItemHeroi item = this.itensMostrados.get(escolha - 1);
 
-        // Verificar se pode comprar
+        // Verificar se pode comprar, se não, retorna TRUE
         if (!item.getHeroisPermitidos().contains(Personagem.Geral)) {
             if (!item.getHeroisPermitidos().contains(heroi.getNome())) {
                 Historia.vendedorItemNao(heroi, item);
-                return;
+                return true;
             }
         }
 
-        // Se tem ouro suficiente
+        // Se tem ouro suficiente, descontamos o ouro do herói
         if (heroi.getOuro() >= item.getPreco()) {
             heroi.setOuro(-item.getPreco());
             Historia.vendedorItemSim(heroi, item);
 
-            // Se for ArmaPrincipal
+            // Se for ArmaPrincipal adicionamos
             if (item instanceof ArmaPrincipal) {
                 heroi.setArmaPrincipal((ArmaPrincipal) item);
             }
-            // Se for Consumível
+            // Se for Consumível adicionamos
             else if (item instanceof Consumivel) {
                 heroi.setInventario((Consumivel) item);
             }
         }
+
+        Tools.pausar();
+
+        // Vendedor pergunta se quer comprar mais alguma coisa
+        Historia.vendedorPerguntaMais();
+        if (Tools.validarSimNao()) {
+            return true;
+        } else {
+            Historia.vendedorDespedida();
+            return false;
+        }
+    }
+
+    public void limparItensMostrados() {
+        this.itensMostrados.clear();
     }
 }

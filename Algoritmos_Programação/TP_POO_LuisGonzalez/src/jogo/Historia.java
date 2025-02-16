@@ -1,7 +1,11 @@
 package jogo;
 
+import entidades.Entidade;
 import entidades.Heroi;
+import entidades.NPC;
+import itens.ConsumivelCombate;
 import itens.ItemHeroi;
+import itens.Pocao;
 
 public class Historia {
     public static void logoIntro() {
@@ -27,8 +31,15 @@ public class Historia {
     public static void intro() {
         System.out.print(Tools.color.WHITE_BRIGHT + """
                 
-                O vento 🍃 sopra forte enquanto o Thousand Sunny navega 🌊 em direção às costas de Wano.
-                ⛩️ Um país isolado e oprimido pelo shogun Orochi e pelo imperador pirata Kaido 🐉.
+                ⛩️ Bem-vindo ao País de Wano! ⛩️
+                
+                Uma terra isolada do resto do mundo, onde samurais ainda caminham pelas ruas e as antigas tradições permanecem vivas... 
+                ou pelo menos, costumavam permanecer.
+                
+                Nos últimos 20 anos, este país mudou drasticamente sob o governo do shogun Kurozumi Orochi 👺 
+                e a influência do Yonkou Kaido 🐉. 
+                
+                O que antes era uma nação próspera, tornou-se um lugar de sofrimento e desigualdade.
                 
                 """ + Tools.color.RESET);
 
@@ -230,11 +241,11 @@ public class Historia {
     public static void luffyIntro() {
         System.out.print(Tools.color.YELLOW + """
                 
-                Ei, tu! Escolheste - me? Boa decisão!
+                Ei, tu! Escolheste-me? Boa decisão!
                 
                 Eu sou Luffy, o futuro Rei dos Piratas! Vamos derrotar o Kaido 🐉 e libertar Wano!🏯
                 
-                Não te preocupes, eu protejo - te!
+                Não te preocupes, eu protejo-te!
                 
                 ⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠰⢰⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠛⠿⠿⠿⠿⣿
                 ⠻⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠘⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣾⣿
@@ -273,10 +284,9 @@ public class Historia {
     public static void zoroIntro() {
         System.out.print(Tools.color.GREEN + """
                 
-                Então escolheste -me? Bom, não te vou dececionar.
+                Então escolheste-me? Bom, não te vou dececionar.
                 
-                Eu sou Zoro, o espadachim dos Chapéus de Palha ⚔️, e vou cortar todos os que se atravessarem no
-                nosso caminho.
+                Eu sou Zoro, o espadachim dos Chapéus de Palha ⚔️, e vou cortar todos os que se atravessarem no nosso caminho.
                 
                 Kaido 🐉 e Orochi não sabem com quem estão a lidar.
                 
@@ -322,11 +332,11 @@ public class Historia {
     public static void sanjiIntro() {
         System.out.print(Tools.color.BLUE + """
                 
-                Ah, escolheste - me? Bem, não podias ter feito melhor.
+                Ah, escolheste-me? Bem, não podias ter feito melhor.
                 
                 Eu sou Sanji 🚬, o cozinheiro dos Chapéus de Palha, e os meus pontapés vão mandar Kaido 🐉 e os seus capangas para o chão.
                 
-                E depois da batalha, preparo - te um banquete!
+                E depois da batalha, preparo-te um banquete!
                 
                 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢛⣩⣴⣶⣿⣿⡿⠟⣛⣿⡿⠿⣿⡿⣿⣯⣵⣦⣉⠻⣿⣿⣿⣿⣿⣿⣿⣿
                 ⣿⣿⣿⣿⣿⣿⣿⡿⢋⣴⣿⣿⣿⡿⢋⣥⣶⡿⠋⠁⣀⣤⣶⣦⠸⣯⠻⣿⣿⣷⣌⠻⣿⣿⣿⣿⣿⣿
@@ -366,35 +376,37 @@ public class Historia {
 
     // *********************************************** VENDEDOR ***********************************************
     public static void vendedorIntro() {
-        System.out.print(Tools.color.WHITE_BRIGHT + """
+        System.out.print(Tools.color.WHITE + """
                 
                 ⣿⣟⣾⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⢁⡴⣿⣿⢹⣿⢿⣿⣿⣿⣿⣿⣿⠿⢿⣿⣿⣿⣧⢧⠀⠱⠘⢷⡄⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
                 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠂⠀⣠⢰⣿⡏⣸⡿⢘⣛⣘⣿⣿⣭⡭⠗⡊⣉⣮⡿⠿⠸⡆⠠⠐⠄⢣⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
                 ⠸⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⢀⠧⢸⣿⣣⣿⠃⣠⣤⣄⣀⡀⠒⣾⣽⢞⣩⣶⡿⣡⡄⡇⠀⠸⣆⠘⣄⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
                 ⣷⢹⣿⣿⣿⣿⣿⣿⣿⠃⣸⠏⠐⠂⠀⠻⣫⡴⠆⠈⠻⠿⣿⣿⠴⠈⡃⠾⠟⣡⣬⣭⡁⡇⠰⡄⠄⠀⠁⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿
-                ⣿⡎⣿⣿⣿⣿⣿⣿⡟⢠⡏⠀⠀⢠⡓⠰⠉⢄⣤⣤⡈⠀⠀⠀⠀⠉⡉⠀⢀⣒⣒⣂⡄⠃⠀⠻⢸⠸⠠⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿
+                ⣿⡎⣿⣿⣿⣿⣿⣿⡟⢠⡏⠀⠀⢠⡓⠰⠉⢄⣤⣤⡈⠀⠀⠀⠀⠉⡉⠀⢀⣒⣒⣂⡄⠃⠀⠻⢸⠸⠠⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿
                 ⣿⣷⢻⣿⣿⣿⣿⣿⠃⣼⠃⣰⠀⢴⡖⣀⠐⣒⠂⠶⣂⣥⡶⣾⣾⣇⣃⣇⠳⣮⣭⣿⡿⢀⡜⠇⠸⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿
                 ⣿⣿⢸⣿⣿⣿⣿⢃⢠⣿⠀⠋⠇⢠⣾⣿⣦⣙⠗⠸⠿⣛⣴⣿⣿⣿⣿⢹⣷⣮⣭⣭⡇⢸⣿⡀⠀⢀⢰⡸⣿⣿⣿⣿⣿⣿⣿⡇⢿⣿
                 ⣿⣿⢸⣿⣿⣿⣿⠜⢸⣿⠘⢠⠠⡀⣿⣿⣿⣿⡇⠘⣻⣿⣿⣿⠟⡛⠛⠩⠿⠿⠏⢙⡃⠚⢹⡇⡄⠈⠈⣷⣍⣛⡛⢿⣿⣿⣿⠿⣸⣿
-                ⣿⡿⣼⣿⢟⣫⣵⢖⣀⢻⡀⢳⠀⠣⠸⠟⠁⠀⠀⠨⠤⠠⠤⠵⣀⣐⣛⣲⣶⣿⣭⣭⣄⠀⢺⡅⠀⠁⡆⡌⠋⢭⡝⡆⠿⠿⠿⣦⣄⠹
-                ⣿⡇⡿⣡⣬⣙⠐⣻⣿⠀⠀⢧⡑⢄⢸⡅⠀⠰⣤⣿⣾⠿⠿⠛⠛⠛⠉⠉⠉⠙⠛⠻⠿⢀⠸⡇⢀⠘⢄⠑⢶⡄⢁⠰⢾⣷⣶⣦⡙⢦
-                ⣿⠄⠀⣽⣿⡏⢀⡿⢋⡄⣸⡇⠱⡀⠀⢷⣸⢰⡈⠉⠀⣠⣴⣶⣶⣿⣿⣷⣶⣶⣄⡀⢀⢿⡆⠀⢸⣷⠆⣸⡷⠂⣨⡙⠆⢙⣿⣿⣿⡆
-                ⠿⢠⣾⣿⣿⡇⣼⢁⢫⣾⠏⣪⡀⣧⠀⠈⠻⣿⡿⣄⠲⠿⢟⣛⣛⣻⣭⣭⣿⡯⠏⣡⢎⣾⡇⠀⠸⣇⢴⣄⡺⠐⠋⠀⢠⡀⣿⣿⣿⡇
-                
-                Oi, oi, oi !Parece que temos um aventureiro destemido por aqui!
-                
-                HA HA HA ...!
-                
-                """);
+                ⣿⡿⣼⣿⢟⣫⣵⢖⣀⢻⡀⢳⠀⠣⠸⠟⠁⠀⠀⠨⠤⠠⠤⠵⣀⣐⣛⣲⣶⣿⣭⣭⣄⠀⢺⡅⠀⠁⡆⡌⠋⢭⡝⡆⠿⠿⠿⣦⣄⠹⣿
+                ⣿⡇⡿⣡⣬⣙⠐⣻⣿⠀⠀⢧⡑⢄⢸⡅⠀⠰⣤⣿⣾⠿⠿⠛⠛⠛⠉⠉⠉⠙⠛⠻⠿⢀⠸⡇⢀⠘⢄⠑⢶⡄⢁⠰⢾⣷⣶⣦⡙⣿⣿
+                ⣿⠄⠀⣽⣿⡏⢀⡿⢋⡄⣸⡇⠱⡀⠀⢷⣸⢰⡈⠉⠀⣠⣴⣶⣶⣿⣿⣷⣶⣶⣄⡀⢀⢿⡆⠀⢸⣷⠆⣸⡷⠂⣨⡙⠆⢙⣿⣿⣿⡆⣿
+                ⠿⢠⣾⣿⣿⡇⣼⢁⢫⣾⠏⣪⡀⣧⠀⠈⠻⣿⡿⣄⠲⠿⢟⣛⣛⣻⣭⣭⣿⡯⠏⣡⢎⣾⡇⠀⠸⣇⢴⣄⡺⠐⠋⠀⢠⡀⣿⣿⣿⡇⣿
+                """
+                + Tools.color.GREEN_BRIGHT +
+                """
+                        
+                        Oi, oi, oi! Parece que temos um aventureiro destemido por aqui!
+                        
+                        HA HA HA ...!
+                        
+                        """);
 
         Tools.pausar();
 
-        System.out.print("""
+        System.out.print(Tools.color.GREEN_BRIGHT + """
                 
                 Eu sou Barry, o vendedor mais confiável de Wano!🏯 Tenho tudo o que precisas para sobreviver nesta terra perigosa.
                 
                 Armas, poções, consumível de combate...Se precisas, eu tenho! HA HA HA...!
-                
                 Mas cuidado, os melhores itens não são de graça. 🪙
                 
                 Estás a precisar de algo para a tua jornada? Tenho aqui algumas coisas que podem ser úteis...(S / N)
@@ -402,54 +414,403 @@ public class Historia {
                 """ + Tools.color.RESET);
     }
 
+    public static void vendedorAparece() {
+        System.out.print(Tools.color.WHITE + """
+                
+                ⣿⣟⣾⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⢁⡴⣿⣿⢹⣿⢿⣿⣿⣿⣿⣿⣿⠿⢿⣿⣿⣿⣧⢧⠀⠱⠘⢷⡄⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+                ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠂⠀⣠⢰⣿⡏⣸⡿⢘⣛⣘⣿⣿⣭⡭⠗⡊⣉⣮⡿⠿⠸⡆⠠⠐⠄⢣⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+                ⠸⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⢀⠧⢸⣿⣣⣿⠃⣠⣤⣄⣀⡀⠒⣾⣽⢞⣩⣶⡿⣡⡄⡇⠀⠸⣆⠘⣄⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+                ⣷⢹⣿⣿⣿⣿⣿⣿⣿⠃⣸⠏⠐⠂⠀⠻⣫⡴⠆⠈⠻⠿⣿⣿⠴⠈⡃⠾⠟⣡⣬⣭⡁⡇⠰⡄⠄⠀⠁⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿
+                ⣿⡎⣿⣿⣿⣿⣿⣿⡟⢠⡏⠀⠀⢠⡓⠰⠉⢄⣤⣤⡈⠀⠀⠀⠀⠉⡉⠀⢀⣒⣒⣂⡄⠃⠀⠻⢸⠸⠠⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿
+                ⣿⣷⢻⣿⣿⣿⣿⣿⠃⣼⠃⣰⠀⢴⡖⣀⠐⣒⠂⠶⣂⣥⡶⣾⣾⣇⣃⣇⠳⣮⣭⣿⡿⢀⡜⠇⠸⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿
+                ⣿⣿⢸⣿⣿⣿⣿⢃⢠⣿⠀⠋⠇⢠⣾⣿⣦⣙⠗⠸⠿⣛⣴⣿⣿⣿⣿⢹⣷⣮⣭⣭⡇⢸⣿⡀⠀⢀⢰⡸⣿⣿⣿⣿⣿⣿⣿⡇⢿⣿
+                ⣿⣿⢸⣿⣿⣿⣿⠜⢸⣿⠘⢠⠠⡀⣿⣿⣿⣿⡇⠘⣻⣿⣿⣿⠟⡛⠛⠩⠿⠿⠏⢙⡃⠚⢹⡇⡄⠈⠈⣷⣍⣛⡛⢿⣿⣿⣿⠿⣸⣿
+                ⣿⡿⣼⣿⢟⣫⣵⢖⣀⢻⡀⢳⠀⠣⠸⠟⠁⠀⠀⠨⠤⠠⠤⠵⣀⣐⣛⣲⣶⣿⣭⣭⣄⠀⢺⡅⠀⠁⡆⡌⠋⢭⡝⡆⠿⠿⠿⣦⣄⠹⣿
+                ⣿⡇⡿⣡⣬⣙⠐⣻⣿⠀⠀⢧⡑⢄⢸⡅⠀⠰⣤⣿⣾⠿⠿⠛⠛⠛⠉⠉⠉⠙⠛⠻⠿⢀⠸⡇⢀⠘⢄⠑⢶⡄⢁⠰⢾⣷⣶⣦⡙⣿⣿
+                ⣿⠄⠀⣽⣿⡏⢀⡿⢋⡄⣸⡇⠱⡀⠀⢷⣸⢰⡈⠉⠀⣠⣴⣶⣶⣿⣿⣷⣶⣶⣄⡀⢀⢿⡆⠀⢸⣷⠆⣸⡷⠂⣨⡙⠆⢙⣿⣿⣿⡆⣿
+                ⠿⢠⣾⣿⣿⡇⣼⢁⢫⣾⠏⣪⡀⣧⠀⠈⠻⣿⡿⣄⠲⠿⢟⣛⣛⣻⣭⣭⣿⡯⠏⣡⢎⣾⡇⠀⠸⣇⢴⣄⡺⠐⠋⠀⢠⡀⣿⣿⣿⡇⣿
+                """
+                + Tools.color.GREEN_BRIGHT +
+                """
+                        
+                        Ah, meu jovem aventureiro! Parece que o destino nos trouxe juntos novamente!
+                        
+                        HA HA HA ...!
+                        
+                        Estás a precisar de algo para a tua jornada? (S / N)
+                        
+                        """ + Tools.color.RESET);
+    }
+
     public static void vendedorPergunta() {
-        System.out.print("""
-                Então, o que vais levar ? Escolhe com sabedoria, aventureiro.Wano não perdoa os despreparados.
+        System.out.print(Tools.color.GREEN_BRIGHT + """
+                
+                Então, o que vais levar? Escolhe com sabedoria, aventureiro. 🏯 Wano não perdoa os despreparados.
                 
                 """);
     }
 
     public static void vendedorItemSim(Heroi heroi, ItemHeroi item) {
-        System.out.printf("""
-                Ah, excelente escolha, %s !"%s" vai servir -te bem nas tuas lutas.
-                
-                Lembra - te, uma boa ferramenta nas mãos certas pode mudar o rumo de uma batalha.
-                
-                """, heroi.getNome(), item.getNome());
+        System.out.printf(Tools.color.GREEN_BRIGHT + """
+                        
+                        Ah, excelente escolha, %s%s%s! "%s%s%s" vai servir-te bem nas tuas lutas.
+                        
+                        Lembra-te, uma boa ferramenta nas mãos certas pode mudar o rumo de uma batalha.
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.WHITE_BRIGHT, heroi.getNome(), Tools.color.GREEN_BRIGHT,
+                Tools.color.WHITE_BRIGHT, item.getNome(), Tools.color.GREEN_BRIGHT);
+
     }
 
     public static void vendedorItemNao(Heroi heroi, ItemHeroi item) {
-        System.out.printf("""
-                Ei, %s !Estás mesmo a tentar comprar "%s" ? Parece que não tens as habilidades ou o treino necessário para
-                o usar corretamente.
-                
+        System.out.printf(Tools.color.GREEN_BRIGHT + """
+                        
+                        Ei, %s%s%s! Estás mesmo a tentar comprar "%s%s%s"? HA HA HA ...!
+                        
+                        Parece que não tens as habilidades ou o treino necessário para o usar corretamente.
+                        
                         Talvez haja outras coisas na loja que se adaptem melhor ao teu estilo.
-                
-                """, heroi.getNome(), item.getNome());
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.WHITE_BRIGHT, heroi.getNome(), Tools.color.GREEN_BRIGHT,
+                Tools.color.WHITE_BRIGHT, item.getNome(), Tools.color.GREEN_BRIGHT);
+
+        Tools.pausar();
     }
 
     public static void vendedorPerguntaMais() {
-        System.out.print("""
-                Estás interessado em mais alguma coisa?Tenho aqui alguns tesouros que podem ser úteis na tua jornada. (S / N)
+        System.out.print(Tools.color.GREEN_BRIGHT + """
                 
-                """);
+                Estás interessado em mais alguma coisa? Tenho aqui alguns tesouros que podem ser úteis na tua jornada. (S / N)
+                
+                """ + Tools.color.RESET);
     }
 
     public static void vendedorDespedida() {
-        System.out.print("""
-                Entendo, jovem !Nem sempre é fácil escolher o que precisamos.
+        System.out.print(Tools.color.GREEN_BRIGHT + """
                 
-                        Mas lembra - te, se mudares de ideias, eu estarei por aqui, sempre com os melhores itens de Wano.
+                HA HA HA HA ...! Nem sempre é fácil escolher o que precisamos.
                 
-                Boa sorte na tua jornada !E cuidado com os inimigos...
+                Mas lembra-te, se mudares de ideias, eu estarei por aqui, sempre com os melhores itens de Wano ⛩️.
                 
-                """);
+                Boa sorte na tua jornada! E cuidado com os inimigos...
+                
+                """ + Tools.color.RESET);
+
+        Tools.pausar();
     }
 
-    String primeiraMissao = "Chegaste à vila dos kozuki, um lugar que outrora foi próspero, mas que agora está mergulhado na miséria sob o jugo de Orochi.\n" +
-            "Os aldeãos vivem com medo, e os soldados de Orochi patrulham as ruas.\n" +
-            "A tua primeira missão é ajudar os aldeãos a esconderem-se enquanto te infiltra na vila.\n" +
-            "Cuidado com os soldados! Se te descobrirem, terás de lutar.\n";
+    // *********************************************** COMBATE ***********************************************
+
+    public static void combateIntro(Heroi heroi, NPC npc) {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                                               ⚔️ %sPREPARE-SE PARA O COMBATE!%s ⚔️
+                        
+                        O teu oponente ergue-se à tua frente, determinação brilhando em seus olhos.
+                        A atmosfera carrega-se com a energia do confronto iminente...
+                        
+                                                        %s%s VS %s%s
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.RED_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.RED_BOLD_BRIGHT,
+                heroi.getNome(), npc.getNome(),
+                Tools.color.WHITE_BRIGHT);
+
+        Tools.pausar();
+    }
+
+    public static void combateTurno(Entidade entidad) {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        ⚔️ %s%s ATACA!%s ⚔️
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.RED_BOLD_BRIGHT,
+                entidad.getNome(),
+                Tools.color.RED_BOLD_BRIGHT);
+
+    }
+
+    public static void combatePocao(Pocao pocao) {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        %s%s%s brilha nas tuas mãos enquanto a consumes.
+                        Uma onda de energia percorre o teu corpo, curando as tuas feridas e fortalecendo os teus músculos! 💪✨
+                        
+                        %sVida recuperada:%s %s HP
+                        %sForça aumentada:%s %s pontos de força (Apenas num turno)
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BRIGHT, pocao.getNome(), Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT, pocao.getVidaCurar(),
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT, pocao.getAumentoForca());
+        Tools.pausar();
+    }
+
+    public static void combateConsumivelCombate(ConsumivelCombate combate) {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        %s%s%s brilha nas tuas mãos enquanto a atiras em direção ao inimigo!
+                        Uma explosão ensurdecedora ilumina o campo de batalha, e o inimigo é atingido em cheio! 💥
+                        
+                        A fumaça dissipa-se, e o inimigo recua, claramente abalado pelo teu ataque fulminante! ⚡
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BRIGHT, combate.getNome(), Tools.color.WHITE_BRIGHT);
+        Tools.pausar();
+    }
+
+    public static void combateGanhaHeroi(Heroi heroi) {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        🏴‍☠️  %s%s GANHOU%s  🏴‍☠️
+                        
+                        O inimigo cai ao chão, derrotado pela tua coragem e habilidade!
+                        A batalha foi intensa, mas a tua determinação prevaleceu.
+                        
+                        A tua jornada continua! O destino de Wano depende de ti. 🎏
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.RED_BOLD_BRIGHT, heroi.getNome(), Tools.color.WHITE_BRIGHT);
+    }
+
+    public static void combateGanhaNPC(Heroi heroi) {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        💀  %s%s FOI DERROTADO%s  💀
+                        
+                        A tua jornada termina aqui.
+                        
+                        Mas lembra-te: mesmo na derrota, a tua luta inspirou os aldeões de Wano.
+                        
+                        Talvez, num outro tempo, outro herói surgirá para completar o que começaste. 🎏
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.RED_BOLD_BRIGHT, heroi.getNome(), Tools.color.WHITE_BRIGHT);
+        Tools.pausar();
+    }
+
+    // *********************************************** VILA 1 ***********************************************
+
+
+    public static void vilaKozukiIntro() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                              | |                     ⛩️  %sVILA KOZUKI%s  ⛩️                        | |
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
+
+    public static void vilaKozuki() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        Chegaste à %sVila dos Kozuki%s 🏯, berço da lendária família que governou Wano com sabedoria por gerações.
+                        As ruas que antes ecoavam com risadas e música, agora estão silenciosas sob as sombras do regime de Orochi 👺.
+                        
+                        🎎 Podes ver os rostos cansados dos aldeões, escondendo-se nas sombras enquanto os soldados marcham.
+                        No ar, paira o cheiro de incenso dos templos e o aroma amargo da opressão.
+                        
+                        A tua primeira missão é ajudar os aldeãos a esconderem-se enquanto te infiltras na vila.
+                        Cuidado com os soldados! Se te descobrirem, terás de lutar.
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+
+        Tools.pausar();
+    }
+
+    public static void vilaKozukiAto1() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        🎏 %sAs ruas da Vila Kozuki abrem-se diante de ti como um leque%s 🎏
+                        
+                        %s1. Mercado Abandonado%s: Um velho vendedor, esconde-se entre as barracas destruídas.
+                        Ele sussurra: "Tenho itens que podem salvar tua vida... se tiveres ouro suficiente 🪙"
+                        
+                        %s2. Bairro Residencial%s: Ouves gritos vindos de uma casa. Um aldeão está a ser ameaçado por
+                        um soldado de Orochi 👺! Precisas de agir rápido.
+                        
+                        %s3. Templo Antigo%s: Uma construção em ruínas, onde se diz que os Kozuki esconderam um artefacto
+                        capaz de enfraquecer Kaido...
+                        
+                        %s4. Mochila%s: A tua mochila contém as tuas poções...
+                        
+                        Escolhe o teu caminho com sabedoria...
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
+
+    public static void vilaKozukiTemplo() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        Entras no 🏯 %sTemplo Antigo de Kozuki%s 🕯️, onde a luz do sol mal consegue penetrar.
+                        O ar é pesado, e o silêncio é quebrado apenas pelo eco dos teus passos.
+                        
+                        Cuidado! Este lugar está cheio de armadilhas e mistérios.
+                        
+                        Podes encontrar um item lendário que te fará subir de nível...
+                        Ou despertar algo que preferias ter deixado adormecido. 💀
+                        
+                        O que será que te espera?
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+
+        Tools.pausar();
+    }
+
+    public static void vilaKozukiItemLendario() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                
+                Encontras um item lendário!
+                
+                Entre as ruínas, brilha algo no chão... 🌟
+                
+                Este artefacto antigo emana uma energia poderosa, capaz de elevar o teu potencial ao próximo nível.
+                
+                """ + Tools.color.RESET);
+
+        Tools.pausar();
+    }
+
+    // *********************************************** VILA 2 ***********************************************
+
+
+    public static void vilaLamentosIntro() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                              | |                ⛩️  %sVILA DOS LAMENTOS%s  ⛩️                   | |
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
+
+    public static void vilaLamentos() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                
+                Esta vila, outrora um refúgio de paz e harmonia, agora é um lugar onde o desespero se agarra às 
+                paredes como hera venenosa.
+                
+                🏯 As casas, antes vibrantes com cores e vida, estão agora cobertas de fuligem e decadência. 
+                O vento uiva entre as ruínas, carregando consigo os lamentos daqueles que perderam tudo para a tirania de Orochi 🐲.
+                
+                🎎 Podes ver os aldeões, escondidos nas sombras, com olhos cheios de medo e resignação. 
+                
+                O cheiro de incenso queimado mistura-se com o odor de destruição, e o silêncio é quebrado apenas 
+                pelos passos pesados dos soldados de Orochi, que patrulham as ruas com arrogância.
+                
+                """ + Tools.color.RESET);
+
+        Tools.pausar();
+    }
+
+    public static void vilaLamentosAto1() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        🎏 As ruas da %sVila dos Lamentos%s continuam a revelar os seus segredos 🎏
+                        
+                        A vila está mais silenciosa agora, mas o perigo ainda espreita. Cada passo que dás pode levar-te a uma nova descoberta...
+                        
+                        %s1. Armazém dos Soldados%s: Um grupo de soldados de Orochi 👺 está a descarregar armas num armazém abandonado.
+                        
+                        %s2. Mercado Escondido%s: O velho vendedor reaparece, desta vez com itens ainda mais raros.
+                        Ele sussurra: "Tenho algo especial para ti... mas o preço é alto. 🪙"
+                        
+                        %s3. Jardim dos Segredos%s: Um jardim abandonado, onde os samurais de Wano costumavam treinar.
+                        Dizem que há algo escondido lá... mas também há rumores de uma armadilha mortal.
+                        
+                        %s4. Mochila%s: A tua mochila contém as tuas poções...
+                        
+                        Escolhe o teu caminho com sabedoria...
+                        
+                        """ + Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
+
+    public static void vilaLamentosJardim() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        Ao entrares no ⛩️%sJardim dos Segredos%s⛩️, uma sensação de calma envolve-te.
+                        
+                        O ar está carregado com o perfume suave de flores desconhecidas, e o som de um riacho distante ecoa como uma 
+                        melodia tranquila. Este lugar parece intocado pela tirania de Kaido 🐉, um refúgio escondido no meio do caos.
+                        
+                        Enquanto caminhas, notas pequenos detalhes: uma pedra com runas antigas, uma estátua de um samurai coberta 
+                        de musgo, e um banco de madeira que parece convidar-te a descansar. Mas algo mais chama a tua atenção...
+                        
+                        Num canto do jardim, quase escondido entre as folhagens, brilha algo no chão. 
+                        Será um tesouro esquecido... ou apenas um reflexo da luz?
+                        
+                        Ao te aproximares, descobres que é uma pequena bolsa de tecido, desgastada pelo tempo. 
+                        Dentro dela, há 5 moedas de ouro! 🪙
+                        
+                        *"Um presente do jardim... ou talvez dos espíritos que aqui habitam."*
+                        
+                        O jardim parece agradecer-te por teres encontrado o seu segredo, e o vento sussurra uma bênção enquanto partes.
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+
+        Tools.pausar();
+    }
+
+    public static void vilaLamentosJardimOuro() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        Ao te aproximares, descobres que é uma pequena bolsa de tecido, desgastada pelo tempo.
+                        
+                        Dentro dela, há %s5 moedas de ouro!%s 🪙
+                        
+                        "Um presente do jardim... ou talvez dos espíritos que aqui habitam."
+                        
+                        O jardim parece agradecer-te por teres encontrado o seu segredo, e o vento sussurra uma bênção enquanto partes.
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+
+        Tools.pausar();
+    }
+
+    public static void vilaLamentosJardimNada() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        O jardim é tranquilo e belo, mas parece guardar os seus segredos com cuidado.
+                        
+                        Apesar de procurares, não encontras nada de valor... %spor agora.%s
+                        
+                        "Talvez num outro dia, o jardim revele os seus mistérios."
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+
+        Tools.pausar();
+    }
+
 
     String combateSoldados = "Oh não! Um grupo de soldados viu-te. Não tens outra opção senão lutar.\n" +
             "Usa as tuas habilidades para os derrotar e proteger os aldeãos.\n" +

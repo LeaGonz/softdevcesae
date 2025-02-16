@@ -27,7 +27,7 @@ public class Pocao extends Consumivel {
     @Override
     public void mostrarDetalhes() {
         super.mostrarDetalhes();
-        System.out.printf("Vida a curar: %-5d | Aumento da Força: %d%n", this.vidaCurar, this.aumentoForca);
+        System.out.printf("| Vida a curar: %-10d | Aumento da Força: %d%n", this.vidaCurar, this.aumentoForca);
     }
 
     /**

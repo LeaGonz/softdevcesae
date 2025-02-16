@@ -14,7 +14,8 @@ public class Tools {
     public static int validarEscolhaNum(int minEscolha, int maxEscolha) {
         while (true) {
             try {
-                if (minEscolha == 0) System.out.print("(0 para sair) " + color.RED + "▶ " + color.RESET);
+                if (minEscolha == 0)
+                    System.out.print(color.RED_UNDERLINED + "(0 para sair)" + color.RED + " ▶ " + color.RESET);
                 else System.out.print(color.RED + "▶ " + color.RESET);
 
                 int escolha = in.nextInt();
@@ -48,7 +49,7 @@ public class Tools {
                     throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Hmm... S ou N, jovem. Não é tão difícil assim!");
+                System.out.println(color.RED + "Hmm... S ou N, jovem. Não é tão difícil assim!" + color.RESET);
             }
         }
     }

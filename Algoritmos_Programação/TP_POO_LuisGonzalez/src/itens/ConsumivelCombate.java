@@ -23,7 +23,7 @@ public class ConsumivelCombate extends Consumivel {
     @Override
     public void mostrarDetalhes() {
         super.mostrarDetalhes();
-        System.out.println("Ataque Instantâneo: " + this.ataqueInstantaneo);
+        System.out.println("| Ataque Instantâneo: " + this.ataqueInstantaneo);
     }
 
     /**

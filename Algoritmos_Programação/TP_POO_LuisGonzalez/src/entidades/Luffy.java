@@ -1,6 +1,8 @@
 package entidades;
 
 import Enums.Personagem;
+import jogo.Historia;
+import jogo.Tools;
 
 public class Luffy extends Heroi {
 
@@ -27,15 +29,18 @@ public class Luffy extends Heroi {
     @Override
     public boolean atacar(NPC npc) {
         // Ataca primeiro o NPC
+        Historia.combateTurno(npc);
         int ataque = (int) (npc.getForca() * 0.8);
         if (!this.recebeAtaque(ataque)) return false;
 
         // Ataca o Herói
+        Historia.combateTurno(this);
         ataque = this.tipoAtaque();
         if (!npc.recebeAtaque(ataque)) {
             this.subirNivel(npc);
             return false;
         }
+
         return true;
     }
 }

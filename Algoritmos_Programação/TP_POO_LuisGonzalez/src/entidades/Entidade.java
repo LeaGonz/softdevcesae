@@ -1,6 +1,7 @@
 package entidades;
 
 import Enums.Personagem;
+import jogo.Historia;
 import jogo.Tools;
 
 public abstract class Entidade {
@@ -50,11 +51,12 @@ public abstract class Entidade {
      */
     public boolean recebeAtaque(int ataque) {
         this.hp -= ataque;
-        System.out.println(this.getNome() + " sofre " + ataque + " de dano!");
+        System.out.println(Tools.color.YELLOW_BOLD_BRIGHT + this.getNome() + Tools.color.WHITE_BRIGHT +
+                " sofre " + Tools.color.RED_BOLD_BRIGHT + ataque + Tools.color.WHITE_BRIGHT + " pontos de dano 💥");
 
         if (this.hp <= 0) {
             this.hp = 0;
-            System.out.println(this.getNome() + " ha perdido");
+            System.out.println(Tools.color.YELLOW_BOLD_BRIGHT + this.getNome() + Tools.color.WHITE_BRIGHT + " ha perdido\n");
             return false;
         }
         return true;
@@ -68,7 +70,7 @@ public abstract class Entidade {
      */
     public void recebePocao(int pocao) {
         if ((this.hp + pocao) > this.maxHp) {
-            System.out.println("Vai perder uma parte da cura da poção. Quer usar na mesma? (S/N)");
+            System.out.println(Tools.color.WHITE_BRIGHT + "\nVai perder " + Tools.color.RED_BRIGHT + ((this.hp + pocao) - this.maxHp) + Tools.color.WHITE_BRIGHT + " HP de cura da poção. Quer usar na mesma? (S/N)\n");
 
             if (!Tools.validarSimNao()) return;
 

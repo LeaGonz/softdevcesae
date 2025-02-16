@@ -1,6 +1,7 @@
 package entidades;
 
 import Enums.Personagem;
+import jogo.Historia;
 
 public class Sanji extends Heroi {
 
@@ -18,6 +19,7 @@ public class Sanji extends Heroi {
     @Override
     public boolean atacar(NPC npc) {
         // Ataca o Herói
+        Historia.combateTurno(this);
         int ataque = this.tipoAtaque();
         if (!npc.recebeAtaque(ataque)) {
             this.subirNivel(npc);
@@ -25,6 +27,7 @@ public class Sanji extends Heroi {
         }
 
         // Ataca o NPC
+        Historia.combateTurno(npc);
         ataque = (int) Math.round((npc.getForca() + (npc.getForca() * 0.1)));
         return this.recebeAtaque(ataque);
     }

@@ -1,6 +1,7 @@
 package entidades;
 
 import Enums.Personagem;
+import jogo.Historia;
 
 public class Zoro extends Heroi {
 
@@ -17,6 +18,7 @@ public class Zoro extends Heroi {
     @Override
     public boolean atacar(NPC npc) {
         // Ataca o Herói
+        Historia.combateTurno(this);
         int ataque = this.tipoAtaque();
         if (!npc.recebeAtaque(ataque)) {
             this.subirNivel(npc);
@@ -24,6 +26,7 @@ public class Zoro extends Heroi {
         }
 
         // Ataca o NPC
+        Historia.combateTurno(npc);
         return this.recebeAtaque(npc.getForca());
     }
 }

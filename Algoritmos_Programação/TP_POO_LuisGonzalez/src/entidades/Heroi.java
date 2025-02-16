@@ -5,6 +5,7 @@ import itens.ArmaPrincipal;
 import itens.Consumivel;
 import itens.ConsumivelCombate;
 import itens.Pocao;
+import jogo.Historia;
 import jogo.Tools;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public abstract class Heroi extends Entidade {
                         """ + Tools.color.RESET,
                 Tools.color.WHITE_BRIGHT, this.nivel, Tools.color.YELLOW,
                 Tools.color.WHITE_BRIGHT, this.ouro, Tools.color.YELLOW,
-                Tools.color.WHITE_BRIGHT, (this.armaPrincipal != null ? this.armaPrincipal : ""), Tools.color.YELLOW);
+                Tools.color.WHITE_BRIGHT, (this.armaPrincipal != null ? this.armaPrincipal.getNome() : ""), Tools.color.YELLOW);
     }
 
     /**
@@ -76,8 +77,21 @@ public abstract class Heroi extends Entidade {
         this.setForca(this.getForca() + 1);
         // Aumentar vida (HP)
         this.setMaxHp(this.getMaxHp() + 10);
+        // Ativamos de novo o ataque especial
+        this.ataqueEspecialUsado = false;
         // Mensagem
-        System.out.println(this.getNome() + " ha subido de nivel");
+        System.out.println(Tools.color.YELLOW_BOLD_BRIGHT + this.getNome() + Tools.color.WHITE_BRIGHT + " ha subido de nivel");
+    }
+
+    public void subirNivel() {
+        // Aumentar nível
+        this.nivel += 1;
+        // Aumentar força
+        this.setForca(this.getForca() + 1);
+        // Aumentar vida (HP)
+        this.setMaxHp(this.getMaxHp() + 10);
+        // Mensagem
+        System.out.println(Tools.color.YELLOW_BOLD_BRIGHT + this.getNome() + Tools.color.WHITE_BRIGHT + " ha subido de nivel");
     }
 
     /**
@@ -88,9 +102,14 @@ public abstract class Heroi extends Entidade {
     public int tipoAtaque() {
         int ataque, escolha, maxEscolha;
         do {
+            System.out.print(Tools.color.WHITE_BRIGHT);
             // Se há consumíveis e arma
             if (!this.inventario.isEmpty() && this.armaPrincipal != null) {
-                System.out.println("1- Ataque sem Arma\n2- Ataque com Arma\n3- Ataque Especial (uso único)\n4- Ataque Consumível\n5- Poções");
+                System.out.println("1- Ataque sem Arma" +
+                        "\n2- Ataque com Arma" +
+                        "\n3- Ataque Especial (uso único)" +
+                        "\n4- Ataque Consumível" +
+                        "\n5- Poções");
                 maxEscolha = 5;
                 // Se só há consumíveis
             } else if (!this.inventario.isEmpty()) {
@@ -105,20 +124,35 @@ public abstract class Heroi extends Entidade {
                 return this.getForca();
             }
 
+            System.out.println();
             escolha = Tools.validarEscolhaNum(1, maxEscolha);
+            System.out.println();
 
             ataque = switch (escolha) {
                 case 2 -> (this.armaPrincipal != null) ? this.armaPrincipal.getAtaque() : usarConsumivelCombate();
-                case 3 -> (this.inventario.isEmpty()) ? ataqueEspecial() : usarPocao();
+                case 3 -> (this.armaPrincipal != null) ? ataqueEspecial() : usarPocao();
                 case 4 -> usarConsumivelCombate();
                 case 5 -> usarPocao();
                 default -> 0;
             };
 
-            // Somamos a escolha + o ataque com só força (seria igual a escolha 1, por isso não temos case 1)
+            // Entramos nesta validação se nos metodos usarConsumivelCombate ou usarPocao
+            // foi selecionada a opção 0 (voltar ao menu principal)
+            if (ataque == -1) {
+                System.out.println(Tools.color.WHITE_BRIGHT);
+                ataque = this.getForca();
+                continue;
+            }
+
+            // Validaçao se foi ussada uma poção que so da vida, retornamos forçã base
+            if (ataque == 0) return this.getForca();
+
+            if ((this.armaPrincipal == null && escolha == 2) || escolha == 4) return ataque;
+
+            // Somamos a escolha + a força do herói
             ataque += this.getForca();
 
-        } while (ataque == this.getForca() && escolha != 1);
+        } while (ataque == this.getForca());
 
         return ataque;
     }
@@ -155,22 +189,28 @@ public abstract class Heroi extends Entidade {
 
         // Saimos se não há poções
         if (consuCombate.isEmpty()) {
-            System.out.println("Sem consumíveis de combate para usar!");
-            return 0;
+            System.out.println(Tools.color.RED + "\nSem consumíveis de combate para usar!\n" + Tools.color.WHITE_BRIGHT);
+            return -1;
         }
 
-        System.out.println("Consumíveis de combate:");
+        System.out.println(Tools.color.YELLOW_BRIGHT + "\nConsumíveis de combate\n" + Tools.color.WHITE_BRIGHT);
 
         // Listamos poções
         for (int i = 0; i < consuCombate.size(); i++) {
-            System.out.println((i + 1) + "- " + consuCombate.get(i).getNome());
-            consuCombate.get(i).mostrarDetalhes();
+            System.out.println((i + 1) + "- " + consuCombate.get(i).getNome() + " | Ataque Instantâneo: " + consuCombate.get(i).getAtaqueInstantaneo());
         }
 
+        System.out.println();
         int escolha = Tools.validarEscolhaNum(0, consuCombate.size());
+
+        // Se escolher 0 para sair e voltar ao menu anterior
+        if (escolha == 0) return -1;
 
         // Apagar o consumível do inventario principal
         this.inventario.remove(consuCombate.get(escolha - 1));
+
+        // Print do uso da poção
+        Historia.combateConsumivelCombate(consuCombate.get(escolha - 1));
 
         return consuCombate.get(escolha - 1).getAtaqueInstantaneo();
     }
@@ -183,24 +223,33 @@ public abstract class Heroi extends Entidade {
 
         // Saimos se não há poções
         if (pocoes.isEmpty()) {
-            System.out.println("Sem poções para usar!");
-            return 0;
+            System.out.println(Tools.color.RED + "\nSem poções para usar!\n" + Tools.color.WHITE_BRIGHT);
+            return -1;
         }
 
-        System.out.println("Poções:");
+        System.out.println(Tools.color.YELLOW_BRIGHT + "\nPoções\n" + Tools.color.WHITE_BRIGHT);
         // Listamos poções
         for (int i = 0; i < pocoes.size(); i++) {
-            System.out.println((i + 1) + "- " + pocoes.get(i).getNome());
-            pocoes.get(i).mostrarDetalhes();
+            System.out.println((i + 1) + "- " + pocoes.get(i).getNome() + " | Vida a curar: " + pocoes.get(i).getVidaCurar() +
+                    " | Aumento da Força: " + pocoes.get(i).getAumentoForca());
         }
 
+        System.out.println();
         int escolha = Tools.validarEscolhaNum(0, pocoes.size());
+
+        // Se escolher 0 para sair e voltar ao menu anterior
+        if (escolha == 0) return -1;
 
         // Apagar o consumível do inventario principal
         this.inventario.remove(pocoes.get(escolha - 1));
 
+        // Cura da vida
         if (pocoes.get(escolha - 1).getVidaCurar() > 0) this.recebePocao(pocoes.get(escolha - 1).getVidaCurar());
 
+        // Print do uso da poção
+        Historia.combatePocao(pocoes.get(escolha - 1));
+
+        // Aumento da força
         if (pocoes.get(escolha - 1).getAumentoForca() > 0)
             return this.recebeForca(pocoes.get(escolha - 1).getAumentoForca());
 
@@ -217,8 +266,8 @@ public abstract class Heroi extends Entidade {
             this.ataqueEspecialUsado = true;
             return this.armaPrincipal.getAtaqueEspecial();
         } else {
-            System.out.println("O ataque especial já foi usado");
-            return 0;
+            System.out.println(Tools.color.RED + "O ataque especial já foi usado" + Tools.color.WHITE_BRIGHT);
+            return -1;
         }
     }
 

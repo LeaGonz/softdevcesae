@@ -1,6 +1,7 @@
 package itens;
 
 import Enums.Personagem;
+import jogo.Tools;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public abstract class ItemHeroi {
      * Método mostrar detalhes do Item
      */
     public void mostrarDetalhes() {
-        System.out.printf("Nome: %-30s | Preço: %-5d | Herói:%s%n", this.nome, this.preco, this.heroisPermitidos);
+        System.out.printf("%-30s | %-6d | %-10s ", this.nome, this.preco, this.heroisPermitidos);
     }
 
     /**
