@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class Jogo {
     private static final Scanner in = new Scanner(System.in);
+    private static Random rnd = new Random();
 
     /**
      * Método principal do jogo e recebe um herói
@@ -29,11 +30,103 @@ public class Jogo {
         Historia.vendedorIntro();
         vender(vendedor, heroi);
 
-        // 1er VILA KOSUKI
+        // 1 VILA KOSUKI
         vilaKosuki(heroi, vendedor);
 
-        // 2da VILA
+        // 2 VILA LAMENTOS
         vilaLamentos(heroi, vendedor);
+
+        // 3 VILA HAKUMAI
+        vilaHakumai(heroi, vendedor);
+
+        // 4 VILA AMIGASA
+        vilaAmigasa(heroi, vendedor);
+
+        // 5 VILA RENGOKU
+        vilaRengoku(heroi, vendedor);
+    }
+
+
+    private boolean vilaHakumai(Heroi heroi, Vendedor vendedor) {
+        //HISTORIA
+        Historia.vilaHakumaiIntro();
+        Historia.vilaHakumai();
+
+        //MISSÁO
+        boolean missao = true;
+        boolean mansao = true;
+        do {
+            Historia.vilaHakumaiAto1();
+
+            //ESCOLHER CAMINHO
+            int caminho = Tools.validarEscolhaNum(1, 4);
+            switch (caminho) {
+                case 1: // VENDEDOR
+                    vilaVender(vendedor, heroi);
+                    break;
+                case 2: // ENEMIGO
+                    missao = combate(heroi);
+                    break;
+                case 3: // ARMADILHA
+                    if (mansao) {
+                        mansao = armadilha3(heroi);
+                    } else {
+                        System.out.println(Tools.color.RED + "\n'Hmm, já estive nesta mansão antes'\n" +
+                                Tools.color.WHITE_BRIGHT);
+                        Tools.pausar();
+                    }
+                    break;
+                case 4: // POÇÕES
+                    heroi.usarPocao();
+                    break;
+                default:
+                    System.out.println("👹 CAMINHO INCORRETO 👹");
+            }
+
+        } while (missao);
+
+        return false;
+    }
+
+    private boolean vilaKosuki(Heroi heroi, Vendedor vendedor) {
+        //HISTORIA
+        Historia.vilaKozukiIntro();
+        Historia.vilaKozuki();
+
+        //MISSÁO
+        boolean missao = true;
+        boolean templo = true;
+        do {
+            Historia.vilaKozukiAto1();
+
+            //ESCOLHER CAMINHO
+            int caminho = Tools.validarEscolhaNum(1, 4);
+            switch (caminho) {
+                case 1: // VENDEDOR
+                    vilaVender(vendedor, heroi);
+                    break;
+                case 2: // ENEMIGO
+                    missao = combate(heroi);
+                    break;
+                case 3: // ARMADILHA
+                    if (templo) {
+                        templo = armadilha(heroi);
+                    } else {
+                        System.out.println(Tools.color.RED + "\n'Hmm, já estive neste templo antes'\n" +
+                                Tools.color.WHITE_BRIGHT);
+                        Tools.pausar();
+                    }
+                    break;
+                case 4: // POÇÕES
+                    heroi.usarPocao();
+                    break;
+                default:
+                    System.out.println("👹 CAMINHO INCORRETO 👹");
+            }
+
+        } while (missao);
+
+        return false;
     }
 
     private boolean vilaLamentos(Heroi heroi, Vendedor vendedor) {
@@ -55,20 +148,19 @@ public class Jogo {
                     missao = combate(heroi);
                     break;
                 case 2: //  VENDEDOR
-                    Historia.vendedorAparece();
-                    vender(vendedor, heroi);
+                    vilaVender(vendedor, heroi);
                     break;
                 case 3: // ARMADILHA
                     if (jardim) {
                         jardim = armadilha2(heroi);
                     } else {
-                        System.out.println(Tools.color.RED + "'Hmm, já estive neste jardim antes. Nada de ouro desta vez... que desilusão.'" + Tools.color.WHITE_BRIGHT);
+                        System.out.println(Tools.color.RED + "\n'Hmm, já estive neste jardim antes. Nada de ouro " +
+                                "desta vez... que desilusão.'\n" + Tools.color.WHITE_BRIGHT);
                         Tools.pausar();
                     }
                     break;
                 case 4: // POÇÕES
                     heroi.usarPocao();
-                    Tools.pausar();
                     break;
                 default:
                     System.out.println("👹 CAMINHO INCORRETO 👹");
@@ -78,38 +170,76 @@ public class Jogo {
         return false;
     }
 
-    private boolean vilaKosuki(Heroi heroi, Vendedor vendedor) {
+    private boolean vilaAmigasa(Heroi heroi, Vendedor vendedor) {
         //HISTORIA
-        Historia.vilaKozukiIntro();
-        Historia.vilaKozuki();
+        Historia.vilaAmigasaIntro();
+        Historia.vilaAmigasa();
 
         //MISSÁO
         boolean missao = true;
-        boolean templo = true;
+        boolean fonte = true;
         do {
-            Historia.vilaKozukiAto1();
+            Historia.vilaAmigasaAto1();
 
             //ESCOLHER CAMINHO
             int caminho = Tools.validarEscolhaNum(1, 4);
             switch (caminho) {
-                case 1: // VENDEDOR
-                    Historia.vendedorAparece();
-                    vender(vendedor, heroi);
+                case 1: // ENEMIGO
+                    missao = combate(heroi);
+                    break;
+                case 2: // ARMADILHA
+                    if (fonte) {
+                        fonte = armadilha4(heroi);
+                    } else {
+                        System.out.println(Tools.color.RED + "\n'Hmm, já estive nesta fonte antes'\n" +
+                                Tools.color.WHITE_BRIGHT);
+                        Tools.pausar();
+                    }
+                    break;
+                case 3: // VENDEDOR
+                    vilaVender(vendedor, heroi);
+                case 4: // POÇÕES
+                    heroi.usarPocao();
+                    break;
+                default:
+                    System.out.println("👹 CAMINHO INCORRETO 👹");
+            }
+
+        } while (missao);
+
+        return false;
+    }
+
+    private boolean vilaRengoku(Heroi heroi, Vendedor vendedor) {
+        //HISTORIA
+        Historia.vilaRengokuIntro();
+        Historia.vilaRengoku();
+
+        //MISSÁO
+        boolean missao = true;
+        boolean tumulo = true;
+        do {
+            Historia.vilaRengokuAto1();
+
+            //ESCOLHER CAMINHO
+            int caminho = Tools.validarEscolhaNum(1, 4);
+            switch (caminho) {
+                case 1: // ARMADILHA
+                    if (tumulo) {
+                        tumulo = armadilha5(heroi);
+                    } else {
+                        System.out.println(Tools.color.RED + "\n'Hmm, já estive nestos túmulos'\n" +
+                                Tools.color.WHITE_BRIGHT);
+                        Tools.pausar();
+                    }
                     break;
                 case 2: // ENEMIGO
                     missao = combate(heroi);
                     break;
-                case 3: // ARMADILHA
-                    if (templo) {
-                        templo = armadilha(heroi);
-                    } else {
-                        System.out.println(Tools.color.RED + "'Hmm, já estive neste templo antes'" + Tools.color.WHITE_BRIGHT);
-                        Tools.pausar();
-                    }
-                    break;
+                case 3: // VENDEDOR
+                    vilaVender(vendedor, heroi);
                 case 4: // POÇÕES
                     heroi.usarPocao();
-                    Tools.pausar();
                     break;
                 default:
                     System.out.println("👹 CAMINHO INCORRETO 👹");
@@ -124,7 +254,6 @@ public class Jogo {
         Historia.vilaKozukiTemplo();
 
         // RANDOM 20% subir nível e 80% inimigo
-        Random rnd = new Random();
         int numRnd = rnd.nextInt(1, 101);
 
         if (numRnd <= 20) {
@@ -142,18 +271,74 @@ public class Jogo {
         Historia.vilaLamentosJardim();
 
         // RANDOM 10% encontrar ouro
-        Random rnd = new Random();
         int numRnd = rnd.nextInt(1, 101);
 
         if (numRnd <= 10) {
             Historia.vilaLamentosJardimOuro();
             heroi.setOuro(5);
             heroi.mostrarDetalhes();
+            Tools.pausar();
             return false;
         } else {
             Historia.vilaLamentosJardimNada();
             return true;
         }
+    }
+
+    private boolean armadilha3(Heroi heroi) {
+        Historia.vilaHakumaiMansao();
+        // RANDOM 5% encontrar ouro
+        int numRnd = rnd.nextInt(1, 101);
+
+        if (numRnd <= 5) {
+            Historia.vilaHakumaiMansaoOuro();
+            heroi.setOuro(10);
+            heroi.mostrarDetalhes();
+            Tools.pausar();
+            return false;
+        } else if (numRnd <= 10) {
+            Historia.vilaHakumaiMansaoPocao();
+            heroi.setInventario(new Pocao("Zumo de Wano 🧪", 1, Personagem.Geral, 50, 0));
+            return false;
+        } else {
+            return combate(heroi);
+        }
+    }
+
+    private boolean armadilha4(Heroi heroi) {
+        Historia.vilaAmigasaFonte();
+
+        // RANDOM 15% de encontrar um ataque consumível
+        int numRnd = rnd.nextInt(1, 101);
+
+        if (numRnd <= 15) {
+            Historia.vilaAmigasaItem();
+            heroi.setInventario(new ConsumivelCombate("Bola de Canhão 💣", 5, Personagem.Geral, 20));
+            return false;
+        } else {
+            return combate(heroi);
+        }
+    }
+
+    private boolean armadilha5(Heroi heroi) {
+        Historia.vilaRengokuTumulos();
+
+        // RANDOM 3% de encontrar um item lendário
+        int numRnd = rnd.nextInt(1, 101);
+
+        if (numRnd <= 3) {
+            Historia.vilaRengokuItem();
+            heroi.setInventario(new Pocao("🍎 Maça Rengoku 💥", 0, Personagem.Geral, 200, 200));
+            return false;
+        } else {
+            return combate(heroi);
+        }
+    }
+
+
+    private void vilaVender(Vendedor vendedor, Heroi heroi) {
+        Historia.vendedorAparece();
+        vender(vendedor, heroi);
     }
 
     /**
@@ -278,7 +463,7 @@ public class Jogo {
         vendedor.adicionarItem(new ArmaPrincipal("Espada Enma ⚔️", 10, 10, 100, Personagem.Zoro));
         vendedor.adicionarItem(new ArmaPrincipal("Estilingue Kabuto 🎯", 10, 10, 100, Personagem.Usopp));
         vendedor.adicionarItem(new ArmaPrincipal("Clima-Tact ⛈️", 10, 10, 100, Personagem.Nami));
-        vendedor.adicionarItem(new ArmaPrincipal("Soul Solid 💀", 10, 10, 100, Personagem.Brook));
+        vendedor.adicionarItem(new ArmaPrincipal("Diable Jambe Boots 🔥", 10, 10, 100, Personagem.Sanji));
     }
 
     /**
@@ -290,8 +475,20 @@ public class Jogo {
     public void vender(Vendedor vendedor, Heroi heroi) {
         if (Tools.validarSimNao()) {
             do {
-                vendedor.mostrarLoja();
-                Historia.vendedorPergunta();
+                if (heroi.getOuro() != 0) {
+                    vendedor.mostrarLoja();
+                    Historia.vendedorPergunta();
+                    System.out.println(Tools.color.WHITE_BRIGHT +
+                            heroi.getNome() + Tools.color.GREEN_BRIGHT + " vejo que tens " + Tools.color.YELLOW_BRIGHT +
+                            heroi.getOuro() + Tools.color.GREEN_BRIGHT + " 🪙. Não é mau, não é mau... " +
+                            "Mas cuidado! Ouro gasto é ouro que não volta.\n");
+                } else {
+                    System.out.println(Tools.color.GREEN_BRIGHT + "\nHA HA HA...! Teus bolsos estão mais vazios do que meu " +
+                            "estômago.\n" +
+                            "Volta quando tiver 🪙. Boa sorte na tua jornada! E cuidado com os inimigos...\n");
+                    Tools.pausar();
+                    break;
+                }
             } while (vendedor.vender(heroi));
         } else {
             Historia.vendedorDespedida();
@@ -309,7 +506,7 @@ public class Jogo {
         int barraLargura = 20;
         String barra = "";
 
-        System.out.println("\n" + Tools.color.WHITE_BRIGHT + heroi.getNome() + "                        " + Tools.color.RED_BRIGHT +
+        System.out.println("\n" + Tools.color.WHITE_BRIGHT + heroi.getNome() + "                         " + Tools.color.RED_BRIGHT +
                 "VS"
                 + Tools.color.WHITE_BRIGHT + "  " + npc.getNome());
 

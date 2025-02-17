@@ -29,13 +29,13 @@ public abstract class Entidade {
      */
     public void mostrarDetalhes() {
         System.out.printf(Tools.color.YELLOW + """
-                            ____________________________
-                          / \\                          \\
+                            ______________________________
+                          / \\                            \\
                          |   | ☠️  Pirata: %s%s%s  👒
                           \\_ |
-                             |      HP❤️: %s%s%s
-                             |      HP Max❤️‍🔥: %s%s%s
-                             |      Força💪: %s%s%s
+                             |   HP❤️: %s%s%s
+                             |   HP Max❤️‍🔥: %s%s%s
+                             |   Força💪: %s%s%s
                         """ + Tools.color.RESET,
                 Tools.color.WHITE_BRIGHT, this.nome, Tools.color.YELLOW,
                 Tools.color.WHITE_BRIGHT, this.hp, Tools.color.YELLOW,

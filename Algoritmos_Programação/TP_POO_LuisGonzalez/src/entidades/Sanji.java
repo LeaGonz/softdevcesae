@@ -27,12 +27,14 @@ public class Sanji extends Heroi {
             return false;
         }
 
-        Tools.pausar();
-
         // Ataca o NPC
         Historia.combateTurno(npc);
         ataque = (int) Math.round((npc.getForca() + (npc.getForca() * 0.1)));
-        return this.recebeAtaque(ataque);
+        if (!this.recebeAtaque(ataque)) return false;
+
+        Tools.pausar();
+
+        return true;
     }
 }
 

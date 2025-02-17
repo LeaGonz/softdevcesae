@@ -42,9 +42,9 @@ public abstract class Heroi extends Entidade {
         super.mostrarDetalhes();
 
         System.out.printf(Tools.color.YELLOW + """
-                             |      Nível🔰: %s%s%s
-                             |      Ouro🪙: %s%s%s
-                             |      Arma⚔️: %s%s%s
+                             |   Nível🔰: %s%s%s
+                             |   Ouro🪙:  %s%s%s
+                             |   Arma⚔️:  %s%s%s
                              |   _________________________|_
                              \\_/___________________________/
                         

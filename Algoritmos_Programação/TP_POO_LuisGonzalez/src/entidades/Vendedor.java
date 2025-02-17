@@ -104,6 +104,10 @@ public class Vendedor {
             else if (item instanceof Consumivel) {
                 heroi.setInventario((Consumivel) item);
             }
+        } else {
+            System.out.println(Tools.color.GREEN_BRIGHT + "\nHA HA HA...! Teus bolsos estão mais vazios do que meu " +
+                    "estômago.\n" +
+                    "Vai precisar de mais ouro se quiseres levar " + Tools.color.WHITE_BRIGHT + item.getNome() + Tools.color.GREEN_BRIGHT + "!\n");
         }
 
         Tools.pausar();

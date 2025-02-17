@@ -802,89 +802,330 @@ public class Historia {
         Tools.pausar();
     }
 
+    // *********************************************** VILA 3 ***********************************************
+    public static void vilaHakumaiIntro() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                              | |                   🌊  %sVILA HAKUMAI%s  🌊                     | |
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.BLUE_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
 
-    String combateSoldados = "Oh não! Um grupo de soldados viu-te. Não tens outra opção senão lutar.\n" +
-            "Usa as tuas habilidades para os derrotar e proteger os aldeãos.\n" +
-            "Lembra-te, cada personagem tem ataques únicos. Escolhe sabiamente!\n";
+    public static void vilaHakumai() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        Chegaste à %sVila Hakumai%s 🏮, a antiga capital portuária de Wano, onde outrora
+                        os samurais e mercadores viajavam livremente sob o governo dos Kozuki. Agora,
+                        as águas do porto estão escuras como a própria história deste lugar...
+                        
+                        ⚔️ As grandes muralhas da vila, antes símbolo de proteção, agora são
+                        uma prisão. O porto está sob vigilância constante dos soldados de Orochi 👺,
+                        e as bandeiras dos Piratas das Feras tremulam ao vento sombrio.
+                        
+                        O cheiro de pólvora 🔥 e metal queimado denuncia a presença de fábricas,
+                        onde os aldeões são forçados a trabalhar sem descanso.  
+                        
+                        Cuidado! Se fores visto, serás caçado sem piedade pelos homens de Kaido.
+                        É aqui que a resistência precisa da tua ajuda...  
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.BLUE_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
 
-    String encontroMomonosuke = "Depois de ajudares os aldeãos, encontras o Momonosuke, o jovem herdeiro dos kozuki, e o Kin'emon, o seu leal samurai.\n" +
-            "Eles explicam-te que Wano está sob o controlo de Kaido e Orochi e que precisam da tua ajuda para libertar o país.\n" +
-            "Momonosuke pede-te que te juntes à resistência e lutas pela liberdade de Wano.\n" +
-            "Aceitarás o seu pedido?\n";
+        Tools.pausar();
+    }
 
+    public static void vilaHakumaiAto1() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        🌊 %sAs ruas estreitas de Hakumai estendem-se como um labirinto de histórias perdidas...%s 🌊
+                        
+                        Escolhe o teu próximo passo com cuidado:
+                        
+                        %s1. Doca Oculta%s: Um velho vendedor aproxima-se, com um olhar desconfiado.
+                        "As correntes podem levar-te para dentro da fortaleza... mas uma vez lá dentro, não há volta."
+                        
+                        %s2. Bairro dos Ferreiros%s: Os gritos dos trabalhadores ecoam entre as chamas das forjas.
+                        Dizem que um artesão ainda forja armas secretamente para a resistência... mas onde estará?
+                        
+                        %s3. Mansão de Orochi%s: A mansão da antiga capital está agora ocupada pelos oficiais inimigos.
+                        Segredos ocultos podem estar trancados por trás dessas portas... mas vale o risco?
+                        
+                        %s4. Mochila%s: A tua mochila contém as tuas poções...
+                        
+                        Escolhe o teu caminho com sabedoria...
+                        
+                        """ + Tools.color.WHITE_BRIGHT,
+                Tools.color.BLUE_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
 
-    // Ato 2: A resistência e as alianças
-    String narracaoResistencia = "Com o Momonosuke e o Kin'emon ao teu lado, começas a reunir aliados para a resistência.\n" +
-            "Mas Kaido e Orochi não vão ficar de braços cruzados.\n" +
-            "Aumentaram a opressão, e os perigos são cada vez maiores.\n" +
-            "Tens de agir rapidamente antes que seja tarde demais.\n";
+    public static void vilaHakumaiMansao() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        %s🏯 MANSÃO DE OROCHI – O COVIL DA SERPENTE 🏯%s
+                        
+                        Passas pelos enormes portões da mansão, sentindo um arrepio na espinha.
+                        
+                        O lugar está envolto em um silêncio inquietante. As velas piscam nas paredes,
+                        projetando sombras distorcidas dos dragões dourados esculpidos na madeira.
+                        
+                        👁️ Sabes que não deverias estar aqui...
+                        
+                        Mas também sabes que um verdadeiro pirata não teme a escuridão!
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
 
-    String missaoMinas = "Zoro, precisamos de ti nas minas de prisioneiros.\n" +
-            "Kaido escravizou centenas de pessoas, forçando-as a trabalhar em condições desumanas.\n" +
-            "A tua missão é infiltrar-te nas minas, libertar os prisioneiros e enfrentar os guardas.\n" +
-            "Mas cuidado, há rumores de que um dos Tobiroppo, os poderosos subordinados de Kaido, está no comando das minas.\n";
+        Tools.pausar();
+    }
 
-    String combateTobiroppo = "Alerta! Um Tobiroppo apareceu. Este inimigo é poderoso e não hesitará em acabar contigo.\n" +
-            "Usa todas as tuas habilidades para o derrotar e libertar os prisioneiros.\n" +
-            "Não desistas!\n";
+    public static void vilaHakumaiMansaoOuro() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        Ao empurrares a porta, uma luz dourada enche a sala.
+                        
+                        Paredes cobertas de moedas brilhantes, estátuas de jade e joias raras reluzem no escuro.
+                        
+                        "Ahahaha! Hoje é um dia de sorte!" pensas, enquanto enches os bolsos com %s10 moedas de ouro%s 🪙.
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
 
-    String missaoProtecao = "Sanji, os aldeãos estão em perigo.\n" +
-            "Um grupo de soldados de Orochi está a atacar a vila, e precisam da tua ajuda para os proteger.\n" +
-            "Usa as tuas habilidades de combate e o teu engenho para manter os aldeãos a salvo.\n" +
-            "Não deixes que ninguém sofra mais sob o jugo de Orochi!\n";
+        Tools.pausar();
+    }
 
-    // Ato 3: O assalto a Onigashima
-    String narracaoAssalto = "Chegou o momento. A resistência está pronta, e é hora de lançar o ataque final a Onigashima, a fortaleza de Kaido.\n" +
-            "Esta será a batalha mais grande e perigosa de todas.\n" +
-            "Estás pronto para enfrentar Kaido e libertar Wano de uma vez por todas?\n";
+    public static void vilaHakumaiMansaoPocao() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        A pequena sala parece ter sido um antigo esconderijo de médicos da corte.
+                        
+                        Frascos de vidro brilham em meio à penumbra, e um deles chama tua atenção.
+                        
+                        "Isso parece útil..." pensas, ao guardar a %spoção de 50HP%s na tua mochila.
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
 
-    String missaoInvasao = "Onigashima está fortemente defendida.\n" +
-            "Tens de abrir caminho através das defesas de Kaido e chegar até ele.\n" +
-            "Mas cuidado, os inimigos são numerosos e poderosos.\n" +
-            "Usa todas as tuas habilidades e não subestimes os teus oponentes.\n";
+        Tools.pausar();
+    }
 
-    String combateTobiroppoOnigashima = "Cuidado! Os Tobiroppo apareceram.\n" +
-            "Estes inimigos são extremamente perigosos e não hesitarão em acabar contigo.\n" +
-            "Usa todas as tuas habilidades e ataques especiais para os derrotar.\n" +
-            "Não desistas!\n";
+    // *********************************************** VILA 4 ***********************************************
 
-    String missaoResgate = "Luffy, o Momonosuke foi capturado pelo Kaido.\n" +
-            "Tens de o resgatar antes que seja tarde demais.\n" +
-            "Kaido é um inimigo formidável, mas não podes deixar que ele saia vitorioso.\n" +
-            "Avança, liberta o Momonosuke e enfrenta o Kaido!\n";
+    public static void vilaAmigasaIntro() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                              | |                    ⛩️  %sVILA AMIGASA%s  ⛩️                    | |
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
 
-    // Ato 4: A luta final contra Kaido
-    String narracaoFinal = "Chegaste ao fim. Kaido está à tua frente, pronto para te destruir.\n" +
-            "Mas não podes recuar. Wano depende de ti.\n" +
-            "É hora de enfrentar o imperador pirata e libertar Wano da sua tirania.\n" +
-            "Prepara-te para a batalha mais épica da tua vida!\n";
+    public static void vilaAmigasa() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        No passado, esta vila foi o lar de grandes guerreiros.
+                        Hoje, não passa de um aglomerado de casas em ruínas, cercadas por campos secos e abandonados.
+                        
+                        🍂 O vento sopra entre os telhados quebrados, carregando consigo o eco das risadas de crianças que um dia correram por essas ruas... mas agora, só resta o silêncio.
+                        
+                        Os aldeões sobrevivem com migalhas, mal conseguindo se manter de pé.
+                        Muitos foram forçados a trabalhar para Orochi e Kaido, enquanto os poucos que ficaram lutam diariamente contra a fome e a desesperança.
+                        
+                        🎎 No centro da vila, um pequeno grupo de sobreviventes ainda mantém a fé
+                        na chegada de um salvador. %sMas será que é tarde demais?%s
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
 
-    String combateKaido = "Kaido é um inimigo como nenhum outro.\n" +
-            "Tens de usar todas as tuas habilidades e ataques especiais para o derrotar.\n" +
-            "Mas cuidado, Kaido tem várias fases de combate. Não te descuides!\n";
+        Tools.pausar();
+    }
 
-    String fase1 = "Kaido começa na sua forma humana, usando a sua força bruta para te atacar.\n" +
-            "Tens de esquivar os seus golpes e contra-atacar com tudo o que tens.\n";
+    public static void vilaAmigasaAto1() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        🎏 %sA Vila Amigasa se estende diante de ti como um relicário de tempos esquecidos...%s 🎏
+                        
+                        Escolhe o teu próximo movimento com sabedoria:
+                        
+                        %s1. Antiga Casa do Daimyo%s: Uma casa maior que as outras, agora caída em ruínas.
+                        Mas dizem que dentro dela ainda repousa um tesouro esquecido. Ou talvez... uma armadilha?
+                        
+                        %s2. Fonte Sagrada%s: Os mais velhos da vila murmuram sobre um poço antigo, onde dizem que 
+                        a água ainda tem o poder de restaurar forças. Mas cuidado... há algo mais escondido por lá?
+                        
+                        %s3. Armazém Abandonado%s: Um velho vendedor, olha para ti com olhos determinados.
+                        "Se ainda resta alguma honra em Wano... então precisamos de armas para lutar!"
+                        
+                        %s4. Mochila%s: A tua mochila contém as tuas poções...
+                        
+                        Escolhe o teu caminho com sabedoria...
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
 
-    String fase2 = "Kaido transforma-se num dragão gigante.\n" +
-            "Os seus ataques são mais poderosos e devastadores.\n" +
-            "Tens de ser rápido e preciso para evitar os seus ataques e encontrar uma oportunidade para contra-atacar.\n";
+    public static void vilaAmigasaFonte() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        Entras na 🏯 %sFonte Sagrada%s
+                        
+                        Segues por um caminho estreito de pedra, envolto pelo aroma de terra molhada 
+                        e folhas de cerejeira secas.  
+                        
+                        💦 À tua frente, surge uma fonte antiga, esculpida em pedra pelo tempo.  
+                        A água flui lentamente, refletindo a luz da lua num brilho prateado.  
+                        
+                        📜 Dizem que, em tempos antigos, os samurais de Wano vinham a este local  
+                        para purificar as suas lâminas antes da batalha.  
+                        
+                        Mas agora, algo parece errado… o vento está parado, e o silêncio é perturbador.  
+                        
+                        Há algo… ou alguém à espreita nas sombras.  
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
 
-    String fase3 = "Kaido transforma-se na sua forma híbrida, combinando a força de um humano com o poder de um dragão.\n" +
-            "Esta é a sua forma mais perigosa.\n" +
-            "Tens de usar todas as tuas habilidades e ataques especiais para o derrotar.\n" +
-            "Não desistas!\n";
+        Tools.pausar();
+    }
 
-    String vitoria = "Conseguiste! Kaido foi derrotado, e Wano está livre.\n" +
-            "Os aldeãos agradecem-te pela tua coragem e sacrifício.\n" +
-            "Cumpriste a tua promessa e libertaste Wano da sua tirania.\n" +
-            "Parabéns, herói de Wano!\n";
+    public static void vilaAmigasaItem() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        Com cautela, mergulhas a mão na água gelada.
+                        
+                        Algo metálico toca nos teus dedos... e quando puxas para fora, um brilho dourado ilumina a noite!
+                        
+                        🏴‍☠️ Recebeste uma %sBola de Canhão 💣%s
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT);
 
-    // Ato 5: Epílogo e desfecho
-    String epilogo = "Com Wano libertado, é hora de continuar a tua viagem.\n" +
-            "A tripulação do Chapéu de Palha zarpa em direção a novas aventuras, mas sempre se lembrará do tempo passado em Wano.\n" +
-            "Momonosuke e os cidadãos de Wano agradecem-te pela tua ajuda e desejam-te boa sorte na tua jornada.\n" +
-            "O mar espera por ti, e novas aventuras estão por vir.\n" +
-            "Até à próxima, pirata!\n";
+        Tools.pausar();
+    }
 
+    // *********************************************** VILA 4 ***********************************************
+
+    public static void vilaRengokuIntro() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                              | |                    ⛩️  %sVILA RENGOKU%s  ⛩️                    | |
+                            __| |________________________________________________________________| |__
+                           (__   ________________________________________________________________   __)
+                              | |                                                                | |
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
+
+    public static void vilaRengoku() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        O vento sopra forte entre as ruínas.
+                        
+                        As casas de madeira, outrora imponentes, são agora esqueletos de um passado perdido.  
+                        Este lugar já foi o lar de grandes guerreiros... mas agora, só restam cinzas e poeira.  
+                        
+                        🌫️ Há um estranho cheiro de incenso no ar. O silêncio é absoluto.  
+                        Até mesmo os corvos que sobrevoam o céu evitam pousar aqui...  
+                        
+                        Dizem que os últimos samurais da vila lutaram até a morte contra os homens de Orochi,  
+                        recusando-se a ajoelhar-se.  
+                        
+                        💀 Mas se todos caíram... %sentão quem são essas sombras que se movem ao longe?%s
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+
+        Tools.pausar();
+    }
+
+    public static void vilaRengokuAto1() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        %s🏮 AS CHAMAS DO PASSADO AINDA ARDEM...%s 🏮
+                        
+                        Escolhe o teu caminho através das ruínas:
+                        
+                        %s1. Templo Destruído%s: No topo da colina, um templo de pedra resiste ao tempo.
+                        Dizem que os últimos guerreiros deixaram uma relíquia ali... Mas algo espreita no escuro.
+                        
+                        %s2. Túmulos dos Samurais%s: Lápides cobertas de musgo enchem a colina.
+                        Uma figura solitária ajoelha-se diante de uma delas... Mas será um amigo ou um inimigo?
+                        
+                        %s3. A Casa do Daimyo%s: A mansão principal da vila ainda está de pé.
+                        Mas há pegadas recentes na poeira... Alguém ainda vive aqui? O vendedor?
+                        
+                        %s4. Mochila%s: A tua mochila contém as tuas poções...
+                        
+                        Escolhe o teu caminho com sabedoria...
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT);
+    }
+
+    public static void vilaRengokuTumulos() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        %sSubes a colina de Rengoku%s, sentindo o vento frio cortar o silêncio da noite.
+                        À tua frente, uma centena de lápides esquecidas espalham-se pelo vale.
+                        
+                        A névoa dança entre as pedras, como se os espíritos ainda vigiassem este lugar.
+                        
+                        Dizem que aqui jazem os últimos guerreiros do Clã Kozuki...
+                        Homens que lutaram até o último suspiro contra a tirania de Orochi e Kaido 🐉.
+                        
+                        🏮 Uma fraca luz tremula mais à frente...
+                        
+                        Há alguém aqui... ou algo mais?
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);
+
+        Tools.pausar();
+    }
+
+    public static void vilaRengokuItem() {
+        System.out.printf(Tools.color.WHITE_BRIGHT + """
+                        
+                        Encontras uma maçã dourada descansando sobre uma pedra.
+                        
+                        O brilho suave da fruta é hipnotizante, como se ela estivesse esperando por ti.
+                        
+                        🏴‍☠️ Dizem que esta maçã tem poderes misteriosos, capaz de curar qualquer ferimento
+                        ou até conceder força a quem for digno de usá-la.
+                        
+                        🏴‍☠️ Recebeste a %s🍎 Maça Rengoku 💥%s
+                        
+                        """ + Tools.color.RESET,
+                Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT);
+
+        Tools.pausar();
+    }
 }

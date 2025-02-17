@@ -26,10 +26,12 @@ public class Zoro extends Heroi {
             return false;
         }
 
-        Tools.pausar();
-
         // Ataca o NPC
         Historia.combateTurno(npc);
-        return this.recebeAtaque(npc.getForca());
+        if (!this.recebeAtaque(npc.getForca())) return false;
+
+        Tools.pausar();
+
+        return true;
     }
 }

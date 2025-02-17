@@ -6,10 +6,6 @@ public class Main {
     public static void main(String[] args) {
         Jogo jogo = new Jogo();
 
-        // TESTEEEEEESSSSSSSSSSSSSS
-
-        // TESTEEEEEESSSSSSSSSSSSSS
-
         // INTRO
         Historia.logoIntro();
         Historia.intro();
