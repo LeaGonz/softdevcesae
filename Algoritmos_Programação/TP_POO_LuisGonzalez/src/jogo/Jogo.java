@@ -44,6 +44,9 @@ public class Jogo {
 
         // 5 VILA RENGOKU
         vilaRengoku(heroi, vendedor);
+
+        // 6 KAIDO ONIGASHIMA
+        onigashima(heroi, vendedor);
     }
 
 
@@ -53,7 +56,6 @@ public class Jogo {
         Historia.vilaHakumai();
 
         //MISSÁO
-        boolean missao = true;
         boolean mansao = true;
         do {
             Historia.vilaHakumaiAto1();
@@ -65,8 +67,7 @@ public class Jogo {
                     vilaVender(vendedor, heroi);
                     break;
                 case 2: // ENEMIGO
-                    missao = combate(heroi);
-                    break;
+                    return combate(heroi);
                 case 3: // ARMADILHA
                     if (mansao) {
                         mansao = armadilha3(heroi);
@@ -81,11 +82,9 @@ public class Jogo {
                     break;
                 default:
                     System.out.println("👹 CAMINHO INCORRETO 👹");
+                    break;
             }
-
-        } while (missao);
-
-        return false;
+        } while (true);
     }
 
     private boolean vilaKosuki(Heroi heroi, Vendedor vendedor) {
@@ -94,11 +93,9 @@ public class Jogo {
         Historia.vilaKozuki();
 
         //MISSÁO
-        boolean missao = true;
         boolean templo = true;
         do {
             Historia.vilaKozukiAto1();
-
             //ESCOLHER CAMINHO
             int caminho = Tools.validarEscolhaNum(1, 4);
             switch (caminho) {
@@ -106,8 +103,7 @@ public class Jogo {
                     vilaVender(vendedor, heroi);
                     break;
                 case 2: // ENEMIGO
-                    missao = combate(heroi);
-                    break;
+                    return combate(heroi);
                 case 3: // ARMADILHA
                     if (templo) {
                         templo = armadilha(heroi);
@@ -122,11 +118,10 @@ public class Jogo {
                     break;
                 default:
                     System.out.println("👹 CAMINHO INCORRETO 👹");
+                    break;
             }
 
-        } while (missao);
-
-        return false;
+        } while (true);
     }
 
     private boolean vilaLamentos(Heroi heroi, Vendedor vendedor) {
@@ -135,18 +130,14 @@ public class Jogo {
         Historia.vilaLamentos();
 
         //MISSÁO
-        boolean missao = true;
         boolean jardim = true;
         do {
-
             Historia.vilaLamentosAto1();
-
             //ESCOLHER CAMINHO
             int caminho = Tools.validarEscolhaNum(1, 4);
             switch (caminho) {
                 case 1: // ENEMIGO
-                    missao = combate(heroi);
-                    break;
+                    return combate(heroi);
                 case 2: //  VENDEDOR
                     vilaVender(vendedor, heroi);
                     break;
@@ -164,10 +155,10 @@ public class Jogo {
                     break;
                 default:
                     System.out.println("👹 CAMINHO INCORRETO 👹");
+                    break;
             }
 
-        } while (missao);
-        return false;
+        } while (true);
     }
 
     private boolean vilaAmigasa(Heroi heroi, Vendedor vendedor) {
@@ -176,17 +167,14 @@ public class Jogo {
         Historia.vilaAmigasa();
 
         //MISSÁO
-        boolean missao = true;
         boolean fonte = true;
         do {
             Historia.vilaAmigasaAto1();
-
             //ESCOLHER CAMINHO
             int caminho = Tools.validarEscolhaNum(1, 4);
             switch (caminho) {
                 case 1: // ENEMIGO
-                    missao = combate(heroi);
-                    break;
+                    return combate(heroi);
                 case 2: // ARMADILHA
                     if (fonte) {
                         fonte = armadilha4(heroi);
@@ -198,16 +186,15 @@ public class Jogo {
                     break;
                 case 3: // VENDEDOR
                     vilaVender(vendedor, heroi);
+                    break;
                 case 4: // POÇÕES
                     heroi.usarPocao();
                     break;
                 default:
                     System.out.println("👹 CAMINHO INCORRETO 👹");
+                    break;
             }
-
-        } while (missao);
-
-        return false;
+        } while (true);
     }
 
     private boolean vilaRengoku(Heroi heroi, Vendedor vendedor) {
@@ -216,15 +203,15 @@ public class Jogo {
         Historia.vilaRengoku();
 
         //MISSÁO
-        boolean missao = true;
         boolean tumulo = true;
         do {
             Historia.vilaRengokuAto1();
-
             //ESCOLHER CAMINHO
             int caminho = Tools.validarEscolhaNum(1, 4);
             switch (caminho) {
-                case 1: // ARMADILHA
+                case 1: // INIMIGO
+                    return combate(heroi);
+                case 2: // ARMADILHA
                     if (tumulo) {
                         tumulo = armadilha5(heroi);
                     } else {
@@ -233,22 +220,110 @@ public class Jogo {
                         Tools.pausar();
                     }
                     break;
-                case 2: // ENEMIGO
-                    missao = combate(heroi);
-                    break;
                 case 3: // VENDEDOR
                     vilaVender(vendedor, heroi);
+                    break;
                 case 4: // POÇÕES
                     heroi.usarPocao();
                     break;
                 default:
                     System.out.println("👹 CAMINHO INCORRETO 👹");
+                    break;
             }
-
-        } while (missao);
-
-        return false;
+        } while (true);
     }
+
+    private boolean onigashima(Heroi heroi, Vendedor vendedor) {
+        //HISTORIA
+        Historia.kaidoChegada();
+
+        Historia.kaidoIntro();
+        Historia.kaidoOnigashima();
+
+        /***************** MISSÃO SANJI *****************/
+        boolean sanji = true;
+
+        // MUDAMOS HERÓI E ITENS (SE HOUVER)
+        heroi.mudarHeroi(Personagem.Sanji);
+        Historia.kaidoSanji();
+        heroi.mostrarDetalhes();
+
+        do {
+            //ESCOLHER CAMINHO
+            Historia.kaidoSanjiEscolha();
+            int caminho = Tools.validarEscolhaNum(1, 3);
+            switch (caminho) {
+                case 1: // INIMIGO
+                    sanji = combate(heroi);
+                    if (sanji) return sanji;
+                    break;
+                case 2: // VENDEDOR
+                    vilaVender(vendedor, heroi);
+                    break;
+                case 3: // POÇÕES
+                    heroi.usarPocao();
+                    break;
+                default:
+                    System.out.println("👹 CAMINHO INCORRETO 👹");
+                    break;
+            }
+        } while (sanji);
+
+        /***************** MISSÃO ZORO *****************/
+        boolean zoro = true;
+
+        // MUDAMOS HERÓI E ITENS (SE HOUVER)
+        heroi.mudarHeroi(Personagem.Zoro);
+        Historia.kaidoZoro();
+        heroi.mostrarDetalhes();
+
+        do {
+            //ESCOLHER CAMINHO
+            Historia.kaidoZoroEscolha();
+            int caminho = Tools.validarEscolhaNum(1, 3);
+            switch (caminho) {
+                case 1: // INIMIGO
+                    zoro = combate(heroi);
+                    if (zoro) return zoro;
+                    break;
+                case 2: // VENDEDOR
+                    vilaVender(vendedor, heroi);
+                    break;
+                case 3: // POÇÕES
+                    heroi.usarPocao();
+                    break;
+                default:
+                    System.out.println("👹 CAMINHO INCORRETO 👹");
+                    break;
+            }
+        } while (zoro);
+
+        /***************** BATALHA FINAL LUFFY VS KAIDO *****************/
+        // MUDAMOS HERÓI E ITENS (SE HOUVER)
+        heroi.mudarHeroi(Personagem.Luffy);
+        Historia.kaidoZoro();
+        heroi.mostrarDetalhes();
+
+        do {
+            //ESCOLHER CAMINHO
+            Historia.kaidoZoroEscolha();
+            int caminho = Tools.validarEscolhaNum(1, 3);
+            switch (caminho) {
+                case 1: // INIMIGO
+                    return combate(heroi);
+                case 2: // VENDEDOR
+                    vilaVender(vendedor, heroi);
+                    break;
+                case 3: // POÇÕES
+                    heroi.usarPocao();
+                    break;
+                default:
+                    System.out.println("👹 CAMINHO INCORRETO 👹");
+                    break;
+            }
+        } while (true);
+    }
+
 
     private boolean armadilha(Heroi heroi) {
         Historia.vilaKozukiTemplo();
@@ -343,6 +418,8 @@ public class Jogo {
 
     /**
      * Método combate entre Herói e NPC
+     * Retorna FALSE se ganha o HERÓI
+     * Retorna TRUE se ganha o NPC
      *
      * @param heroi
      */

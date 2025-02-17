@@ -159,6 +159,50 @@ public abstract class Heroi extends Entidade {
         return ataque;
     }
 
+    public void mudarHeroi(Personagem nome) {
+        this.setNome(nome);
+
+        // Criamos uma cópia do ArrayList
+        ArrayList<Consumivel> copiaInventario = new ArrayList<>(this.inventario);
+
+        if (nome == Personagem.Sanji) {
+            if (this.armaPrincipal != null)
+                this.armaPrincipal = new ArmaPrincipal("Diable Jambe Boots 🔥", 10, 10, 100, Personagem.Sanji);
+
+            for (Consumivel consumivel : copiaInventario) {
+                if (consumivel instanceof ConsumivelCombate) {
+                    this.inventario.remove(consumivel);
+                    this.inventario.add(new ConsumivelCombate("Faca de Cozinha 🔪", 5, Personagem.Sanji, 20));
+                }
+            }
+        }
+
+        if (nome == Personagem.Zoro) {
+            if (this.armaPrincipal != null)
+                this.armaPrincipal = new ArmaPrincipal("Espada Enma ⚔️", 10, 10, 100, Personagem.Zoro);
+
+            for (Consumivel consumivel : copiaInventario) {
+                if (consumivel instanceof ConsumivelCombate) {
+                    this.inventario.remove(consumivel);
+                    this.inventario.add(new ConsumivelCombate("Garrafa de Sake 🍶", 5, Personagem.Zoro, 20));
+                }
+            }
+        }
+
+        if (nome == Personagem.Luffy) {
+            if (this.armaPrincipal != null)
+                this.armaPrincipal = new ArmaPrincipal("Chapéu de Palha 👒", 10, 10, 100, Personagem.Luffy);
+
+            for (Consumivel consumivel : copiaInventario) {
+                if (consumivel instanceof ConsumivelCombate) {
+                    this.inventario.remove(consumivel);
+                    this.inventario.add(new ConsumivelCombate("Pedaço do Mastro Principal 🪵", 5, Personagem.Luffy, 20));
+                }
+            }
+        }
+
+    }
+
     /**
      * Método para preencher os consumíveis a usar pelo herói
      * durante o fora da batalha
