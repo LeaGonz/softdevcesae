@@ -63,10 +63,12 @@ public class Jogo {
                         jardim = armadilha2(heroi);
                     } else {
                         System.out.println(Tools.color.RED + "'Hmm, já estive neste jardim antes. Nada de ouro desta vez... que desilusão.'" + Tools.color.WHITE_BRIGHT);
+                        Tools.pausar();
                     }
                     break;
                 case 4: // POÇÕES
                     heroi.usarPocao();
+                    Tools.pausar();
                     break;
                 default:
                     System.out.println("👹 CAMINHO INCORRETO 👹");
@@ -83,6 +85,7 @@ public class Jogo {
 
         //MISSÁO
         boolean missao = true;
+        boolean templo = true;
         do {
             Historia.vilaKozukiAto1();
 
@@ -97,10 +100,16 @@ public class Jogo {
                     missao = combate(heroi);
                     break;
                 case 3: // ARMADILHA
-                    missao = armadilha(heroi);
+                    if (templo) {
+                        templo = armadilha(heroi);
+                    } else {
+                        System.out.println(Tools.color.RED + "'Hmm, já estive neste templo antes'" + Tools.color.WHITE_BRIGHT);
+                        Tools.pausar();
+                    }
                     break;
-                case 4: // PoÇÕES
+                case 4: // POÇÕES
                     heroi.usarPocao();
+                    Tools.pausar();
                     break;
                 default:
                     System.out.println("👹 CAMINHO INCORRETO 👹");
@@ -122,7 +131,8 @@ public class Jogo {
             Historia.vilaKozukiItemLendario();
             heroi.subirNivel();
             heroi.mostrarDetalhes();
-            return true;
+            Tools.pausar();
+            return false;
         } else {
             return combate(heroi);
         }
@@ -137,6 +147,7 @@ public class Jogo {
 
         if (numRnd <= 10) {
             Historia.vilaLamentosJardimOuro();
+            heroi.setOuro(5);
             heroi.mostrarDetalhes();
             return false;
         } else {
@@ -158,18 +169,7 @@ public class Jogo {
 
         // Ciclo principal do combate
         do {
-            // Separador do combate
-            System.out.printf(Tools.color.BLUE + """
-                            
-                            
-                            ﹏﹏﹏﹏﹏﹏﹏﹏﹏%s\uD80C\uDE9D%s﹏﹏﹏﹏﹏﹏﹏﹏﹏ %s%s VS %s%s ﹏﹏﹏﹏﹏﹏﹏﹏﹏%s\uD80C\uDE9D%s﹏﹏﹏﹏﹏﹏﹏﹏﹏
-                            
-                            """ + Tools.color.WHITE_BRIGHT,
-                    Tools.color.YELLOW, Tools.color.BLUE, Tools.color.RED, heroi.getNome(),
-                    npc.getNome(), Tools.color.BLUE, Tools.color.YELLOW, Tools.color.BLUE);
-
             mostrarBarraHP(heroi, npc);
-
         } while (heroi.atacar(npc));
 
         // Terminar combate
@@ -309,12 +309,12 @@ public class Jogo {
         int barraLargura = 20;
         String barra = "";
 
-        System.out.println("\n" + Tools.color.WHITE_BRIGHT + heroi.getNome() + "                     " + Tools.color.RED_BRIGHT +
+        System.out.println("\n" + Tools.color.WHITE_BRIGHT + heroi.getNome() + "                        " + Tools.color.RED_BRIGHT +
                 "VS"
                 + Tools.color.WHITE_BRIGHT + "  " + npc.getNome());
 
-        System.out.println("HP: " + corBarra(heroi.getHp(), heroi.getMaxHp(), barraLargura) +
-                "     " + corBarra(npc.getHp(), npc.getMaxHp(), barraLargura) + Tools.color.WHITE_BRIGHT + " :HP\n");
+        System.out.println("HP:" + heroi.getHp() + " " + corBarra(heroi.getHp(), heroi.getMaxHp(), barraLargura) +
+                "     " + corBarra(npc.getHp(), npc.getMaxHp(), barraLargura) + Tools.color.WHITE_BRIGHT + " " + npc.getHp() + ":HP\n");
 
     }
 

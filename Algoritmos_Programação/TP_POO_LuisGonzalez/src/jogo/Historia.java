@@ -595,7 +595,6 @@ public class Historia {
 
     // *********************************************** VILA 1 ***********************************************
 
-
     public static void vilaKozukiIntro() {
         System.out.printf(Tools.color.WHITE_BRIGHT + """
                         
@@ -690,7 +689,6 @@ public class Historia {
 
     // *********************************************** VILA 2 ***********************************************
 
-
     public static void vilaLamentosIntro() {
         System.out.printf(Tools.color.WHITE_BRIGHT + """
                         
@@ -765,13 +763,6 @@ public class Historia {
                         
                         Num canto do jardim, quase escondido entre as folhagens, brilha algo no chão. 
                         Será um tesouro esquecido... ou apenas um reflexo da luz?
-                        
-                        Ao te aproximares, descobres que é uma pequena bolsa de tecido, desgastada pelo tempo. 
-                        Dentro dela, há 5 moedas de ouro! 🪙
-                        
-                        *"Um presente do jardim... ou talvez dos espíritos que aqui habitam."*
-                        
-                        O jardim parece agradecer-te por teres encontrado o seu segredo, e o vento sussurra uma bênção enquanto partes.
                         
                         """ + Tools.color.RESET,
                 Tools.color.YELLOW_BOLD_BRIGHT, Tools.color.WHITE_BRIGHT);

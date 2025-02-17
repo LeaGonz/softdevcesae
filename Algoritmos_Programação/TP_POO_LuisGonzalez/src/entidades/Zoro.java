@@ -2,6 +2,7 @@ package entidades;
 
 import Enums.Personagem;
 import jogo.Historia;
+import jogo.Tools;
 
 public class Zoro extends Heroi {
 
@@ -24,6 +25,8 @@ public class Zoro extends Heroi {
             this.subirNivel(npc);
             return false;
         }
+
+        Tools.pausar();
 
         // Ataca o NPC
         Historia.combateTurno(npc);

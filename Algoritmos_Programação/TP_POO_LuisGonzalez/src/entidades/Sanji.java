@@ -2,6 +2,7 @@ package entidades;
 
 import Enums.Personagem;
 import jogo.Historia;
+import jogo.Tools;
 
 public class Sanji extends Heroi {
 
@@ -25,6 +26,8 @@ public class Sanji extends Heroi {
             this.subirNivel(npc);
             return false;
         }
+
+        Tools.pausar();
 
         // Ataca o NPC
         Historia.combateTurno(npc);

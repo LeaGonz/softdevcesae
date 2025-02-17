@@ -33,6 +33,8 @@ public class Luffy extends Heroi {
         int ataque = (int) (npc.getForca() * 0.8);
         if (!this.recebeAtaque(ataque)) return false;
 
+        Tools.pausar();
+
         // Ataca o Herói
         Historia.combateTurno(this);
         ataque = this.tipoAtaque();

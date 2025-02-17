@@ -64,7 +64,9 @@ public abstract class Heroi extends Entidade {
 
 
     /**
-     * Método de subida de nivel do herói
+     * Métodos de subida de nivel do herói
+     * COM parametros o ouro é recebido do NPC
+     * SEM parametro o ouro é de uma armadilha
      *
      * @param npc
      */
@@ -77,6 +79,7 @@ public abstract class Heroi extends Entidade {
         this.setForca(this.getForca() + 1);
         // Aumentar vida (HP)
         this.setMaxHp(this.getMaxHp() + 10);
+        this.setHp(this.getHp() + 10);
         // Ativamos de novo o ataque especial
         this.ataqueEspecialUsado = false;
         // Mensagem
@@ -90,6 +93,7 @@ public abstract class Heroi extends Entidade {
         this.setForca(this.getForca() + 1);
         // Aumentar vida (HP)
         this.setMaxHp(this.getMaxHp() + 10);
+        this.setHp(this.getHp() + 10);
         // Mensagem
         System.out.println(Tools.color.YELLOW_BOLD_BRIGHT + this.getNome() + Tools.color.WHITE_BRIGHT + " ha subido de nivel");
     }
@@ -136,10 +140,8 @@ public abstract class Heroi extends Entidade {
                 default -> 0;
             };
 
-            // Entramos nesta validação se nos metodos usarConsumivelCombate ou usarPocao
-            // foi selecionada a opção 0 (voltar ao menu principal)
+            // Entramos nesta validação se precisarmos de repetir o menu de ataque
             if (ataque == -1) {
-                System.out.println(Tools.color.WHITE_BRIGHT);
                 ataque = this.getForca();
                 continue;
             }
