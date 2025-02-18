@@ -301,12 +301,12 @@ public class Jogo {
         /***************** BATALHA FINAL LUFFY VS KAIDO *****************/
         // MUDAMOS HERÓI E ITENS (SE HOUVER)
         heroi.mudarHeroi(Personagem.Luffy);
-        Historia.kaidoZoro();
+        Historia.kaidoLuffy();
         heroi.mostrarDetalhes();
 
         do {
             //ESCOLHER CAMINHO
-            Historia.kaidoZoroEscolha();
+            Historia.kaidoLuffyEscolha();
             int caminho = Tools.validarEscolhaNum(1, 3);
             switch (caminho) {
                 case 1: // INIMIGO

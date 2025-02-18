@@ -5,6 +5,7 @@ import jogo.Historia;
 import jogo.Tools;
 
 public class Luffy extends Heroi {
+    private boolean gear5;
 
     /**
      * Construtor
@@ -35,6 +36,12 @@ public class Luffy extends Heroi {
 
         // Ataca o Herói
         Historia.combateTurno(this);
+
+        // GEAR 5 VS KAIDO
+        if(this.getHp() <= (this.getMaxHp()*0.20) && npc.getNome().equals("Kaido")){
+            if (!this.)
+        }
+
         ataque = this.tipoAtaque();
         if (!npc.recebeAtaque(ataque)) {
             this.subirNivel(npc);
@@ -42,5 +49,13 @@ public class Luffy extends Heroi {
         }
         Tools.pausar();
         return true;
+    }
+
+    public boolean isGear5() {
+        return gear5;
+    }
+
+    public void setGear5(boolean gear5) {
+        this.gear5 = gear5;
     }
 }

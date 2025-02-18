@@ -1470,7 +1470,7 @@ public class Historia {
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⣏⡷⣻⡤⠄⠈⣽⣓⢮⣳⢽⡲⣭⣳⡟⡽⣚⡆⠀⢎⠰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⣧⢻⡵⢣⡏⠀⠐⣫⡝⡧⣏⢷⣋⡖⡷⣍⡙⠂⢰⡩⢎⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                         
-                                            %s🔥 LUFFY VS KAIDO – A BATALHA PELO AMANHECER! 🔥%s
+                                            %s🔥 👒 LUFFY VS KAIDO 🐉 – A BATALHA PELO AMANHECER! 🔥%s
                         
                         """ + Tools.color.WHITE_BRIGHT,
                 Tools.color.RED_BRIGHT, Tools.color.WHITE_BRIGHT);
@@ -1506,5 +1506,24 @@ public class Historia {
                 Tools.color.RED_BRIGHT);
         Tools.pausar();
     }
+
+    public static void kaidoLuffyEscolha() {
+        System.out.printf(Tools.color.YELLOW_BRIGHT + """
+                        
+                        Escolhe o teu próximo passo:
+                        
+                        %s1. Lutar contra Kaido 🐉%s – "Gomu Gomu no...!"
+                        
+                        %s2. Vendedor:%s "O destino de Wano está nas tuas mãos...
+                        Mas até mesmo os mais fortes precisam de um pequeno empurrão, não?"
+                        
+                        %s3. Mochila%s: A tua mochila contém as tuas poções...
+                        
+                        """ + Tools.color.YELLOW_BRIGHT,
+                Tools.color.RED_BRIGHT, Tools.color.YELLOW_BRIGHT,
+                Tools.color.RED_BRIGHT, Tools.color.YELLOW_BRIGHT,
+                Tools.color.RED_BRIGHT, Tools.color.YELLOW_BRIGHT);
+    }
+
 
 }

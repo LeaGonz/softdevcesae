@@ -159,11 +159,22 @@ public abstract class Heroi extends Entidade {
         return ataque;
     }
 
-    public void mudarHeroi(Personagem nome) {
-        this.setNome(nome);
+    public Heroi mudarHeroi(Personagem nome) {
+//        this.setNome(nome);
 
         // Criamos uma cópia do ArrayList
         ArrayList<Consumivel> copiaInventario = new ArrayList<>(this.inventario);
+
+        switch (nome) {
+            case Personagem.Luffy:
+                return new Luffy(Personagem.Luffy, this.getHp(), this.getForca(), this.nivel, this.getOuro());
+            case Personagem.Zoro:
+                return new Zoro(Personagem.Zoro, this.getHp(), this.getForca(), this.nivel, this.getOuro());
+            case Personagem.Sanji:
+                return new Sanji(Personagem.Sanji, this.getHp(), this.getForca(), this.nivel, this.getOuro());
+            default:
+                return null;
+        }
 
         if (nome == Personagem.Sanji) {
             if (this.armaPrincipal != null)
