@@ -10,14 +10,17 @@ import itens.Pocao;
 import java.util.Random;
 import java.util.Scanner;
 
+import static entidades.NPC.criarNPC;
+
 public class Jogo {
     private static final Scanner in = new Scanner(System.in);
     private static Random rnd = new Random();
+    private Personagem npcBoss;
 
     /**
      * Método principal do jogo e recebe um herói
      */
-    public void onePieceWano(Heroi heroi) {
+    public boolean onePieceWano(Heroi heroi) {
         // 1. PERSONAGEM
         heroi.mostrarDetalhes();
         Tools.pausar();
@@ -31,22 +34,27 @@ public class Jogo {
         vender(vendedor, heroi);
 
         // 1 VILA KOSUKI
-        vilaKosuki(heroi, vendedor);
+        if (vilaKosuki(heroi, vendedor)) return true;
 
         // 2 VILA LAMENTOS
-        vilaLamentos(heroi, vendedor);
+        if (vilaLamentos(heroi, vendedor)) return true;
 
         // 3 VILA HAKUMAI
-        vilaHakumai(heroi, vendedor);
+        if (vilaHakumai(heroi, vendedor)) return true;
 
         // 4 VILA AMIGASA
-        vilaAmigasa(heroi, vendedor);
+        if (vilaAmigasa(heroi, vendedor)) return true;
 
         // 5 VILA RENGOKU
-        vilaRengoku(heroi, vendedor);
+        if (vilaRengoku(heroi, vendedor)) return true;
 
         // 6 KAIDO ONIGASHIMA
-        onigashima(heroi, vendedor);
+        if (onigashima(heroi, vendedor)) return true;
+
+        // 7 HISTORIA FINAL
+        Historia.finalWano();
+
+        return false;
     }
 
 
@@ -78,6 +86,7 @@ public class Jogo {
                     }
                     break;
                 case 4: // POÇÕES
+                    heroi.mostrarDetalhes();
                     heroi.usarPocao();
                     break;
                 default:
@@ -114,6 +123,7 @@ public class Jogo {
                     }
                     break;
                 case 4: // POÇÕES
+                    heroi.mostrarDetalhes();
                     heroi.usarPocao();
                     break;
                 default:
@@ -151,6 +161,7 @@ public class Jogo {
                     }
                     break;
                 case 4: // POÇÕES
+                    heroi.mostrarDetalhes();
                     heroi.usarPocao();
                     break;
                 default:
@@ -188,6 +199,7 @@ public class Jogo {
                     vilaVender(vendedor, heroi);
                     break;
                 case 4: // POÇÕES
+                    heroi.mostrarDetalhes();
                     heroi.usarPocao();
                     break;
                 default:
@@ -224,6 +236,7 @@ public class Jogo {
                     vilaVender(vendedor, heroi);
                     break;
                 case 4: // POÇÕES
+                    heroi.mostrarDetalhes();
                     heroi.usarPocao();
                     break;
                 default:
@@ -244,7 +257,7 @@ public class Jogo {
         boolean sanji = true;
 
         // MUDAMOS HERÓI E ITENS (SE HOUVER)
-        heroi.mudarHeroi(Personagem.Sanji);
+        heroi = heroi.mudarHeroi(Personagem.Sanji);
         Historia.kaidoSanji();
         heroi.mostrarDetalhes();
 
@@ -254,6 +267,7 @@ public class Jogo {
             int caminho = Tools.validarEscolhaNum(1, 3);
             switch (caminho) {
                 case 1: // INIMIGO
+                    npcBoss = Personagem.Queen;
                     sanji = combate(heroi);
                     if (sanji) return sanji;
                     break;
@@ -261,6 +275,7 @@ public class Jogo {
                     vilaVender(vendedor, heroi);
                     break;
                 case 3: // POÇÕES
+                    heroi.mostrarDetalhes();
                     heroi.usarPocao();
                     break;
                 default:
@@ -273,7 +288,7 @@ public class Jogo {
         boolean zoro = true;
 
         // MUDAMOS HERÓI E ITENS (SE HOUVER)
-        heroi.mudarHeroi(Personagem.Zoro);
+        heroi = heroi.mudarHeroi(Personagem.Zoro);
         Historia.kaidoZoro();
         heroi.mostrarDetalhes();
 
@@ -283,6 +298,7 @@ public class Jogo {
             int caminho = Tools.validarEscolhaNum(1, 3);
             switch (caminho) {
                 case 1: // INIMIGO
+                    npcBoss = Personagem.King;
                     zoro = combate(heroi);
                     if (zoro) return zoro;
                     break;
@@ -290,6 +306,7 @@ public class Jogo {
                     vilaVender(vendedor, heroi);
                     break;
                 case 3: // POÇÕES
+                    heroi.mostrarDetalhes();
                     heroi.usarPocao();
                     break;
                 default:
@@ -300,7 +317,7 @@ public class Jogo {
 
         /***************** BATALHA FINAL LUFFY VS KAIDO *****************/
         // MUDAMOS HERÓI E ITENS (SE HOUVER)
-        heroi.mudarHeroi(Personagem.Luffy);
+        heroi = heroi.mudarHeroi(Personagem.Luffy);
         Historia.kaidoLuffy();
         heroi.mostrarDetalhes();
 
@@ -310,11 +327,13 @@ public class Jogo {
             int caminho = Tools.validarEscolhaNum(1, 3);
             switch (caminho) {
                 case 1: // INIMIGO
+                    npcBoss = Personagem.Kaido;
                     return combate(heroi);
                 case 2: // VENDEDOR
                     vilaVender(vendedor, heroi);
                     break;
                 case 3: // POÇÕES
+                    heroi.mostrarDetalhes();
                     heroi.usarPocao();
                     break;
                 default:
@@ -323,7 +342,6 @@ public class Jogo {
             }
         } while (true);
     }
-
 
     private boolean armadilha(Heroi heroi) {
         Historia.vilaKozukiTemplo();
@@ -418,14 +436,18 @@ public class Jogo {
 
     /**
      * Método combate entre Herói e NPC
-     * Retorna FALSE se ganha o HERÓI
-     * Retorna TRUE se ganha o NPC
      *
      * @param heroi
+     * @return Retorna FALSE se ganha o HERÓI / Retorna TRUE se ganha o NPC
      */
     public boolean combate(Heroi heroi) {
         // Criamos NPC para o combate
-        NPC npc = criarNPC();
+        NPC npc;
+        if (npcBoss == null) {
+            npc = criarNPC(heroi);
+        } else {
+            npc = criarNPC(heroi, npcBoss);
+        }
 
         Historia.combateIntro(heroi, npc);
 
@@ -509,38 +531,29 @@ public class Jogo {
     }
 
     /**
-     * Método para criar um NPC
-     *
-     * @return
-     */
-    public NPC criarNPC() {
-        return new NPC(Personagem.NPC, 100, 15, 5);
-    }
-
-    /**
      * Método para preencher loja do vendedor (ArrayList loja)
      */
     public void lojaVendedor(Vendedor vendedor) {
         // POÇÕES
-        vendedor.adicionarItem(new Pocao("Nozes de Wano 🍥", 1, Personagem.Geral, 15, 0));
-        vendedor.adicionarItem(new Pocao("Maçã Energética 🍎", 2, Personagem.Geral, 0, 10));
-        vendedor.adicionarItem(new Pocao("Excite Maçã 🍏", 3, Personagem.Geral, 5, 15));
-        vendedor.adicionarItem(new Pocao("Potente Excite Maçã 💮", 5, Personagem.Geral, 10, 20));
-        vendedor.adicionarItem(new Pocao("Cerveja 🍺", 1, Personagem.Geral, 25, 1));
+        vendedor.adicionarItem(new Pocao("Nozes de Wano 🍥", 1, Personagem.Geral, 25, 0));
+        vendedor.adicionarItem(new Pocao("Maçã Energética 🍎", 2, Personagem.Geral, 5, 15));
+        vendedor.adicionarItem(new Pocao("Excite Maçã 🍏", 3, Personagem.Geral, 60, 2));
+        vendedor.adicionarItem(new Pocao("Potente Excite Maçã 💮", 8, Personagem.Geral, 100, 7));
+        vendedor.adicionarItem(new Pocao("Cerveja 🍺", 2, Personagem.Geral, 40, 2));
 
         // COMBATE
-        vendedor.adicionarItem(new ConsumivelCombate("Estrela Explosiva 💥", 5, Personagem.Usopp, 20));
-        vendedor.adicionarItem(new ConsumivelCombate("Faca de Cozinha 🔪", 5, Personagem.Sanji, 20));
-        vendedor.adicionarItem(new ConsumivelCombate("Garrafa de Sake 🍶", 5, Personagem.Zoro, 20));
+        vendedor.adicionarItem(new ConsumivelCombate("Estrela Explosiva 💥", 5, Personagem.Usopp, 30));
+        vendedor.adicionarItem(new ConsumivelCombate("Faca de Cozinha 🔪", 5, Personagem.Sanji, 30));
+        vendedor.adicionarItem(new ConsumivelCombate("Garrafa de Sake 🍶", 5, Personagem.Zoro, 30));
         vendedor.adicionarItem(new ConsumivelCombate("Pedaço do Mastro Principal 🪵", 5, Personagem.Luffy, 20));
-        vendedor.adicionarItem(new ConsumivelCombate("Bola de Canhão 💣", 5, Personagem.Geral, 20));
+        vendedor.adicionarItem(new ConsumivelCombate("Bola de Canhão 💣", 5, Personagem.Geral, 30));
 
         // ARMAS
-        vendedor.adicionarItem(new ArmaPrincipal("Chapéu de Palha 👒", 10, 10, 100, Personagem.Luffy));
-        vendedor.adicionarItem(new ArmaPrincipal("Espada Enma ⚔️", 10, 10, 100, Personagem.Zoro));
-        vendedor.adicionarItem(new ArmaPrincipal("Estilingue Kabuto 🎯", 10, 10, 100, Personagem.Usopp));
-        vendedor.adicionarItem(new ArmaPrincipal("Clima-Tact ⛈️", 10, 10, 100, Personagem.Nami));
-        vendedor.adicionarItem(new ArmaPrincipal("Diable Jambe Boots 🔥", 10, 10, 100, Personagem.Sanji));
+        vendedor.adicionarItem(new ArmaPrincipal("Chapéu de Palha 👒", 10, 10, 60, Personagem.Luffy));
+        vendedor.adicionarItem(new ArmaPrincipal("Espada Enma ⚔️", 10, 10, 60, Personagem.Zoro));
+        vendedor.adicionarItem(new ArmaPrincipal("Estilingue Kabuto 🎯", 10, 10, 60, Personagem.Usopp));
+        vendedor.adicionarItem(new ArmaPrincipal("Clima-Tact ⛈️", 10, 10, 60, Personagem.Nami));
+        vendedor.adicionarItem(new ArmaPrincipal("Diable Jambe Boots 🔥", 10, 10, 60, Personagem.Sanji));
     }
 
     /**

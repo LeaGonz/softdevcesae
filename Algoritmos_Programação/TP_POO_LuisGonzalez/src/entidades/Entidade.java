@@ -68,15 +68,16 @@ public abstract class Entidade {
      * @param pocao
      * @return true se foi recebida a poção
      */
-    public void recebePocao(int pocao) {
+    public boolean recebePocao(int pocao) {
         if ((this.hp + pocao) > this.maxHp) {
             System.out.println(Tools.color.WHITE_BRIGHT + "\nVai perder " + Tools.color.RED_BRIGHT + ((this.hp + pocao) - this.maxHp) + Tools.color.WHITE_BRIGHT + " HP de cura da poção. Quer usar na mesma? (S/N)\n");
 
-            if (!Tools.validarSimNao()) return;
+            if (!Tools.validarSimNao()) return false;
 
         }
         this.hp += pocao;
         if (this.hp > this.maxHp) this.hp = this.maxHp;
+        return true;
     }
 
     /**

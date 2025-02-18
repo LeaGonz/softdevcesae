@@ -13,7 +13,9 @@ public class Main {
         // Escolha de Personagem
         Heroi jogador = jogo.criarPersonagem();
 
-        jogo.onePieceWano(jogador);
+        if(jogo.onePieceWano(jogador)){
+            System.out.println();
+        }
     }
 }
 

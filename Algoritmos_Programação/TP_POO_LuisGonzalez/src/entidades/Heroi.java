@@ -160,58 +160,60 @@ public abstract class Heroi extends Entidade {
     }
 
     public Heroi mudarHeroi(Personagem nome) {
-//        this.setNome(nome);
 
         // Criamos uma cópia do ArrayList
         ArrayList<Consumivel> copiaInventario = new ArrayList<>(this.inventario);
 
-        switch (nome) {
-            case Personagem.Luffy:
-                return new Luffy(Personagem.Luffy, this.getHp(), this.getForca(), this.nivel, this.getOuro());
-            case Personagem.Zoro:
-                return new Zoro(Personagem.Zoro, this.getHp(), this.getForca(), this.nivel, this.getOuro());
-            case Personagem.Sanji:
-                return new Sanji(Personagem.Sanji, this.getHp(), this.getForca(), this.nivel, this.getOuro());
-            default:
-                return null;
-        }
+        Heroi heroi = switch (nome) {
+            case Personagem.Luffy -> new Luffy(Personagem.Luffy, this.getHp(), this.getForca(), this.nivel,
+                    this.getOuro());
+            case Personagem.Zoro -> new Zoro(Personagem.Zoro, this.getHp(), this.getForca(), this.nivel,
+                    this.getOuro());
+            case Personagem.Sanji ->
+                    new Sanji(Personagem.Sanji, this.getHp(), this.getForca(), this.nivel, this.getOuro());
+            default -> null;
+        };
+        heroi.setMaxHp(this.getMaxHp());
+
+        heroi.inventario = this.inventario;
 
         if (nome == Personagem.Sanji) {
             if (this.armaPrincipal != null)
-                this.armaPrincipal = new ArmaPrincipal("Diable Jambe Boots 🔥", 10, 10, 100, Personagem.Sanji);
+                heroi.armaPrincipal = new ArmaPrincipal("Diable Jambe Boots 🔥", 10, 15, 80, Personagem.Sanji);
 
             for (Consumivel consumivel : copiaInventario) {
                 if (consumivel instanceof ConsumivelCombate) {
-                    this.inventario.remove(consumivel);
-                    this.inventario.add(new ConsumivelCombate("Faca de Cozinha 🔪", 5, Personagem.Sanji, 20));
+                    heroi.inventario.remove(consumivel);
+                    heroi.inventario.add(new ConsumivelCombate("Faca de Cozinha 🔪", 5, Personagem.Sanji, 25));
                 }
             }
         }
 
         if (nome == Personagem.Zoro) {
             if (this.armaPrincipal != null)
-                this.armaPrincipal = new ArmaPrincipal("Espada Enma ⚔️", 10, 10, 100, Personagem.Zoro);
+                heroi.armaPrincipal = new ArmaPrincipal("Espada Enma ⚔️", 10, 15, 90, Personagem.Zoro);
 
             for (Consumivel consumivel : copiaInventario) {
                 if (consumivel instanceof ConsumivelCombate) {
-                    this.inventario.remove(consumivel);
-                    this.inventario.add(new ConsumivelCombate("Garrafa de Sake 🍶", 5, Personagem.Zoro, 20));
+                    heroi.inventario.remove(consumivel);
+                    heroi.inventario.add(new ConsumivelCombate("Garrafa de Sake 🍶", 5, Personagem.Zoro, 25));
                 }
             }
         }
 
         if (nome == Personagem.Luffy) {
             if (this.armaPrincipal != null)
-                this.armaPrincipal = new ArmaPrincipal("Chapéu de Palha 👒", 10, 10, 100, Personagem.Luffy);
+                heroi.armaPrincipal = new ArmaPrincipal("Chapéu de Palha 👒", 10, 15, 100, Personagem.Luffy);
 
             for (Consumivel consumivel : copiaInventario) {
                 if (consumivel instanceof ConsumivelCombate) {
-                    this.inventario.remove(consumivel);
-                    this.inventario.add(new ConsumivelCombate("Pedaço do Mastro Principal 🪵", 5, Personagem.Luffy, 20));
+                    heroi.inventario.remove(consumivel);
+                    heroi.inventario.add(new ConsumivelCombate("Pedaço do Mastro Principal 🪵", 5, Personagem.Luffy,
+                            25));
                 }
             }
         }
-
+        return heroi;
     }
 
     /**
@@ -297,19 +299,22 @@ public abstract class Heroi extends Entidade {
         // Se escolher 0 para sair e voltar ao menu anterior
         if (escolha == 0) return -1;
 
-        // Apagar o consumível do inventario principal
-        this.inventario.remove(pocoes.get(escolha - 1));
-
         // Cura da vida
-        if (pocoes.get(escolha - 1).getVidaCurar() > 0) this.recebePocao(pocoes.get(escolha - 1).getVidaCurar());
+        if (pocoes.get(escolha - 1).getVidaCurar() > 0) {
+            if (!this.recebePocao(pocoes.get(escolha - 1).getVidaCurar())) {
+                System.out.println(Tools.color.RED + "\nNão foi usada a Poção!\n" + Tools.color.WHITE_BRIGHT);
+            } else {
+                // Print do uso da poção
+                Historia.combatePocao(pocoes.get(escolha - 1));
 
-        // Print do uso da poção
-        Historia.combatePocao(pocoes.get(escolha - 1));
+                // Apagar o consumível do inventario principal
+                this.inventario.remove(pocoes.get(escolha - 1));
 
-        // Aumento da força
-        if (pocoes.get(escolha - 1).getAumentoForca() > 0)
-            return this.recebeForca(pocoes.get(escolha - 1).getAumentoForca());
-
+                // Aumento da força
+                if (pocoes.get(escolha - 1).getAumentoForca() > 0)
+                    return this.recebeForca(pocoes.get(escolha - 1).getAumentoForca());
+            }
+        }
         return 0;
     }
 
@@ -367,5 +372,9 @@ public abstract class Heroi extends Entidade {
 
     public void setInventario(Consumivel inventario) {
         this.inventario.add(inventario);
+    }
+
+    public void setAtaqueEspecialUsado(boolean ataqueEspecialUsado) {
+        this.ataqueEspecialUsado = ataqueEspecialUsado;
     }
 }

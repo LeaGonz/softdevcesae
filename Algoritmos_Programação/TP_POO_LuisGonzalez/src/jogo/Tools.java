@@ -63,6 +63,12 @@ public class Tools {
         scanner.nextLine();
     }
 
+    public static void limpar(){
+        for (int j = 0; j < 1000; j++) {
+            System.out.println();
+        }
+    }
+
     /**
      * ********COLORS***************COLORS********************* COLORS *************************COLORS**************
      */
