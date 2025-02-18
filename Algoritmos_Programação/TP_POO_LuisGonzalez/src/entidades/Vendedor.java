@@ -10,6 +10,11 @@ import jogo.Tools;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Classe que representa o vendedor no jogo. O vendedor tem uma loja onde
+ * o herói pode comprar itens, como armas e consumíveis. A loja exibe itens
+ * aleatórios a cada interação e permite ao herói comprar itens, caso tenha ouro suficiente.
+ */
 public class Vendedor {
     private Random rnd = new Random();
     private ArrayList<ItemHeroi> loja;
@@ -24,7 +29,8 @@ public class Vendedor {
     }
 
     /**
-     * Método para mostrar 10 itens aleatórios ao herói
+     * Exibe 10 itens aleatórios da loja ao herói.
+     * A loja exibe itens de maneira aleatória a cada vez que o jogador interage.
      */
     public void mostrarLoja() {
         // Preencher os 10 itens a mostrar
@@ -60,16 +66,22 @@ public class Vendedor {
                 """ + Tools.color.RESET);
     }
 
+    /**
+     * Adiciona um item à loja do vendedor.
+     *
+     * @param item O item que será adicionado à loja.
+     */
     public void adicionarItem(ItemHeroi item) {
         this.loja.add(item);
     }
 
     /**
-     * Método recebe o Herói como parâmetro, e verifica se a compra pode ser
-     * efetuada
+     * Método para realizar a venda de um item ao herói. Verifica se o herói
+     * tem ouro suficiente e se o item é permitido para o personagem.
+     * Após a compra, o item é removido da loja e adicionado ao inventário do herói.
      *
      * @param heroi
-     * @return
+     * @return Retorna {@code true} se o herói deseja continuar comprando, ou {@code false} caso contrário.
      */
     public boolean vender(Heroi heroi) {
         int escolha = Tools.validarEscolhaNum(0, this.itensMostrados.size());
@@ -122,6 +134,9 @@ public class Vendedor {
         }
     }
 
+    /**
+     * Limpa a lista de itens mostrados, preparando a loja para a próxima interação.
+     */
     public void limparItensMostrados() {
         this.itensMostrados.clear();
     }

@@ -10,6 +10,9 @@ import jogo.Tools;
 
 import java.util.ArrayList;
 
+/**
+ * Classe abstrata que representa um herói no jogo. Contém atributos e comportamentos
+ */
 public abstract class Heroi extends Entidade {
     private int nivel;
     private int ouro;
@@ -36,6 +39,9 @@ public abstract class Heroi extends Entidade {
         this.ataqueEspecialUsado = false;
     }
 
+    /**
+     * Exibe os detalhes do herói
+     */
     @Override
     public void mostrarDetalhes() {
 
@@ -55,20 +61,18 @@ public abstract class Heroi extends Entidade {
     }
 
     /**
-     * Método atacar dum herói a um NPC
+     * Método abstrato para o herói atacar um NPC inimigo.
      *
      * @param npc
-     * @return
+     * @return Retorna {@code true} se o NPC for derrotado, {@code false} caso contrário.
      */
     public abstract boolean atacar(NPC npc);
 
 
     /**
-     * Métodos de subida de nivel do herói
-     * COM parametros o ouro é recebido do NPC
-     * SEM parametro o ouro é de uma armadilha
+     * Método que permite ao herói subir de nível. Se um NPC for derrotado, o ouro é recebido e o nível, força, e vida aumentam.
      *
-     * @param npc
+     * @param npc O NPC derrotado que fornece ouro ao herói.
      */
     public void subirNivel(NPC npc) {
         // Adicionar ouro NPC -> herói
@@ -86,6 +90,9 @@ public abstract class Heroi extends Entidade {
         System.out.println(Tools.color.YELLOW_BOLD_BRIGHT + this.getNome() + Tools.color.WHITE_BRIGHT + " ha subido de nivel");
     }
 
+    /**
+     * Sobrecarga do método de subir de nível, sem a necessidade de um NPC,
+     */
     public void subirNivel() {
         // Aumentar nível
         this.nivel += 1;
@@ -101,7 +108,7 @@ public abstract class Heroi extends Entidade {
     /**
      * Método para escolher o tipo de ataque (se for possível) entre normal, especial ou consumível
      *
-     * @return
+     * @return O valor do ataque escolhido, que será somado à força do herói.
      */
     public int tipoAtaque() {
         int ataque, escolha, maxEscolha;
@@ -159,16 +166,23 @@ public abstract class Heroi extends Entidade {
         return ataque;
     }
 
+    /**
+     * Método para mudar o personagem do herói durante o jogo.
+     * O inventário e outros atributos do herói são preservados, mas a arma principal e consumíveis são atualizados.
+     *
+     * @param nome O nome do personagem para o qual o herói será alterado (Luffy, Zoro, ou Sanji).
+     * @return O novo herói com atributos preservados.
+     */
     public Heroi mudarHeroi(Personagem nome) {
 
         // Criamos uma cópia do ArrayList
         ArrayList<Consumivel> copiaInventario = new ArrayList<>(this.inventario);
 
         Heroi heroi = switch (nome) {
-            case Personagem.Luffy -> new Luffy(Personagem.Luffy, this.getHp(), this.getForca(), this.nivel,
-                    this.getOuro());
-            case Personagem.Zoro -> new Zoro(Personagem.Zoro, this.getHp(), this.getForca(), this.nivel,
-                    this.getOuro());
+            case Personagem.Luffy ->
+                    new Luffy(Personagem.Luffy, this.getHp(), this.getForca(), this.nivel, this.getOuro());
+            case Personagem.Zoro ->
+                    new Zoro(Personagem.Zoro, this.getHp(), this.getForca(), this.nivel, this.getOuro());
             case Personagem.Sanji ->
                     new Sanji(Personagem.Sanji, this.getHp(), this.getForca(), this.nivel, this.getOuro());
             default -> null;
@@ -319,9 +333,9 @@ public abstract class Heroi extends Entidade {
     }
 
     /**
-     * Método para validar se é possível o uso do ataque especial
+     * Método que gerencia o ataque especial do herói, se ele não tiver sido usado.
      *
-     * @return o valor do ataque especial se não foi usado
+     * @return O valor do ataque especial, ou -1 se já foi usado.
      */
     public int ataqueEspecial() {
         if (!this.ataqueEspecialUsado) {

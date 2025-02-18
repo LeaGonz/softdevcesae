@@ -5,6 +5,10 @@ import jogo.Tools;
 
 import java.util.ArrayList;
 
+/**
+ * Classe abstrata que representa um item utilizado por heróis no jogo.
+ * Itens podem ser armas, consumíveis ou outros tipos de objetos que afetam o herói.
+ */
 public abstract class ItemHeroi {
     private String nome;
     private int preco;
@@ -23,7 +27,7 @@ public abstract class ItemHeroi {
     }
 
     /**
-     * Método mostrar detalhes do Item
+     * Método que exibe os detalhes do item, incluindo nome, preço e os heróis que podem utilizá-lo.
      */
     public void mostrarDetalhes() {
         System.out.printf("%-30s | %-6d | %-10s ", this.nome, this.preco, this.heroisPermitidos);

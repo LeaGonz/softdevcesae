@@ -7,6 +7,9 @@ import itens.ConsumivelCombate;
 import itens.ItemHeroi;
 import itens.Pocao;
 
+/**
+ * A classe contém todos os métodos relacionados à narrativa do jogo.
+ */
 public class Historia {
     public static void logoIntro() {
         System.out.println(Tools.color.WHITE_BRIGHT + """
@@ -1728,7 +1731,7 @@ public class Historia {
     }
 
     public static void perdioJogo() {
-        System.out.printf(Tools.color.GREEN_BRIGHT + """
+        System.out.printf(Tools.color.RED + """
                         
                         ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢟⣥⣾⣿⡻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡝⢿⣿⣿⣿⣿⣿⣿⣿
                         ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢏⣴⣿⣿⠿⢛⣟⢻⣿⣿⣿⣿⣿⡿⣿⣿⣿⣿⣿⣿⣧⡙⣿⣿⣿⣿⣿⣿
@@ -1750,7 +1753,6 @@ public class Historia {
                         ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⢶⣰⣿⣿⣿⣿⣿⡆⠀⠉⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
                         ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢟⠁⠀⠀⠀⠀⢩⣝⡻⢟⣫⡍⠁⠀⠀⠀⠀⣍⠻⣿⣿⣿⣿⣿⣿⣿⣿
                         
-                        """ + Tools.color.RESET,
-                Tools.color.RED_BOLD_BRIGHT, Tools.color.GREEN_BRIGHT);
+                        """ + Tools.color.RESET);
     }
 }

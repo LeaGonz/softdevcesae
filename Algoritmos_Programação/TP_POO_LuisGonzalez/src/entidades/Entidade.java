@@ -4,6 +4,9 @@ import Enums.Personagem;
 import jogo.Historia;
 import jogo.Tools;
 
+/**
+ * Classe abstrata que representa uma entidade no jogo. Essa entidade pode ser um NPC, um herói
+ */
 public abstract class Entidade {
     private Personagem nome;
     private int maxHp;
@@ -25,7 +28,7 @@ public abstract class Entidade {
     }
 
     /**
-     * Método mostrar detalhes da entidades.Entidade
+     * Exibe os detalhes da entidade, como nome, vida, vida máxima e força.
      */
     public void mostrarDetalhes() {
         System.out.printf(Tools.color.YELLOW + """
@@ -45,9 +48,11 @@ public abstract class Entidade {
 
 
     /**
-     * Método para subtrair o dano dum ataque
+     * Método para subtrair a vida da entidade quando ela recebe um ataque.
+     * Se a vida atingir 0, a entidade é considerada derrotada.
      *
-     * @param ataque
+     * @param ataque O valor do dano recebido.
+     * @return Retorna {@code false} se a entidade for derrotada , {@code true} caso contrário.
      */
     public boolean recebeAtaque(int ataque) {
         this.hp -= ataque;
@@ -63,10 +68,10 @@ public abstract class Entidade {
     }
 
     /**
-     * Método de curação
+     * Método que permite ao herói usar uma poção para curar parte de sua vida.
      *
      * @param pocao
-     * @return true se foi recebida a poção
+     * @return Retorna {@code true} se a poção for usada com sucesso, ou {@code false} se não for usada.
      */
     public boolean recebePocao(int pocao) {
         if ((this.hp + pocao) > this.maxHp) {
@@ -81,10 +86,10 @@ public abstract class Entidade {
     }
 
     /**
-     * Método para guardar a força temporal dada pelas poções
-     * será usada num turno do combate
+     * Método para aumentar temporariamente a força da entidade.
      *
-     * @param forca
+     * @param forca A quantidade de força adicional a ser recebida.
+     * @return Retorna o valor total da força, incluindo a força temporária.
      */
     public int recebeForca(int forca) {
         int forcaTemporal = 0;

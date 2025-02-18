@@ -5,6 +5,10 @@ import itens.ArmaPrincipal;
 import jogo.Historia;
 import jogo.Tools;
 
+/**
+ * Classe que representa o personagem Luffy no jogo. Implementa
+ * o método de combate específico para Luffy, com a possibilidade de ativar o Gear 5
+ */
 public class Luffy extends Heroi {
     private boolean gear5;
 
@@ -23,11 +27,13 @@ public class Luffy extends Heroi {
     }
 
     /**
-     * Método de luta entre Luffy e um entidades.NPC
-     * O NPC ataca so com 80% da sua força
+     * Método que realiza a luta entre Luffy e um NPC inimigo.
+     * O NPC ataca com 80% de sua força, e Luffy pode ativar o Gear 5 quando sua vida
+     * estiver abaixo ou igual 20% durante a luta contra Kaido, o que aumenta suas habilidades.
      *
-     * @param npc
-     * @return
+     * @param npc O NPC inimigo
+     * @return Retorna {@code false} se Luffy vencer o combate e o NPC for derrotado,
+     *         e {@code true} se o combate continuar.
      */
     @Override
     public boolean atacar(NPC npc) {
@@ -53,6 +59,11 @@ public class Luffy extends Heroi {
         return true;
     }
 
+    /**
+     * Método que ativa o Gear 5 de Luffy durante o combate, caso ele tenha menos de 20% de vida
+     *
+     * @param npc O NPC (Kaido)
+     */
     private void ativarGear5(NPC npc) {
         this.gear5 = true;
         this.setAtaqueEspecialUsado(false);

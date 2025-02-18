@@ -12,13 +12,21 @@ import java.util.Scanner;
 
 import static entidades.NPC.criarNPC;
 
+/**
+ * Classe principal do jogo, responsável por controlar a progressão da história,
+ * batalhas, interações com NPCs e mecânicas principais.
+ */
 public class Jogo {
     private static final Scanner in = new Scanner(System.in);
     private static Random rnd = new Random();
     private Personagem npcBoss;
 
     /**
-     * Método principal do jogo e recebe um herói
+     * Método principal do jogo. Controla a progressão do jogador pelas vilas
+     * O jogo termina ao vencer Kaido ou ao perder
+     *
+     * @param heroi
+     * @return Retorna {@code true} se o jogador for derrotado, {@code false} se completar a história.
      */
     public boolean onePieceWano(Heroi heroi) {
         // 1. PERSONAGEM
@@ -57,7 +65,13 @@ public class Jogo {
         return false;
     }
 
-
+    /**
+     * Progressão e eventos da vilaHakumai
+     *
+     * @param heroi
+     * @param vendedor
+     * @return Retorna {@code true} se o jogador for derrotado, {@code false} se continuar.
+     */
     private boolean vilaHakumai(Heroi heroi, Vendedor vendedor) {
         //HISTORIA
         Historia.vilaHakumaiIntro();
@@ -93,9 +107,17 @@ public class Jogo {
                     System.out.println("👹 CAMINHO INCORRETO 👹");
                     break;
             }
+            if (heroi.getHp() == 0) return true;
         } while (true);
     }
 
+    /**
+     * Progressão e eventos da vilaKosuki
+     *
+     * @param heroi
+     * @param vendedor
+     * @return Retorna {@code true} se o jogador for derrotado, {@code false} se continuar.
+     */
     private boolean vilaKosuki(Heroi heroi, Vendedor vendedor) {
         //HISTORIA
         Historia.vilaKozukiIntro();
@@ -130,10 +152,17 @@ public class Jogo {
                     System.out.println("👹 CAMINHO INCORRETO 👹");
                     break;
             }
-
+            if (heroi.getHp() == 0) return true;
         } while (true);
     }
 
+    /**
+     * Progressão e eventos da vilaLamentos
+     *
+     * @param heroi
+     * @param vendedor
+     * @return Retorna {@code true} se o jogador for derrotado, {@code false} se continuar.
+     */
     private boolean vilaLamentos(Heroi heroi, Vendedor vendedor) {
         //HISTORIA
         Historia.vilaLamentosIntro();
@@ -168,10 +197,18 @@ public class Jogo {
                     System.out.println("👹 CAMINHO INCORRETO 👹");
                     break;
             }
+            if (heroi.getHp() == 0) return true;
 
         } while (true);
     }
 
+    /**
+     * Progressão e eventos da vilaAmigasa
+     *
+     * @param heroi
+     * @param vendedor
+     * @return Retorna {@code true} se o jogador for derrotado, {@code false} se continuar.
+     */
     private boolean vilaAmigasa(Heroi heroi, Vendedor vendedor) {
         //HISTORIA
         Historia.vilaAmigasaIntro();
@@ -206,9 +243,18 @@ public class Jogo {
                     System.out.println("👹 CAMINHO INCORRETO 👹");
                     break;
             }
+            if (heroi.getHp() == 0) return true;
+
         } while (true);
     }
 
+    /**
+     * Progressão e eventos da vilaRengoku
+     *
+     * @param heroi
+     * @param vendedor
+     * @return Retorna {@code true} se o jogador for derrotado, {@code false} se continuar.
+     */
     private boolean vilaRengoku(Heroi heroi, Vendedor vendedor) {
         //HISTORIA
         Historia.vilaRengokuIntro();
@@ -243,9 +289,21 @@ public class Jogo {
                     System.out.println("👹 CAMINHO INCORRETO 👹");
                     break;
             }
+            if (heroi.getHp() == 0) return true;
+
         } while (true);
     }
 
+    /**
+     * Método que gerencia os eventos, missões e batalhas na etapa final de Onigashima,
+     * onde o jogador controla diferentes personagens (Sanji, Zoro e Luffy)
+     * Este método inclui:
+     *   compra itens ou usa poções.
+     * - A batalha final entre Luffy e Kaido.
+     * @param heroi O herói que o jogador controla. Este personagem será alterado durante o método.
+     * @param vendedor
+     * @return Retorna {@code true} se o jogador perder alguma das batalhas, {@code false} se vencer todas.
+     */
     private boolean onigashima(Heroi heroi, Vendedor vendedor) {
         //HISTORIA
         Historia.kaidoChegada();
@@ -282,6 +340,7 @@ public class Jogo {
                     System.out.println("👹 CAMINHO INCORRETO 👹");
                     break;
             }
+
         } while (sanji);
 
         /***************** MISSÃO ZORO *****************/
@@ -343,6 +402,13 @@ public class Jogo {
         } while (true);
     }
 
+    /**
+     * Método que gerencia uma armadilha em Vila Kozuki, onde o jogador pode
+     * ganhar um nível ou enfrentar um inimigo aleatório.
+     * @param heroi
+     * @return Retorna {@code false} se o herói subir de nível
+     * e {@code true} se o herói for derrotado em combate.
+     */
     private boolean armadilha(Heroi heroi) {
         Historia.vilaKozukiTemplo();
 
@@ -360,6 +426,13 @@ public class Jogo {
         }
     }
 
+    /**
+     * Método que gerencia uma armadilha em Vila Lamentos, onde o jogador pode
+     * encontrar ouro com 10% de chance, ou nada
+     *
+     * @param heroi
+     * @return Retorna {@code false} se o herói encontrar ouro, {@code true} se o herói for derrotado.
+     */
     private boolean armadilha2(Heroi heroi) {
         Historia.vilaLamentosJardim();
 
@@ -378,6 +451,13 @@ public class Jogo {
         }
     }
 
+    /**
+     * Método que gerencia uma armadilha em Vila Hakumai, onde o jogador pode
+     * encontrar ouro com 5% de chance ou uma poção com 5% de chance ou
+     * inimigo
+     * @param heroi
+     * @return Retorna {@code false} se o herói encontrar ouro ou poção, {@code true} se o herói for derrotado.
+     */
     private boolean armadilha3(Heroi heroi) {
         Historia.vilaHakumaiMansao();
         // RANDOM 5% encontrar ouro
@@ -398,6 +478,13 @@ public class Jogo {
         }
     }
 
+    /**
+     * Método que gerencia uma armadilha em Vila Amigasa, onde o jogador pode
+     * encontrar um item de ataque consumível com 15% de chance ou inimigo
+     *
+     * @param heroi
+     * @return Retorna {@code false} se o herói encontrar um item de ataque, {@code true} se o herói for derrotado.
+     */
     private boolean armadilha4(Heroi heroi) {
         Historia.vilaAmigasaFonte();
 
@@ -413,6 +500,13 @@ public class Jogo {
         }
     }
 
+    /**
+     * Método que gerencia uma armadilha em Vila Rengoku, onde o jogador pode
+     * encontrar um item lendário com 3% de chance ou inimigo
+     *
+     * @param heroi
+     * @return Retorna {@code false} se o herói encontrar um item lendário, {@code true} se o herói for derrotado.
+     */
     private boolean armadilha5(Heroi heroi) {
         Historia.vilaRengokuTumulos();
 
@@ -435,10 +529,9 @@ public class Jogo {
     }
 
     /**
-     * Método combate entre Herói e NPC
-     *
+     * Método combate entre o herói e um NPC inimigo.
      * @param heroi
-     * @return Retorna FALSE se ganha o HERÓI / Retorna TRUE se ganha o NPC
+     * @return Retorna {@code false} se o herói vencer e continuar o jogo, {@code true} se for derrotado.
      */
     public boolean combate(Heroi heroi) {
         // Criamos NPC para o combate
@@ -469,7 +562,10 @@ public class Jogo {
     }
 
     /**
-     * Método para escolher dificuldade do jogo, distribuir pontos de criação e criar a personagem principal
+     * Método responsável por criar o personagem principal do jogo. O jogador escolhe entre três personagens
+     * (Luffy, Zoro ou Sanji), define a dificuldade e distribui pontos de atributos (vida e força) com base na escolha de dificuldade.
+     * O personagem criado recebe os atributos iniciais e um valor de ouro.
+     * @return Retorna uma instância do personagem
      */
     public Heroi criarPersonagem() {
         // CONSTANTES
@@ -531,7 +627,8 @@ public class Jogo {
     }
 
     /**
-     * Método para preencher loja do vendedor (ArrayList loja)
+     * Inicializa a loja do vendedor e adiciona os itens disponíveis para compra.
+     * @param vendedor
      */
     public void lojaVendedor(Vendedor vendedor) {
         // POÇÕES
@@ -557,8 +654,9 @@ public class Jogo {
     }
 
     /**
-     * Método vender ao herói. Passamos herói ao método vender()
-     *
+     * Gerencia a interação entre o herói e o vendedor, permitindo a compra de itens.
+     * Se o jogador tiver ouro suficiente, ele pode comprar itens repetidamente até decidir parar ou ficar sem dinheiro.
+     * Caso contrário, o vendedor rejeita a compra e o jogador precisa conseguir mais ouro.
      * @param vendedor
      * @param heroi
      */
@@ -587,10 +685,9 @@ public class Jogo {
     }
 
     /**
-     * Método para criar uma barra de vida que muda de cor
-     *
-     * @param heroi
-     * @param npc
+     * Método para criar uma barra de vida colorida
+     * @param heroi O herói envolvido na batalha.
+     * @param npc   O NPC inimigo.
      */
     public static void mostrarBarraHP(Heroi heroi, NPC npc) {
         int barraLargura = 20;
@@ -606,12 +703,11 @@ public class Jogo {
     }
 
     /**
-     * Método complementar para criar cada barra Herói/NPC
-     *
-     * @param hp
-     * @param maxHp
-     * @param barraLargura
-     * @return o String barra
+     * Método auxiliar para criar barras de HP coloridas.
+     * @param hp          Vida atual do personagem.
+     * @param maxHp       Vida máxima do personagem.
+     * @param barraLargura Tamanho da barra de HP.
+     * @return Uma string representando a barra de HP colorida.
      */
     public static String corBarra(int hp, int maxHp, int barraLargura) {
         String barra = "";

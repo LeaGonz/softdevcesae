@@ -5,6 +5,10 @@ import Enums.Personagem;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Classe que representa um NPC no jogo. e é responsável por
+ * gerar NPCs com características aleatórias, como nome, vida (hp), força e a quantidade de ouro que o NPC possui.
+ */
 public class NPC extends Entidade {
     private int ouro;
 
@@ -21,6 +25,13 @@ public class NPC extends Entidade {
         this.ouro = ouro;
     }
 
+    /**
+     * Método para criar um NPC aleatório baseado nas características do herói.
+     * O NPC gerado terá um nome aleatório, com vida (hp) e força baseados nas propriedades do herói.
+     *
+     * @param heroi O herói com o qual o NPC será comparado para gerar suas características.
+     * @return Um NPC com características aleatórias baseadas no herói.
+     */
     public static NPC criarNPC(Heroi heroi) {
         Random rnd = new Random();
         // Listagem de nomes random
@@ -40,6 +51,15 @@ public class NPC extends Entidade {
         return new NPC(nomesNpc.get(nome), hp, forca, ouro);
     }
 
+    /**
+     * Método para criar um NPC com características específicas de um personagem BOSS FINAL.
+     * O NPC gerado terá vida (hp) e força entre 80% e 160% dos valores do herói,
+     * com o nome e características do NPC especificado.
+     *
+     * @param heroi O herói com o qual o NPC será comparado para gerar suas características.
+     * @param npc O nome do NPC a ser criado.
+     * @return Um NPC com as características do herói e o nome do NPC fornecido.
+     */
     public static NPC criarNPC(Heroi heroi, Personagem npc) {
         Random rnd = new Random();
 
