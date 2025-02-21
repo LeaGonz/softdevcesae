@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.Random;
 
 public class UserSessionManager {
@@ -12,7 +13,19 @@ public class UserSessionManager {
     }
 
     public static UserSessionManager getInstance() {
-        if (instance == null) instance = new UserSessionManager(System.currentTimeMillis());
+        if (instance == null) instance = new UserSessionManager(String.valueOf(new Date(System.currentTimeMillis())));
         return instance;
+    }
+
+    public int getSessionToken() {
+        return sessionToken;
+    }
+
+    public String getLastAccess() {
+        return lastAccess;
+    }
+
+    public void updateLastAccessTime() {
+        this.lastAccess = String.valueOf(new Date(System.currentTimeMillis()));
     }
 }

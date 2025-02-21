@@ -44,6 +44,7 @@ public class Luffy extends Heroi {
 
         // GEAR 5 VS KAIDO
         if (this.getHp() <= (this.getMaxHp() * 0.20) && npc.getNome().equals(Personagem.Kaido)) {
+            Tools.playAudio("src/music/g5.wav");
             Tools.pausar();
             if (!this.gear5) ativarGear5(npc);
         }

@@ -1,10 +1,14 @@
 package jogo;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Tools {
     private static Scanner in = new Scanner(System.in);
+    private static Clip clip;
 
     /**
      * Método para validar se é interger ou não
@@ -63,9 +67,35 @@ public class Tools {
         scanner.nextLine();
     }
 
-    public static void limpar(){
+    public static void limpar() {
         for (int j = 0; j < 1000; j++) {
             System.out.println();
+        }
+    }
+
+    /**
+     * Tambores da libertação
+     * @param filePath
+     */
+    public static void playAudio(String filePath) {
+        try {
+            File audioFile = new File(filePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+
+            clip = AudioSystem.getClip();
+
+            clip.open(audioInputStream);
+
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void stopAudio() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
         }
     }
 

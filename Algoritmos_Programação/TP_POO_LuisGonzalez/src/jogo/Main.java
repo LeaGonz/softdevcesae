@@ -75,6 +75,7 @@ public class Main {
                                 "Mas se essa é a tua escolha… então um dia, %sespero te ver navegando de novo!%s" ⛩️
                                 
                                 """, Tools.color.YELLOW_BRIGHT, Tools.color.WHITE_BRIGHT);
+                        Tools.stopAudio();
                         return;
                     default:
                         System.out.println("👹 Escolha inválida. Tente novamente. 👹");

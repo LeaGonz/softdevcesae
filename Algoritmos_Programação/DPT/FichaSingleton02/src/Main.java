@@ -1,9 +1,11 @@
+import java.io.IOException;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
-        Logger log = Logger.Logger("application_log.txt");
-        Logger log2 = Logger.Logger("programa_log.txt");
+    public static void main(String[] args) throws IOException {
+        Logger log = Logger.getInstance("application_log.txt");
+        Logger log2 = Logger.getInstance("programa_log.txt");
 
         log.log("Mensagem de log 1");
         log.log("Mensagem de log 2");
