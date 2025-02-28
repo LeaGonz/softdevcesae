@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9281fd68-c4e9-4291-8e27-49eee4fb5b42" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../DPT/FichaSingleton02/src/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DPT/FichaSingleton02/src/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DPT/FichaSingleton02/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DPT/FichaSingleton02/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entidades/Luffy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entidades/Luffy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jogo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jogo/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jogo/Tools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jogo/Tools.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2sfmfJbjZWO2We7YXC5MRvX9YEv" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sw2024/Desktop/softdevcesae/Algoritmos_Programação/TP_POO_LuisGonzalez&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.appearance&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sw2024\Desktop\softdevcesae\Algoritmos_Programação\TP_POO_LuisGonzalez\src" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9281fd68-c4e9-4291-8e27-49eee4fb5b42" name="Changes" comment="" />
+      <created>1738855104478</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738855104478</updated>
+      <workItem from="1738855105520" duration="4223000" />
+      <workItem from="1738919780208" duration="18215000" />
+      <workItem from="1739285584954" duration="1000" />
+      <workItem from="1739286438508" duration="1000" />
+      <workItem from="1739351869575" duration="238000" />
+      <workItem from="1739352144968" duration="11778000" />
+      <workItem from="1739462069543" duration="3114000" />
+      <workItem from="1739542152809" duration="220000" />
+      <workItem from="1739545488488" duration="626000" />
+      <workItem from="1739550057389" duration="105000" />
+      <workItem from="1739791189147" duration="15241000" />
+      <workItem from="1739868159149" duration="20608000" />
+      <workItem from="1739955245599" duration="1134000" />
+      <workItem from="1739956534861" duration="41000" />
+      <workItem from="1739956701879" duration="1116000" />
+      <workItem from="1739957932570" duration="10000" />
+      <workItem from="1739975573532" duration="85000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
